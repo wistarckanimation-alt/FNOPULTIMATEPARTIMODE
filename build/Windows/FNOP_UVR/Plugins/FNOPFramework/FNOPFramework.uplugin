@@ -1,0 +1,74 @@
+{
+  "FileVersion": 3,
+  "Version": 1364100,
+  "VersionName": "1.36.41",
+  "FriendlyName": "FNOP VR Framework",
+  "Description": "FNOP 1.36.41 - Free Mode Editor placement/editing pass: selected catalog props appear automatically as a dedicated yellow hologram in the aimed 1 m cell and click places the original-material mesh; visual mesh bounds drive true floor contact and picking; hold-click moves existing editable props; X toggles red continuous eraser mode; interaction-anchored characters follow moved props; arcade machines are authored-only and arcade HTML is forced world-space.",
+  "Category": "Gameplay",
+  "CreatedBy": "FNOP",
+  "CanContainContent": true,
+  "IsBetaVersion": true,
+  "Installed": false,
+  "Modules": [
+    {
+      "Name": "FNOPFramework",
+      "Type": "Runtime",
+      "LoadingPhase": "PostConfigInit"
+    },
+    {
+      "Name": "FNOPFrameworkEditor",
+      "Type": "Editor",
+      "LoadingPhase": "Default"
+    }
+  ],
+  "Plugins": [
+    {
+      "Name": "EnhancedInput",
+      "Enabled": true
+    },
+    {
+      "Name": "OpenXR",
+      "Enabled": true
+    },
+    {
+      "Name": "OpenXRHandTracking",
+      "Enabled": true
+    },
+    {
+      "Name": "XRBase",
+      "Enabled": true
+    },
+    {
+      "Name": "Niagara",
+      "Enabled": true
+    },
+    {
+      "Name": "ControlRig",
+      "Enabled": true
+    },
+    {
+      "Name": "IKRig",
+      "Enabled": true
+    },
+    {
+      "Name": "FullBodyIK",
+      "Enabled": true
+    },
+    {
+      "Name": "ChaosClothAsset",
+      "Enabled": true
+    },
+    {
+      "Name": "WebBrowserWidget",
+      "Enabled": true
+    },
+    {
+      "Name": "AudioCapture",
+      "Enabled": true
+    },
+    {
+      "Name": "AndroidPermission",
+      "Enabled": true
+    }
+  ]
+}

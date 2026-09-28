@@ -1,0 +1,79 @@
+/* FNOP 1.29.0. Shared presentation tokens; gameplay canvases and native bridges are untouched. */
+html.fnop-polish{--pink:#dc9abb;--pink2:#f0c2dc;--violet:#afa4df;--cyan:#b0d9d6;--accent:#edc1d8;--accent2:#b4a6dc;--text:#f4eff7;--muted:#b5a9c2;--line:rgba(225,209,241,.14);--line-hot:rgba(240,194,220,.58);--surface:rgba(22,16,30,.97);--surface2:rgba(40,29,48,.88);--ease:cubic-bezier(.22,.85,.24,1);--fnop-spring:cubic-bezier(.16,1.25,.25,1)}
+html.fnop-polish body{font-family:"Segoe UI",Arial,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}html.fnop-polish .grain{opacity:.025}html.fnop-polish .scan{display:none}html.fnop-polish .ambient{opacity:.68;animation-duration:24s}
+html.fnop-polish .menu-btn .num,html.fnop-polish .menu-btn .arrow,html.fnop-polish .mode-code,html.fnop-polish .mode-go,html.fnop-polish .brand .tagline,html.fnop-polish .intro-kicker,html.fnop-polish .panel-head .kicker,html.fnop-polish .pause-panel>.kicker,html.fnop-polish .fnop-head .fnop-kicker,html.fnop-polish #collectionLabel,html.fnop-polish #characterType,html.fnop-polish #characterQuestion{display:none!important}
+html.fnop-polish .menu{max-width:450px;gap:12px}html.fnop-polish .menu-btn{min-height:65px;border-radius:20px;background:linear-gradient(110deg,rgba(91,65,99,.16),rgba(255,255,255,.025));border-color:rgba(220,198,234,.18);padding:0 26px;box-shadow:0 6px 16px rgba(7,3,12,.06)}html.fnop-polish .menu-label{font-size:16px;letter-spacing:.02em;text-transform:none;font-weight:600}html.fnop-polish .menu-btn::after{display:none}html.fnop-polish .menu-btn::before{transition:transform .5s var(--ease);background:linear-gradient(110deg,transparent,rgba(237,183,213,.06),rgba(182,164,222,.08))}
+html.fnop-polish .brand h1{font-weight:700;font-size:clamp(32px,4.1vw,60px);letter-spacing:-.055em;line-height:1.05}html.fnop-polish .brand h1 span{background-image:linear-gradient(105deg,#f9eef8,#efc1dc 45%,#c4b9e9)}html.fnop-polish .news-card{border-radius:30px;background:rgba(19,14,28,.75);box-shadow:0 24px 70px rgba(6,3,10,.24)}html.fnop-polish .news-card::before{opacity:.45}html.fnop-polish .news-body h2{font-size:clamp(23px,2.6vw,36px);font-weight:650}html.fnop-polish .placeholder{opacity:.22}
+html.fnop-polish .panel,html.fnop-polish .fnop-panel,html.fnop-polish .pause-panel{border:1px solid rgba(221,201,239,.17);border-radius:28px;background:rgba(20,14,29,.98);box-shadow:0 32px 90px rgba(4,2,8,.42),inset 0 1px rgba(255,255,255,.055);backdrop-filter:none!important;-webkit-backdrop-filter:none!important}html.fnop-polish .panel{transition:transform .42s var(--fnop-spring)}html.fnop-polish .overlay,html.fnop-polish .fnop-modal{transition:opacity .23s ease;background:rgba(6,3,11,.32)}html.fnop-polish .panel-head{min-height:82px;background:linear-gradient(110deg,rgba(192,139,174,.04),transparent);padding:0 26px}html.fnop-polish .panel-head h2{font-size:clamp(26px,3.2vw,42px);font-weight:650;margin:0;line-height:1.2}html.fnop-polish .fnop-dialog{transition:transform .36s var(--fnop-spring);background:rgb(24,17,32);border-color:rgba(221,201,239,.19)}html.fnop-polish .fnop-title{font-weight:650;letter-spacing:-.04em}html.fnop-polish .close,html.fnop-polish .fnop-close{border-radius:14px;background:rgba(248,230,255,.055)}
+html.fnop-polish .modes-grid{gap:20px;padding:26px}html.fnop-polish .mode-card{min-height:218px;display:flex;align-items:center;justify-content:center;border-radius:24px;background:radial-gradient(ellipse at 60% 0,rgba(170,126,176,.13),transparent 70%),rgba(255,255,255,.02)}html.fnop-polish .mode-card h3{margin:0;font-weight:600;font-size:clamp(24px,3vw,35px);letter-spacing:-.045em}html.fnop-polish .mode-card p{display:none}html.fnop-polish .mode-card::before{transition:opacity .4s ease,transform .6s var(--ease);background:radial-gradient(circle at 50% 0,rgba(229,183,210,.1),transparent 65%)}
+html.fnop-polish .fnop-btn,html.fnop-polish .commerce-buy,html.fnop-polish .settings-tab,html.fnop-polish .lang-card{letter-spacing:.025em;font-weight:650;border-radius:13px;min-height:42px}html.fnop-polish .settings-tab.active{box-shadow:inset 2px 0 #edb7d7;background:linear-gradient(95deg,rgba(214,151,190,.11),rgba(149,129,192,.035))}html.fnop-polish .setting-row{border-color:rgba(215,192,235,.1);background:rgba(240,214,255,.018);border-radius:17px}html.fnop-polish .setting-row:focus-within{border-color:rgba(239,187,218,.45)}html.fnop-polish .commerce-card,html.fnop-polish .chest-card,html.fnop-polish .char-card,html.fnop-polish .fnop-card{border-color:rgba(223,205,240,.13);box-shadow:0 9px 26px rgba(7,3,12,.1);background:rgba(255,255,255,.025);border-radius:20px}html.fnop-polish .commerce-image{background:radial-gradient(ellipse at 50% 38%,rgba(223,164,205,.11),rgba(21,13,29,.25));border-color:rgba(230,209,245,.08)}html.fnop-polish .commerce-meta{letter-spacing:.09em;color:#cbb5d3}html.fnop-polish .commerce-info h3{font-weight:650}html.fnop-polish .commerce-price{font-weight:650;color:#eacfa3}html.fnop-polish .chest-orb{border:1px solid rgba(230,209,245,.2);background:radial-gradient(circle,rgba(230,181,217,.13),transparent)}html.fnop-polish .commerce-buy{background:linear-gradient(110deg,rgba(230,178,209,.15),rgba(166,148,206,.13));border-color:rgba(235,182,215,.25)}html.fnop-polish .shop-wallet{background:rgba(230,196,135,.055);border-color:rgba(231,204,155,.23)}
+html.fnop-polish .fnop-spring-target{--fnop-x:0px;--fnop-y:0px;--fnop-r:0deg;transform-origin:center;transition:transform .46s var(--fnop-spring),border-color .27s ease,box-shadow .35s ease,background-color .3s ease!important}html.fnop-polish .fnop-spring-target.fnop-over{transform:translate(var(--fnop-x),var(--fnop-y)) rotate(var(--fnop-r)) scale(1.006);border-color:rgba(238,185,216,.53);box-shadow:0 13px 30px rgba(6,3,12,.22),inset 0 1px rgba(255,247,255,.08)}html.fnop-polish .fnop-spring-target.fnop-pressed{animation:fnopSoftPress .48s var(--ease)!important}html.fnop-polish .fnop-spring-target:focus-visible{outline:2px solid #e5acd2!important;outline-offset:3px}html.fnop-polish .fnop-spring-target:disabled{transform:none!important;animation:none!important;box-shadow:none!important}html.fnop-polish .fnop-toast{transition:opacity .24s ease,transform .35s var(--fnop-spring)}html.fnop-polish .pause-panel{padding:32px}.fnop-polish .pause-panel h1{margin:0 0 26px;font-size:46px}.fnop-polish .fnop-ui-particles{position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;pointer-events:none!important;z-index:2147483000!important;contain:strict}.fnop-polish .fnop-btn.danger{background:rgba(227,111,151,.07);border-color:rgba(229,154,186,.25)}
+@keyframes fnopSoftPress{0%{transform:translate(var(--fnop-x),var(--fnop-y)) scale(1.006)}24%{transform:translate(var(--fnop-x),var(--fnop-y)) scale(.969,1.018)}58%{transform:translate(var(--fnop-x),var(--fnop-y)) scale(1.011,.992)}100%{transform:translate(var(--fnop-x),var(--fnop-y)) scale(1.006)}}
+@media(max-width:900px){html.fnop-polish .panel-head{min-height:68px}html.fnop-polish .modes-grid{padding:18px}html.fnop-polish .mode-card{min-height:160px}}
+@media(prefers-reduced-motion:reduce){html.fnop-polish .fnop-spring-target,html.fnop-polish .panel,html.fnop-polish .fnop-dialog{transition:opacity .1s ease!important;animation:none!important;transform:none!important}.fnop-ui-particles{display:none!important}}
+
+.mood-round-score{padding:8px 12px;margin-top:12px;border-radius:12px;border:1px solid rgba(221,201,239,.17);color:#e6d3ed;font-size:13px;line-height:1.4}.mood-round-score.hard{border-color:rgba(231,154,186,.46);color:#f3c0d2}.mood-native-message{position:absolute;bottom:8px;left:20px;right:20px;background:#211726;padding:12px 16px;border-radius:12px;border:1px solid #705265;color:#f1d9e9}.mood-token{color:#edb2d3!important;background:radial-gradient(circle,#523248,#201626)!important;text-shadow:0 0 25px #e89ac466}.fnop-polish .eyebrow:empty{display:none}
+
+/* Stable world panel silhouette in every category; only its content scrolls. */
+.char-panel,.char-panel.mood-mode{display:flex!important;flex-direction:column;height:min(760px,94vh)!important;max-height:94vh!important}
+.char-panel>.fnop-head,.char-panel>.char-tabs,.char-panel>.char-footer{flex:0 0 auto}
+.char-panel .char-content{flex:1 1 auto;min-height:0;overflow:auto}
+.char-panel #characterMoodEditor{flex:1 1 auto;min-height:0;overflow:auto}
+.char-panel #moodRejection{flex:0 0 auto;margin:10px 18px;padding:12px 16px;border-radius:12px;background:rgba(220,136,179,.12);color:#f3d9e8;font-size:13px}
+
+/* 1.29.1 layout repair: both stock and published HTML use these shared rules. */
+#shopOverlay > .commerce-panel,.shop-panel{translate:var(--fnop-shop-shift,0px) 0;transition:translate .52s cubic-bezier(.16,1.12,.25,1)}
+/* Chromium 90 does not implement the individual translate property. A relative left
+   offset preserves the original panel transform/entry animation and works there. */
+#shopOverlay > .commerce-panel,.shop-panel{position:relative;left:var(--fnop-shop-shift,0px);translate:none;transition:left .48s cubic-bezier(.16,1.1,.25,1)}
+.fnop-dev-dock{display:none!important;position:fixed!important;z-index:110000!important;box-sizing:border-box!important;margin:0!important;max-height:none!important;padding:58px 22px 24px!important;overflow:auto!important;overscroll-behavior:contain;border:1px solid rgba(174,238,212,.35)!important;border-radius:24px!important;background:linear-gradient(160deg,#1c282b,#221927 70%)!important;box-shadow:0 24px 90px #0009!important;contain:none!important;animation:fnopDockIn .48s cubic-bezier(.2,.95,.28,1.1);}
+.fnop-dev-dock.open:not([hidden]){display:block!important}.fnop-dev-dock[hidden]{display:none!important}
+.fnop-dev-dock .shop-dev-head,.fnop-dev-dock .dev-head{display:block;margin-bottom:24px!important;padding:0 0 16px;border-bottom:1px solid #b3e7d221}
+.fnop-dev-dock b{font-size:17px;letter-spacing:.03em!important;color:#bdf3d8}
+.fnop-dev-dock small{display:block;margin-top:10px;line-height:1.55;font-size:12px!important;color:#b9bcc7}
+.fnop-dev-dock .shop-dev-actions,.fnop-dev-dock .dev-actions{display:flex!important;flex-direction:column!important;gap:12px!important;align-items:stretch!important}
+.fnop-dev-dock label{font-size:14px;color:#e3e9e6}.fnop-dev-dock input{width:100%!important;min-height:48px;font-size:19px!important;box-sizing:border-box}
+.fnop-dev-dock .commerce-buy,.fnop-dev-dock .fnop-btn,.fnop-dev-dock .dev-actions button{width:100%!important;min-height:49px!important;padding:13px 16px!important;white-space:normal!important;font-size:14px!important;text-align:left;line-height:1.4;flex-shrink:0}
+.fnop-dev-close{position:absolute;top:14px;right:14px;width:38px;height:38px;background:#ffffff0c;border:1px solid #ffffff25;border-radius:50%;font-size:24px;color:#fff;cursor:pointer}
+@keyframes fnopDockIn{from{opacity:0;transform:translateX(24px) scale(.97)}to{opacity:1;transform:translateX(0) scale(1)}}
+html.fnop-polish .mode-card{flex-direction:column;gap:16px;text-align:center;padding:30px 24px;box-sizing:border-box}
+html.fnop-polish .mode-card.challenge-choice{align-items:stretch;justify-content:flex-start;min-height:270px;text-align:left}
+html.fnop-polish .mode-card.challenge-choice h3{margin:0;font-size:29px;line-height:1.15;overflow-wrap:anywhere}
+html.fnop-polish .mode-card.challenge-choice p{display:block;font-size:15px;line-height:1.55;margin:0;color:#c7bacf}
+html.fnop-polish .mode-card.challenge-choice p:empty{display:none}
+html.fnop-polish .mode-card.challenge-choice .commerce-buy{margin-top:auto;width:100%;min-height:48px;align-self:stretch}
+html.fnop-polish #challengeGames{align-items:stretch;grid-auto-rows:minmax(270px,auto)}
+html.fnop-polish .game{display:flex;flex-direction:column;gap:0}
+html.fnop-polish .game .game-art{height:130px;flex:0 0 130px}.game .game-body{flex:1}.game .game-play{flex:0 0 auto;display:flex;align-items:center;justify-content:center}
+html.fnop-polish .fnop-spring-target{transition:transform .6s cubic-bezier(.16,1.38,.28,1),border-color .25s,box-shadow .35s!important}
+html.fnop-polish .fnop-spring-target.fnop-over{transform:translate(var(--fnop-x),var(--fnop-y)) rotate(var(--fnop-r)) scale(1.012,1.007)}
+@keyframes fnopSoftPress{0%{transform:translate(var(--fnop-x),var(--fnop-y)) scale(1.01)}22%{transform:translate(var(--fnop-x),var(--fnop-y)) scale(.948,1.033)}58%{transform:translate(var(--fnop-x),var(--fnop-y)) scale(1.027,.975)}82%{transform:translate(var(--fnop-x),var(--fnop-y)) scale(.994,1.009)}100%{transform:translate(var(--fnop-x),var(--fnop-y)) scale(1.01)}}
+/* Larger type and controls in the same 960x720 native panel. Scroll the body, not the footer. */
+html.fnop-polish .char-screen{padding:10px!important}
+html.fnop-polish .char-panel,html.fnop-polish .char-panel.mood-mode{height:calc(100vh - 20px)!important;max-height:calc(100vh - 20px)!important;border-radius:24px;background:#1a1422}
+html.fnop-polish .char-panel .fnop-head{padding:16px 20px}
+html.fnop-polish .char-panel .fnop-head h1{font-size:34px;line-height:1.15}
+html.fnop-polish .char-panel .char-tabs{padding:12px 18px;gap:10px;overflow-x:auto;scrollbar-width:thin}
+html.fnop-polish .char-panel .char-tabs button{font-size:17px;min-height:48px;padding:12px 19px}
+html.fnop-polish .char-panel .char-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+html.fnop-polish .char-panel .char-image{height:114px}
+html.fnop-polish .char-panel .char-card-title{font-size:20px;line-height:1.25}
+html.fnop-polish .char-panel .char-card-sub{font-size:15px;line-height:1.4}
+html.fnop-polish .char-panel .char-card-body{padding:16px}
+html.fnop-polish .char-panel .mood-chance{font-size:16px;padding:6px 9px}
+html.fnop-polish .char-panel .char-footer{gap:10px;padding:12px 18px}
+html.fnop-polish .char-panel .char-footer button{font-size:16px;min-height:46px;padding:10px 15px;letter-spacing:0}
+html.fnop-polish .char-panel .mood-editor-head h3{font-size:24px}
+html.fnop-polish .char-panel .mood-bank{font-size:16px}
+html.fnop-polish .char-panel .mood-chip{font-size:16px;min-height:46px}
+html.fnop-polish .char-panel .mood-emotion .mood-label{font-size:15px;white-space:normal}
+html.fnop-polish .char-panel .mood-emotion b{font-size:20px}
+html.fnop-polish .char-panel .mood-options,.char-panel .mood-sources,.char-panel .mood-quantity{gap:10px;margin-top:16px}
+html.fnop-polish .char-panel .mood-preview,.char-panel .mood-feedback,.char-panel .mood-source-label{font-size:16px;line-height:1.5}
+html.fnop-polish .char-panel .mood-apply{font-size:18px;min-height:52px;text-align:center}
+html.fnop-polish .char-panel #moodRejection{font-size:16px;line-height:1.45}
+.char-pointer-hint{font-size:13px;line-height:1.4;color:#b9adbf;margin-top:5px}
+@media(max-width:640px){html.fnop-polish .char-panel .char-grid{grid-template-columns:1fr}html.fnop-polish .char-panel .fnop-head h1{font-size:27px}html.fnop-polish .char-panel .mood-emotions{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){.fnop-dev-dock,.fnop-spring-target,#shopOverlay>.commerce-panel{animation:none!important;transition:none!important;transform:none!important}}
+
+.fnop-dev-dock input[type=number]{background-image:none!important;background-color:#0c0b13;border:1px solid #ffffff20;border-radius:12px;color:#fff;padding:10px 12px}

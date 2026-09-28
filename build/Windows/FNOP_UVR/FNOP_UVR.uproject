@@ -1,0 +1,125 @@
+{
+    "FileVersion":  3,
+    "EngineAssociation":  "5.6",
+    "Category":  "",
+    "Description":  "",
+    "Modules":  [
+                    {
+                        "Name":  "FNOP_UVR",
+                        "Type":  "Runtime",
+                        "LoadingPhase":  "Default"
+                    }
+                ],
+    "Plugins":  [
+                    {
+                        "Name":  "ModelingToolsEditorMode",
+                        "Enabled":  true,
+                        "TargetAllowList":  [
+                                                "Editor"
+                                            ]
+                    },
+                    {
+                        "Name":  "OpenXR",
+                        "Enabled":  true,
+                        "SupportedTargetPlatforms":  [
+                                                         "Win64",
+                                                         "Linux",
+                                                         "LinuxArm64",
+                                                         "Android"
+                                                     ]
+                    },
+                    {
+                        "Name":  "OpenXREyeTracker",
+                        "Enabled":  true,
+                        "SupportedTargetPlatforms":  [
+                                                         "Win64",
+                                                         "Linux",
+                                                         "LinuxArm64",
+                                                         "Android"
+                                                     ]
+                    },
+                    {
+                        "Name":  "OpenXRHandTracking",
+                        "Enabled":  true,
+                        "SupportedTargetPlatforms":  [
+                                                         "Win64",
+                                                         "Linux",
+                                                         "LinuxArm64",
+                                                         "Android"
+                                                     ]
+                    },
+                    {
+                        "Name":  "OculusXR",
+                        "Enabled":  false,
+                        "MarketplaceURL":  "com.epicgames.launcher://ue/marketplace/product/8313d8d7e7cf4e03a33e79eb757bccba",
+                        "SupportedTargetPlatforms":  [
+                                                         "Win64",
+                                                         "Android"
+                                                     ]
+                    },
+                    {
+                        "Name":  "OculusPlatform",
+                        "Enabled":  true,
+                        "MarketplaceURL":  "com.epicgames.launcher://ue/marketplace/product/7ce814580ba341b4bb5865983fea9d31",
+                        "SupportedTargetPlatforms":  [
+                                                         "Win64",
+                                                         "Android"
+                                                     ]
+                    },
+                    {
+                        "Name":  "FNOPFramework",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "EnhancedInput",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "Niagara",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "ControlRig",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "IKRig",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "FullBodyIK",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "PythonScriptPlugin",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "EditorScriptingUtilities",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "XRBase",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "ChaosClothAsset",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "ChaosClothAssetEditor",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "WebBrowserWidget",
+                        "Enabled":  true
+                    },
+                    {
+                        "Name":  "FNOPBlueprintImporter",
+                        "Enabled":  true,
+                        "SupportedTargetPlatforms":  [
+                                                         "Win64"
+                                                     ]
+                    }
+                ]
+}

@@ -1,0 +1,17 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>FNOP Pause</title>
+{{FNOP_SHARED_STYLE}}
+<style>.pause-root{position:fixed;inset:0;display:grid;place-items:center}.pause-panel{width:min(650px,90vw);padding:32px;border-radius:24px;background:rgba(12,9,22,.94)}.pause-panel h1{font-size:52px}.pause-menu{display:grid;gap:12px}.pause-menu button{min-height:56px}</style></head>
+<body class="intro-ready"><main class="pause-root"><section class="pause-panel"><div class="kicker">FNOP 1.28.9</div><h1 id="pauseTitle">{{PAUSE}}</h1><nav class="pause-menu">
+<button class="commerce-buy" data-action="resume">{{RESUME}}</button><button class="commerce-buy" data-action="avatar">AVATAR</button><button class="commerce-buy" data-action="settings" data-i18n="settings">{{SETTINGS}}</button><button class="commerce-buy" data-action="restart">{{RESTART}}</button><button class="commerce-buy" data-action="exit">{{BACK}}</button></nav></section></main>
+{{FNOP_SHARED_SETTINGS}}
+<script>
+{{FNOP_SHARED_TRANSLATIONS}}
+function openOverlay(id){document.getElementById(id)?.classList.add('open');}
+function closeOverlay(id){document.getElementById(id)?.classList.remove('open');}
+const send=(a,v='')=>window.FNOPRuntime?.send(a,v);
+window.FNOPSettingsUI?.bind();
+document.querySelectorAll('[data-action]').forEach(b=>b.onclick=()=>{if(b.dataset.action==='settings')openOverlay('settingsOverlay');send(b.dataset.action);});
+document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>{closeOverlay(b.dataset.close);send('settings_back');});
+window.addEventListener('keydown',e=>{if(e.key!=='Escape')return;e.preventDefault();if(document.getElementById('settingsOverlay').classList.contains('open')){closeOverlay('settingsOverlay');send('settings_back');}else send('resume');});
+window.fnopSetPauseLabels=s=>{if(!s)return;document.getElementById('pauseTitle').textContent=s.title;['resume','restart','exit'].forEach(a=>{document.querySelector('[data-action="'+a+'"]').textContent=s[a];});};
+</script></body></html>

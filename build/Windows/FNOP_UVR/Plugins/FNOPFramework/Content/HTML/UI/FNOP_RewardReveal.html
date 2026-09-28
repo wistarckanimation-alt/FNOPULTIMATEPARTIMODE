@@ -1,0 +1,89 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Reward</title><style>
+body{display:grid;place-items:center}.reveal{width:min(650px,90vw);min-height:460px;display:grid;place-items:center;text-align:center;opacity:1;transform:none;pointer-events:auto}.reveal[hidden]{display:none!important}.reveal.show{opacity:1;transform:none}.reward-card{width:100%;padding:38px;border:1px solid rgba(255,255,255,.15);border-radius:30px;background:radial-gradient(circle at 50% 34%,rgba(255,85,185,.16),transparent 45%),rgb(20,14,29);box-shadow:0 35px 100px rgba(0,0,0,.4)}.visual{width:240px;height:220px;margin:12px auto;display:grid;place-items:center}.visual img{width:100%;height:100%;object-fit:cover;object-position:center center;border-radius:18px}.coin-stack,.spin-stack{position:relative;width:170px;height:150px}.coin{position:absolute;width:86px;height:86px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff4b5 0 8%,#ffd86a 18%,#f0ad2d 58%,#b96d12 100%);border:4px solid #ffd767;box-shadow:inset -8px -10px 18px rgba(107,51,0,.28),0 10px 24px rgba(0,0,0,.3);animation:coinFloat 1.25s ease-in-out infinite alternate}.coin:after{content:"";position:absolute;inset:26%;border-radius:50%;border:3px solid rgba(120,66,10,.32)}.coin.c1{left:12px;top:48px;transform:rotate(-12deg)}.coin.c2{left:66px;top:24px;animation-delay:-.32s}.coin.c3{left:38px;top:0;transform:scale(.78) rotate(8deg);animation-delay:-.58s}.spin-token{position:absolute;left:42px;top:24px;width:88px;height:88px;border-radius:24px;transform:rotate(45deg);background:linear-gradient(135deg,#e6d8ff,#9c75ff 55%,#5c3bc2);box-shadow:0 12px 34px rgba(134,94,255,.38)}.spin-token:after{content:"✦";position:absolute;inset:0;display:grid;place-items:center;transform:rotate(-45deg);font-size:45px}.kind-token{font-size:84px;font-weight:950;text-shadow:0 0 35px rgba(255,190,70,.3)}@keyframes coinFloat{to{transform:translateY(-6px) rotate(4deg)}}.amount{font-size:52px;font-weight:950;letter-spacing:-.05em}.name{font-size:28px;font-weight:900;margin-top:4px}.description{font-size:14px;line-height:1.45;color:#d7cbe3;max-width:520px;margin:12px auto 0}.rarity{display:inline-flex;margin:10px auto 0;padding:5px 10px;border:1px solid color-mix(in srgb,var(--reward-accent,#ff55b9) 55%,transparent);border-radius:999px;color:var(--reward-accent,#ff55b9);font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}.visual video{width:100%;height:100%;object-fit:contain;border-radius:18px}.dismiss{margin-top:24px;color:var(--muted);font-size:10px;letter-spacing:.18em}.particle{position:fixed;left:50%;top:47%;z-index:9;width:16px;height:16px;border-radius:50%;background:linear-gradient(135deg,#fff2a0,#f0ad2d);box-shadow:0 0 8px rgba(255,197,70,.5);pointer-events:none;animation:fly .75s var(--ease) forwards}@keyframes fly{to{left:var(--to-x,5%);top:var(--to-y,6%);opacity:.15;transform:scale(.35) rotate(360deg)}}.reveal.out{pointer-events:none}
+
+body{background:#0b0812!important}.reward-card{position:relative}.reward-close{position:absolute;right:14px;top:14px;width:40px;height:40px;border-radius:50%;background:#392440;color:#fff;cursor:pointer;font-size:24px}.balance{margin-top:10px;color:#d9cde4;font-size:17px}
+</style></head><body><main class="reveal" id="r" hidden><section class="reward-card"><button type="button" class="reward-close" id="closeReward" aria-label="Close" data-fnop-i18n-aria-label="reward.close">&#215;</button><div class="fnop-kicker" id="title"></div><div class="visual fnop-reward-visual" id="visual" data-fnop-reward-visual="1"></div><div class="amount" id="amount"></div><div class="balance" id="balance"></div><div class="name" id="name"></div><div class="rarity" id="rarity" hidden></div><div class="description" id="description"></div><div class="dismiss" id="dismiss"></div></section></main><script>
+(function(){
+'use strict';
+var generation=0, currentId='', active=false, timers=[], lastPayload=null;
+var q=function(s){return document.querySelector(s);};
+function clearWork(){
+  generation++;
+  timers.forEach(function(timer){clearTimeout(timer);}); timers=[];
+  document.querySelectorAll('.particle').forEach(function(el){el.remove();});
+}
+function later(fn,ms){
+  var token=generation;
+  var id=setTimeout(function(){
+    var index=timers.indexOf(id);if(index>=0)timers.splice(index,1);
+    if(token===generation && active)fn();
+  },ms);timers.push(id);return id;
+}
+function particles(kind,n){
+  var amount=Math.max(0,Math.floor(Number(n)||0));if(amount<=0)return;
+  // 1 tirada = 1 token visual. Las monedas se agrupan solo para no crear hasta 800
+  // nodos: cada particula muestra su denominacion y la suma SIEMPRE es exacta.
+  var count=kind==='spins'?amount:Math.min(24,amount),base=Math.floor(amount/count),rest=amount%count;
+  for(var i=0;i<count;i++)(function(index,value){
+    later(function(){
+      var p=document.createElement('i');p.className='particle';
+      if(kind==='spins'){p.style.borderRadius='4px';p.style.background='linear-gradient(135deg,#d5baff,#8d69ff)';}
+      else if(value>1){p.textContent='+'+String(value);p.style.width='28px';p.style.height='28px';p.style.font='900 9px system-ui';p.style.display='grid';p.style.placeItems='center';p.style.color='#5b3300';}
+      p.style.setProperty('--to-x',kind==='coins'?'8%':'5%');p.style.setProperty('--to-y',kind==='coins'?'16%':'6%');
+      p.style.left=String(46+Math.random()*8)+'%';p.style.top=String(43+Math.random()*8)+'%';document.body.appendChild(p);
+      p.addEventListener('animationend',function(){p.remove();},{once:true});later(function(){p.remove();},1100);
+    },index*22);
+  })(i,base+(i<rest?1:0));
+}
+function countTo(value){
+  var target=Math.max(0,Number(value)||0),steps=24,step=0;
+  function tick(){
+    step++;q('#amount').textContent='+'+String(Math.round(target*step/steps));
+    if(step<steps)later(tick,25);
+  }
+  tick();
+}
+window.fnopShowRewardReveal=function(d){
+  d=d||{};var id=String(d.presentationId||'');
+  // OnLoadCompleted may be fired twice by the document envelope; do not replay it.
+  if(active && id && id===currentId)return;
+  clearWork();currentId=id;lastPayload=d;active=true;
+  var root=q('#r');root.hidden=false;root.classList.remove('out');root.classList.add('show');
+  root.style.opacity='1';root.style.transform='none';
+  q('#title').textContent=d.title||'NEW REWARD';q('#name').textContent=d.name||'';q('#description').textContent=d.description||'';
+  root.style.setProperty('--reward-accent',d.accent||'#ff55b9');var rarity=q('#rarity');rarity.textContent=d.rarity||'';rarity.hidden=!d.rarity;
+  q('#dismiss').textContent=d.dismiss||'';
+  q('#closeReward').setAttribute('aria-label',d.closeLabel||'Close');
+  var visual=q('#visual');visual.textContent='';q('#balance').textContent='';
+  if(d.kind==='coins'||d.kind==='spins'){
+    visual.innerHTML=d.kind==='coins'?'<div class="coin-stack"><i class="coin c1"></i><i class="coin c2"></i><i class="coin c3"></i></div>':'<div class="spin-stack"><i class="spin-token"></i></div>';
+    q('#amount').textContent='+0';countTo(d.amount);particles(d.kind,d.amount);
+    // Authoritative total supplied by Unreal, never add the reward again in JS.
+    if(d.after!=null)q('#balance').textContent=(d.balanceLabel||'Balance')+': '+String(d.after);
+  }else if(d.kind==='mood'){
+    var moodToken=document.createElement('div');moodToken.className='kind-token mood-token';moodToken.textContent=d.reduce?'\u2661':'\u2665';visual.appendChild(moodToken);
+    q('#amount').textContent='+0';countTo(d.amount);
+    if(d.after!=null)q('#balance').textContent=(d.balanceLabel||(window.FNOPI18n?.t('reward.moodPoints','Mood')||'Mood'))+': '+String(d.after);
+  }else{
+    q('#amount').textContent='';
+    if(d.media){var src=String(d.media),lower=src.toLowerCase();if(lower.indexOf('.mp4')>=0||lower.indexOf('.webm')>=0){var vid=document.createElement('video');vid.src=src;vid.autoplay=true;vid.loop=true;vid.muted=true;vid.playsInline=true;visual.appendChild(vid);}else{var anim=document.createElement('img');anim.src=src;anim.alt=d.name||'';visual.appendChild(anim);}}
+    else if(d.image){var img=document.createElement('img');img.src=String(d.image);img.alt=d.name||'';visual.appendChild(img);}
+    else{var token=document.createElement('div');token.className='kind-token';token.textContent='\u2726';visual.appendChild(token);}
+  }
+  if(window.FNOPRewardVisuals)window.FNOPRewardVisuals.decorate(visual,d.accent||'#ff55b9');
+  console.info('[FNOP Reward 1.29.9] SHOW '+currentId+' opacity='+getComputedStyle(root).opacity);
+};
+function dismiss(){
+  if(!active)return;
+  var id=currentId;active=false;clearWork();
+  q('#r').classList.add('out');
+  // No delayed opacity callback. Unreal removes the widget after this exact session.
+  if(typeof window.fnopAction==='function')window.fnopAction('dismiss',id);
+}
+window.fnopDismissRewardReveal=dismiss;
+window.fnopResetRewardReveal=function(){active=false;clearWork();currentId='';lastPayload=null;q('#r').hidden=true;};
+window.addEventListener('click',dismiss);
+window.addEventListener('keydown',function(e){if(e.key==='Escape'||e.key==='Enter'||e.key===' '){e.preventDefault();dismiss();}});
+window.addEventListener('pagehide',function(){active=false;clearWork();});
+})();
+</script></body></html>

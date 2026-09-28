@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fnop Ultimate</title>
+<!-- FNOP_STOCK_HTML_VERSION:1.28.9 -->
+<style>
+:root{
+  --text:#fff7fd;
+  --muted:#c7b9cc;
+  --pink:#ff4fb5;
+  --pink2:#ff92d5;
+  --violet:#985dff;
+  --cyan:#6eeeff;
+  --panel:rgba(14,8,21,.46);
+  --panel2:rgba(24,13,34,.54);
+  --line:rgba(255,255,255,.13);
+  --line2:rgba(255,126,205,.38);
+  --success:#8dffb2;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:transparent;color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+button,select,input{font:inherit}
+button{color:inherit}
+body{position:relative;isolation:isolate}
+#fx{position:absolute;inset:0;width:100%;height:100%;z-index:-5;pointer-events:none}
+.intro-logo{
+  position:fixed;left:50%;top:50%;z-index:80;transform:translate(-50%,-50%) scale(1.08);
+  width:max-content;pointer-events:none;text-align:center;opacity:0;
+  animation:introLogoCinematic 1.24s .08s cubic-bezier(.18,.82,.16,1) both
+}
+.intro-logo .intro-kicker{font-size:10px;letter-spacing:.54em;color:var(--pink2);font-weight:900;margin-bottom:13px;text-transform:uppercase}
+.intro-logo .intro-title{font-size:clamp(62px,10vw,142px);line-height:.78;letter-spacing:-.075em;font-weight:950;text-transform:uppercase;white-space:nowrap}
+.intro-logo .intro-title span{background:linear-gradient(96deg,#fff 2%,var(--pink2) 29%,var(--pink) 54%,var(--violet) 78%,var(--cyan));color:transparent;background-clip:text;-webkit-background-clip:text;text-shadow:0 0 44px rgba(255,79,181,.14)}
+.intro-logo::after{content:"";position:absolute;left:10%;right:10%;bottom:-24px;height:1px;background:linear-gradient(90deg,transparent,var(--pink2),var(--violet),transparent);box-shadow:0 0 22px rgba(255,79,181,.38);transform:scaleX(0);animation:introLine .62s .24s var(--ease) forwards}
+.fx-vignette{position:fixed;inset:0;pointer-events:none;z-index:-4;background:radial-gradient(circle at 50% 48%,transparent 30%,rgba(3,1,7,.12) 72%,rgba(2,1,5,.28) 100%)}
+@keyframes introLogoCinematic{
+  0%{opacity:0;left:50%;top:50%;transform:translate(-50%,-50%) scale(.84);transform-origin:center}
+  18%{opacity:1;transform:translate(-50%,-50%) scale(1.03)}
+  58%{opacity:1;left:50%;top:50%;transform:translate(-50%,-50%) scale(1)}
+  82%{opacity:1;left:clamp(24px,4vw,66px);top:clamp(24px,4vw,66px);transform:translate(0,0) scale(.46);transform-origin:top left}
+  100%{opacity:1;left:clamp(24px,4vw,66px);top:clamp(24px,4vw,66px);transform:translate(0,0) scale(.46);transform-origin:top left}
+}
+@keyframes introLine{to{transform:scaleX(1)}}
+.ambient{
+  position:absolute;inset:-15%;z-index:-6;pointer-events:none;
+  background:
+    radial-gradient(circle at 16% 30%,rgba(255,79,181,.17),transparent 27%),
+    radial-gradient(circle at 77% 23%,rgba(110,238,255,.08),transparent 22%),
+    radial-gradient(circle at 67% 80%,rgba(152,93,255,.16),transparent 31%);
+  filter:none;
+  animation:ambient 12s ease-in-out infinite alternate;
+}
+.grain{
+  position:absolute;inset:0;pointer-events:none;z-index:40;opacity:.1;mix-blend-mode:normal;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.88' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.25'/%3E%3C/svg%3E");
+}
+.shell{
+  position:relative;z-index:1;opacity:0;visibility:hidden;pointer-events:none;
+  width:100%;height:100%;padding:clamp(24px,4vw,66px);
+  display:grid;grid-template-columns:minmax(320px,.9fr) minmax(380px,1.1fr);
+  gap:clamp(34px,5vw,88px);align-items:center;
+  transition:opacity .20s ease;
+}
+body.intro-ready .shell{opacity:1;visibility:visible;pointer-events:auto}
+body.intro-ready .intro-logo{opacity:0!important;transition:opacity .12s ease}
+.left{max-width:620px;position:relative;align-self:stretch;display:flex;align-items:flex-start;padding-top:clamp(180px,24vh,260px)}
+.brand{position:fixed;left:clamp(24px,4vw,66px);top:clamp(24px,4vw,66px);width:max-content;max-width:calc(100vw - 48px);margin:0;opacity:0;transform:translateY(-5px);transition:opacity .16s ease,transform .16s ease;pointer-events:none}
+body.intro-ready .brand{opacity:1;transform:none}
+.early-access-badge{display:inline-flex;align-items:center;gap:7px;margin-top:11px;padding:6px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:linear-gradient(90deg,rgba(255,79,181,.14),rgba(124,92,255,.13));box-shadow:0 0 22px rgba(255,79,181,.10),inset 0 0 0 1px rgba(255,255,255,.025);font-size:10px;letter-spacing:.22em;font-weight:900;text-transform:uppercase;color:#fff}
+.early-access-badge::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--pink2);box-shadow:0 0 12px var(--pink2)}
+.kicker{
+  color:var(--pink2);font-size:11px;letter-spacing:.42em;text-transform:uppercase;margin-bottom:12px
+}
+h1{
+  margin:0;font-size:clamp(34px,4.8vw,68px);line-height:.86;letter-spacing:-.065em;white-space:nowrap;
+  font-weight:900;text-transform:uppercase;
+}
+h1 span{
+  display:inline-block;
+  background:linear-gradient(95deg,#fff,var(--pink2) 25%,var(--pink) 55%,var(--violet) 78%,var(--cyan));
+  color:transparent;background-clip:text;-webkit-background-clip:text;
+  filter:none;
+}
+.tagline{margin-top:18px;color:var(--muted);font-size:14px;letter-spacing:.055em;max-width:540px}
+.menu{display:grid;gap:12px;width:min(100%,520px)}
+.menu-btn{
+  position:relative;isolation:isolate;min-height:70px;border-radius:18px;
+  border:1px solid var(--line);background:linear-gradient(90deg,rgba(255,255,255,.055),rgba(255,255,255,.018));
+  padding:0 22px;display:flex;align-items:center;justify-content:space-between;
+  cursor:pointer;overflow:hidden;
+  transition:transform .11s var(--ease),border-color .11s,box-shadow .11s,background .11s;
+  opacity:0;transform:translateX(-10px);
+}
+body.intro-ready .menu-btn{opacity:1;transform:none}
+.menu-btn:nth-child(1){--legacy-animation-delay:1.12s}.menu-btn:nth-child(2){--legacy-animation-delay:1.18s}.menu-btn:nth-child(3){--legacy-animation-delay:1.24s}.menu-btn:nth-child(4){--legacy-animation-delay:1.30s}.menu-btn:nth-child(5){--legacy-animation-delay:1.36s}.menu-btn:nth-child(6){--legacy-animation-delay:1.42s}
+body:not(.intro-ready) .menu-btn{pointer-events:none}
+.menu-btn::before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(100deg,transparent 0,rgba(255,79,181,.15) 45%,rgba(152,93,255,.13) 70%,transparent);
+  transform:translateX(-110%);transition:transform .14s var(--ease)
+}
+.menu-btn::after{
+  content:"";position:absolute;width:40%;height:160%;top:-30%;left:-55%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);transform:rotate(20deg);
+  transition:left .14s var(--ease)
+}
+.menu-btn:hover,.menu-btn:focus-visible{
+  transform:translateX(12px) scale(1.018);border-color:rgba(255,126,205,.45);
+  background:linear-gradient(90deg,rgba(255,79,181,.12),rgba(152,93,255,.07));
+  box-shadow:0 14px 42px rgba(255,79,181,.11);outline:none
+}
+.menu-btn:hover::before,.menu-btn:focus-visible::before{transform:none}
+.menu-btn:hover::after{left:120%}
+.menu-label{display:flex;align-items:center;gap:14px;text-transform:uppercase;letter-spacing:.18em;font-size:14px;font-weight:800}
+.num{
+  width:31px;height:31px;border-radius:9px;display:grid;place-items:center;
+  border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.035);color:var(--pink2);font-size:10px;letter-spacing:0
+}
+.arrow{
+  width:36px;height:36px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(255,255,255,.12);
+  transition:transform .11s var(--ease),background .11s
+}
+.menu-btn:hover .arrow{transform:translateX(5px) rotate(-8deg);background:rgba(255,79,181,.12)}
+.right{min-height:650px;display:grid;place-items:center;perspective:1200px}
+.news-card{
+  position:relative;width:min(100%,620px);aspect-ratio:4/5;border-radius:34px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.13);
+  background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.012)),rgba(10,6,18,.28);
+  backdrop-filter:none;-webkit-backdrop-filter:none;
+  box-shadow:0 0 30px rgba(255,79,181,.16),0 0 75px rgba(152,93,255,.1);
+  opacity:1;transform:none;
+  transition:transform .12s var(--ease)
+}
+.news-card::before{
+  content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;
+  background:linear-gradient(125deg,rgba(255,79,181,.48),transparent 30%,transparent 66%,rgba(110,238,255,.3));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none
+}
+.news-media{
+  position:relative;height:62%;margin:16px;border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,.1);
+  background:
+    radial-gradient(circle at 28% 25%,rgba(255,79,181,.28),transparent 30%),
+    radial-gradient(circle at 72% 67%,rgba(152,93,255,.23),transparent 34%),
+    linear-gradient(135deg,rgba(255,255,255,.055),rgba(255,255,255,.01))
+}
+.news-media img{width:100%;height:100%;display:block;object-fit:cover}
+.placeholder{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:26px;color:rgba(255,255,255,.62);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+.scan{position:absolute;left:0;right:0;height:2px;top:0;background:linear-gradient(90deg,transparent,var(--pink),var(--cyan),transparent);box-shadow:0 0 18px rgba(255,79,181,.7);animation:scan 4.8s linear infinite;top:0;opacity:.28}
+.news-body{padding:4px 24px 25px}
+.news-label{color:var(--pink2);font-size:11px;letter-spacing:.3em;text-transform:uppercase;margin-bottom:10px}
+.news-title{margin:0;font-size:clamp(25px,3vw,41px);line-height:.98;letter-spacing:-.045em}
+.news-text{margin:14px 0 0;color:var(--muted);font-size:14px;line-height:1.55;max-width:96%}
+.news-meta{display:flex;align-items:center;gap:10px;margin-top:20px;color:rgba(255,255,255,.55);font-size:11px;letter-spacing:.15em;text-transform:uppercase}
+.news-dot{width:7px;height:7px;border-radius:50%;background:var(--pink2);box-shadow:0 0 16px rgba(255,146,213,.9);animation:pulse 2.3s ease-in-out infinite}
+
+/* FNOP_MAIN_NEWS_MODAL_V1 - noticia principal ampliable, scroll y fondo blur PC/VR. */
+.news-card{cursor:pointer;outline:none;will-change:transform,box-shadow,border-color}
+.news-card:hover,.news-card:focus-visible{
+  transform:translateY(-7px) scale(1.012);
+  border-color:rgba(255,146,213,.48);
+  box-shadow:0 18px 58px rgba(255,79,181,.22),0 0 92px rgba(152,93,255,.14)
+}
+.news-card:focus-visible{box-shadow:0 0 0 2px rgba(110,238,255,.42),0 18px 58px rgba(255,79,181,.22),0 0 92px rgba(152,93,255,.14)}
+.news-card .news-body::after{
+  content:"↗";position:absolute;right:24px;bottom:23px;width:34px;height:34px;border-radius:50%;
+  display:grid;place-items:center;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.035);
+  color:var(--pink2);font-size:17px;font-weight:900;transition:transform .14s var(--ease),background .14s,border-color .14s
+}
+.news-card:hover .news-body::after,.news-card:focus-visible .news-body::after{transform:scale(1.08) rotate(-6deg);background:rgba(255,79,181,.14);border-color:rgba(255,146,213,.42)}
+body.fnop-news-modal-open .shell{filter:blur(13px) saturate(.62) brightness(.62);transform:scale(.985);pointer-events:none}
+body.fnop-news-modal-open .ambient,body.fnop-news-modal-open .fx-vignette{filter:blur(8px);opacity:.5}
+.main-news-modal{
+  position:fixed;inset:0;z-index:160;display:grid;place-items:center;padding:clamp(18px,3vw,46px);
+  background:rgba(3,2,8,.70);backdrop-filter:blur(14px) brightness(.68);-webkit-backdrop-filter:blur(14px) brightness(.68);
+  opacity:0;visibility:hidden;pointer-events:none;transition:opacity .18s var(--ease),visibility .18s
+}
+.main-news-modal.open{opacity:1;visibility:visible;pointer-events:auto}
+.main-news-dialog{
+  position:relative;width:min(1120px,94vw);height:min(900px,91vh);min-height:0;
+  display:grid;grid-template-rows:minmax(260px,55%) minmax(0,45%);overflow:hidden;
+  border:1px solid rgba(255,255,255,.17);border-radius:30px;
+  background:linear-gradient(155deg,rgba(22,12,32,.99),rgba(7,4,12,.99));
+  box-shadow:0 38px 130px rgba(0,0,0,.78),0 0 80px rgba(255,79,181,.17);
+  transform:translateY(16px) scale(.965);transition:transform .20s var(--ease)
+}
+.main-news-modal.open .main-news-dialog{transform:none}
+.main-news-dialog::before{
+  content:"";position:absolute;inset:0;z-index:3;pointer-events:none;border-radius:inherit;
+  box-shadow:inset 0 0 0 1px rgba(255,146,213,.06)
+}
+.main-news-close{
+  position:absolute;right:18px;top:18px;z-index:8;width:48px;height:48px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.2);background:rgba(6,3,11,.72);color:#fff;cursor:pointer;
+  display:grid;place-items:center;font-size:24px;line-height:1;box-shadow:0 10px 30px rgba(0,0,0,.32);
+  transition:transform .13s var(--ease),background .13s,border-color .13s
+}
+.main-news-close:hover,.main-news-close:focus-visible{transform:scale(1.08) rotate(4deg);background:rgba(255,79,181,.22);border-color:rgba(255,146,213,.56);outline:none}
+.main-news-modal-media{
+  position:relative;min-height:0;overflow:hidden;background:
+    radial-gradient(circle at 28% 25%,rgba(255,79,181,.24),transparent 30%),
+    radial-gradient(circle at 72% 67%,rgba(152,93,255,.22),transparent 34%),#0b0611
+}
+.main-news-modal-media::after{content:"";position:absolute;inset:auto 0 0;height:35%;pointer-events:none;background:linear-gradient(transparent,rgba(8,4,13,.96))}
+.main-news-modal-media img{width:100%;height:100%;display:block;object-fit:cover}
+.main-news-modal-media .placeholder{font-size:13px;letter-spacing:.19em}
+.main-news-modal-media .scan{opacity:.22}
+.main-news-modal-copy{min-height:0;overflow-y:auto;padding:24px clamp(28px,4vw,54px) 42px;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:rgba(255,146,213,.58) rgba(255,255,255,.05)}
+.main-news-modal-copy::-webkit-scrollbar{width:10px}.main-news-modal-copy::-webkit-scrollbar-track{background:rgba(255,255,255,.04);border-radius:10px}.main-news-modal-copy::-webkit-scrollbar-thumb{background:linear-gradient(var(--pink),var(--violet));border-radius:10px;border:2px solid rgba(8,4,13,.9)}
+.main-news-modal-label{color:var(--pink2);font-size:11px;letter-spacing:.32em;text-transform:uppercase;font-weight:900;margin-bottom:11px}
+.main-news-modal-title{margin:0;max-width:900px;font-size:clamp(34px,4.6vw,64px);line-height:.96;letter-spacing:-.045em}
+.main-news-modal-text{margin:20px 0 0;max-width:920px;color:#d7cadc;font-size:clamp(15px,1.45vw,19px);line-height:1.72;white-space:pre-wrap;overflow-wrap:anywhere}
+.main-news-modal-meta{display:flex;align-items:center;gap:10px;margin-top:28px;color:rgba(255,255,255,.55);font-size:11px;letter-spacing:.15em;text-transform:uppercase}
+@media(max-height:720px){.main-news-dialog{height:94vh;grid-template-rows:minmax(180px,42%) minmax(0,58%)}.main-news-modal-copy{padding-top:18px}.main-news-modal-title{font-size:clamp(30px,4vw,48px)}}
+@media(max-width:720px){.main-news-modal{padding:10px}.main-news-dialog{width:97vw;height:95vh;border-radius:22px;grid-template-rows:minmax(190px,40%) minmax(0,60%)}.main-news-modal-copy{padding:20px 22px 34px}.main-news-close{right:12px;top:12px;width:44px;height:44px}.main-news-modal-title{font-size:clamp(30px,9vw,46px)}}
+
+
+/* FNOP 1.17.0.98 - pulido CEF, tienda cinematica sin reflow y compra con ultimo fotograma congelado. */
+.commerce-panel{width:min(1240px,calc(100vw - 44px));height:min(860px,calc(100vh - 44px));display:grid;grid-template-rows:auto auto 1fr auto;contain:layout paint style;backdrop-filter:none;-webkit-backdrop-filter:none;}
+.commerce-toolbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:12px 26px;border-bottom:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.018)}
+.commerce-pill{padding:9px 13px;border-radius:999px;border:1px solid var(--line);font-size:11px;letter-spacing:.12em;font-weight:850;color:var(--muted)}
+.commerce-pill b{color:#fff}.commerce-sync.online{color:var(--success);border-color:rgba(141,255,178,.28)}
+.shop-wallet{margin-left:auto;min-width:230px;padding:12px 18px;border-radius:16px;border:1px solid rgba(255,216,94,.33);background:linear-gradient(135deg,rgba(255,216,94,.14),rgba(255,255,255,.025));box-shadow:0 0 30px rgba(255,216,94,.07)}
+.shop-wallet small{display:block;color:#ffe897;font-size:10px;letter-spacing:.18em;font-weight:850}.shop-wallet b{display:block;color:#fff;font-size:30px;line-height:1.05}.shop-coin-dot{display:inline-block;width:13px;height:13px;border-radius:50%;margin-right:7px;background:radial-gradient(circle at 35% 30%,#fff7b3,#ffc928 55%,#c77800);box-shadow:0 0 14px rgba(255,201,40,.45)}
+.commerce-scroll{min-height:0;overflow:auto;padding:18px 26px 28px}.shop-news-wrap{margin:0 0 22px}.shop-news-label{font-size:10px;letter-spacing:.24em;color:var(--pink2);font-weight:900;margin:2px 0 9px}.shop-news-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;perspective:900px}.shop-news-mini{position:relative;aspect-ratio:16/9;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:rgba(255,255,255,.025);cursor:pointer;color:#fff;text-align:left;padding:0;transform-style:preserve-3d;will-change:transform;transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease;box-shadow:0 12px 28px rgba(0,0,0,.18)}.shop-news-mini:hover{border-color:rgba(255,118,205,.48);box-shadow:0 20px 44px rgba(0,0,0,.32),0 0 28px rgba(255,79,181,.11)}.shop-news-mini img,.shop-news-mini video{width:100%;height:100%;object-fit:cover;pointer-events:none}.shop-news-shade{position:absolute;inset:38% 0 0;background:linear-gradient(transparent,rgba(5,3,9,.95));display:flex;align-items:flex-end;padding:24px 13px 10px;font-weight:900}
+.shop-category{margin:0 0 28px}.shop-category-title{display:flex;align-items:center;gap:10px;margin:0 0 11px;font-size:19px;letter-spacing:.04em}.shop-category-title:after{content:"";height:1px;flex:1;background:linear-gradient(90deg,rgba(255,79,181,.34),transparent)}
+.commerce-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;align-content:start}.commerce-card,.chest-card{border:1px solid var(--line);border-radius:20px;background:linear-gradient(145deg,rgba(255,255,255,.06),rgba(255,255,255,.018));padding:14px;box-shadow:0 18px 42px rgba(0,0,0,.14);animation:cardIn .18s var(--ease) both}.commerce-card{min-height:220px;display:grid;grid-template-columns:170px 1fr;gap:15px}.commerce-image{height:170px;border-radius:15px;border:1px solid rgba(255,255,255,.08);background:radial-gradient(circle at 50% 35%,rgba(255,79,181,.15),rgba(10,6,18,.25));display:grid;place-items:center;overflow:hidden;color:rgba(255,255,255,.35);font-weight:900;letter-spacing:.2em}.commerce-image img,.chest-orb img{display:block;width:100%;height:100%;max-width:none;max-height:none;margin:0;padding:0;object-fit:cover;object-position:center center}.commerce-info h3,.chest-card h3{margin:8px 0 6px;font-size:21px}.commerce-meta{font-size:9px;letter-spacing:.18em;color:var(--pink2);font-weight:900}.commerce-price{font-size:18px;font-weight:900;margin:10px 0}.commerce-buy{width:100%;min-height:40px;display:flex;align-items:center;justify-content:center;text-decoration:none;border:1px solid rgba(255,126,205,.32);border-radius:11px;background:linear-gradient(100deg,rgba(255,79,181,.18),rgba(152,93,255,.12));cursor:pointer;font-weight:900;letter-spacing:.08em}.commerce-buy:hover{border-color:var(--pink2);transform:translateY(-1px)}.commerce-buy:disabled{opacity:.45;cursor:default;transform:none}.commerce-card.owned{border-color:rgba(91,255,151,.48);background:linear-gradient(145deg,rgba(44,180,103,.18),rgba(255,255,255,.018));box-shadow:0 18px 48px rgba(44,180,103,.10)}.commerce-card.owned .commerce-buy:disabled{opacity:1;color:#a8ffc5;border-color:rgba(91,255,151,.48);background:rgba(44,180,103,.16)}.commerce-card.patreon-locked .commerce-buy:disabled{opacity:.92;color:#ffe27a;border-color:rgba(255,216,94,.4);background:rgba(255,216,94,.08)}.patreon-only-badge{display:inline-block;color:#ffd85e;font-size:11px;font-weight:950;letter-spacing:.15em;text-transform:uppercase;text-shadow:0 0 18px rgba(255,216,94,.38);transform-origin:left center;animation:patreonBreath 3s ease-in-out infinite}@keyframes patreonBreath{0%,100%{transform:scale(1);opacity:.78}50%{transform:scale(1.075);opacity:1}}.commerce-empty{min-height:210px;border:1px dashed var(--line);border-radius:20px;display:grid;place-items:center;text-align:center;color:var(--muted);letter-spacing:.08em;padding:24px}.commerce-status{min-height:48px;padding:0 26px 18px;color:var(--muted);font-size:12px}.chest-grid{grid-template-columns:repeat(4,minmax(0,1fr));padding:22px 26px 28px;overflow:auto}.chest-card{text-align:center}.chest-orb{width:108px;height:108px;margin:2px auto 12px;border-radius:28px;border:1px solid color-mix(in srgb,var(--chest),transparent 45%);background:radial-gradient(circle,color-mix(in srgb,var(--chest),transparent 72%),rgba(255,255,255,.02));display:grid;place-items:center;color:var(--chest);font-size:40px;overflow:hidden}.chest-count{font-size:11px;color:var(--muted);margin:6px 0 12px;letter-spacing:.08em}
+.shop-news-modal,.purchase-stage{position:absolute;inset:0;z-index:85;background:rgba(3,2,7,.91);display:grid;place-items:center;opacity:0;pointer-events:none;transition:opacity .15s}.shop-news-modal.open,.purchase-stage.open{opacity:1;pointer-events:auto}.shop-news-full{width:min(1040px,90vw);max-height:88vh;border:1px solid var(--line);border-radius:26px;overflow:hidden;background:#0a0710;box-shadow:0 35px 120px rgba(0,0,0,.72);transform-style:preserve-3d;will-change:transform;transition:transform .16s ease}.shop-news-full-media{aspect-ratio:16/9;background:#100b18}.shop-news-full-media img,.shop-news-full-media video{width:100%;height:100%;object-fit:cover;background:#030205}.shop-news-full-copy{padding:19px 24px 24px}.shop-news-full-copy h2{margin:0 0 9px;font-size:31px}.shop-news-full-copy p{color:var(--muted);line-height:1.55}.purchase-stage{z-index:95;background:#030205;overflow:hidden}.purchase-media{position:absolute;inset:0;display:grid;place-items:center}.purchase-media video{width:100%;height:100%;object-fit:cover}.purchase-media canvas{width:100%;height:100%;display:block}.purchase-media img{width:min(620px,70vw);height:min(620px,70vh);object-fit:cover;object-position:center center;box-shadow:0 0 52px rgba(255,79,181,.14);animation:purchasePop .62s cubic-bezier(.15,.8,.2,1.15) both}.purchase-particles{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(255,79,181,.18),transparent 35%),radial-gradient(circle at 25% 30%,rgba(255,216,94,.18),transparent 3%),radial-gradient(circle at 70% 24%,rgba(154,108,255,.2),transparent 3%);animation:purchaseGlow 1.2s ease-in-out infinite alternate}.purchase-copy{position:absolute;left:0;right:0;bottom:0;padding:80px 8vw 6vh;background:linear-gradient(transparent,rgba(3,2,5,.97) 45%);text-align:center;opacity:0;transform:translateY(20px);transition:.35s}.purchase-stage.reveal .purchase-copy{opacity:1;transform:none}.purchase-copy h2{font-size:clamp(32px,5vw,68px);margin:0}.purchase-copy p{max-width:760px;margin:12px auto 18px;color:#d8d0e4;line-height:1.55}.purchase-shake{animation:purchaseShake .48s ease!important}@keyframes purchaseShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-9px) rotate(-1deg)}40%{transform:translateX(8px) rotate(1deg)}60%{transform:translateX(-5px)}80%{transform:translateX(3px)}}@keyframes purchasePop{0%{opacity:0;transform:scale(.45) rotate(-5deg)}65%{opacity:1;transform:scale(1.07) rotate(1deg)}100%{transform:scale(1)}}@keyframes purchaseGlow{from{opacity:.48;transform:scale(1)}to{opacity:.86;transform:scale(1.018)}}
+@media(max-width:980px){.commerce-card{grid-template-columns:140px 1fr}.commerce-image{height:140px}.shop-news-strip{grid-template-columns:repeat(2,1fr)}.chest-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:720px){.commerce-grid,.chest-grid{grid-template-columns:1fr}.commerce-card{grid-template-columns:120px 1fr}.commerce-image{height:120px}.shop-news-strip{grid-template-columns:1fr}.commerce-toolbar{padding:12px 18px}.commerce-scroll{padding:16px 18px}.shop-wallet{margin-left:0}}
+
+
+/* overlays */
+.overlay{
+  position:absolute;inset:0;z-index:20;display:grid;place-items:center;padding:24px;
+  background:rgba(5,3,9,.08);
+  opacity:0;pointer-events:none;transition:opacity .12s var(--ease)
+}
+.overlay.open{opacity:1;pointer-events:auto}
+.panel{
+  width:min(1100px,calc(100vw - 44px));max-height:min(830px,calc(100vh - 44px));
+  border-radius:30px;border:1px solid rgba(255,255,255,.14);
+  background:rgba(12,7,19,.66);backdrop-filter:none;-webkit-backdrop-filter:none;
+  box-shadow:0 30px 120px rgba(0,0,0,.5),0 0 70px rgba(255,79,181,.12);
+  overflow:hidden;transform:translateY(28px) scale(.97);transition:transform .13s var(--ease)
+}
+.overlay.open .panel{transform:none}
+.panel-head{
+  min-height:92px;padding:0 26px 0 30px;display:flex;align-items:center;justify-content:space-between;gap:20px;
+  border-bottom:1px solid rgba(255,255,255,.08);background:linear-gradient(90deg,rgba(255,79,181,.07),transparent 50%)
+}
+.panel-head h2{margin:3px 0 0;font-size:clamp(28px,4vw,50px);letter-spacing:-.05em}
+.panel-head .kicker{margin:0}
+.close{
+  width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.04);cursor:pointer;
+  transition:transform .11s var(--ease),background .11s
+}
+.close:hover{transform:rotate(90deg) scale(1.08);background:rgba(255,79,181,.14)}
+
+/* game modes */
+.modes-grid{padding:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;max-height:calc(100vh - 160px);overflow-y:auto;align-content:start}
+.mode-card{
+  position:relative;min-height:310px;border-radius:23px;border:1px solid rgba(255,255,255,.1);
+  background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));
+  overflow:hidden;padding:22px;cursor:pointer;transition:.13s var(--ease)
+}
+.mode-card::before{
+  content:"";position:absolute;inset:-20%;background:
+    radial-gradient(circle at 50% 0,rgba(255,79,181,.27),transparent 34%),
+    radial-gradient(circle at 85% 80%,rgba(110,238,255,.1),transparent 36%);
+  transform:scale(.8);opacity:0;transition:.14s var(--ease)
+}
+.mode-card:hover{transform:translateY(-9px) scale(1.018);border-color:rgba(255,126,205,.4);box-shadow:0 20px 55px rgba(255,79,181,.1)}
+.mode-card:hover::before{transform:scale(1);opacity:1}
+.mode-card>*{position:relative}
+.mode-code{color:var(--pink2);font-size:10px;letter-spacing:.28em}
+.mode-card h3{font-size:30px;line-height:1;margin:94px 0 12px;letter-spacing:-.035em}
+.mode-card p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
+.mode-go{position:absolute;right:20px;bottom:20px;width:40px;height:40px;border:1px solid rgba(255,255,255,.12);border-radius:50%;display:grid;place-items:center}
+
+/* settings */
+.settings-layout{display:grid;grid-template-columns:250px 1fr;min-height:610px}
+.settings-nav{
+  border-right:1px solid rgba(255,255,255,.08);padding:20px 14px;background:rgba(255,255,255,.012)
+}
+.settings-tab{
+  width:100%;height:58px;padding:0 16px;border-radius:14px;border:1px solid transparent;background:transparent;cursor:pointer;
+  display:flex;align-items:center;gap:12px;color:var(--muted);text-transform:uppercase;font-size:12px;font-weight:800;letter-spacing:.15em;
+  transition:.11s var(--ease)
+}
+.settings-tab:hover{color:#fff;background:rgba(255,255,255,.035)}
+.settings-tab.active{color:#fff;border-color:rgba(255,126,205,.24);background:linear-gradient(90deg,rgba(255,79,181,.12),rgba(152,93,255,.06));box-shadow:inset 3px 0 0 var(--pink)}
+.settings-icon{width:26px;text-align:center;color:var(--pink2)}
+.settings-content{padding:24px 28px 30px;overflow:auto;max-height:610px}
+.settings-section{display:none;animation:sectionIn .14s var(--ease)}
+.settings-section.active{display:block}
+.section-title{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:18px}
+.section-title h3{margin:0;font-size:28px;letter-spacing:-.035em}
+.section-title p{margin:5px 0 0;color:var(--muted);font-size:12px}
+.setting-list{display:grid;gap:10px}
+.setting-row{
+  min-height:64px;padding:12px 16px;border:1px solid rgba(255,255,255,.075);border-radius:15px;
+  background:rgba(255,255,255,.018);display:grid;grid-template-columns:1fr minmax(210px,290px);gap:24px;align-items:center;
+  transition:border-color .10s,background .10s
+}
+.setting-row:hover{border-color:rgba(255,126,205,.22);background:rgba(255,255,255,.027)}
+.setting-name{font-size:13px;font-weight:760;letter-spacing:.04em}
+.setting-desc{margin-top:4px;font-size:11px;color:#9f93a7;line-height:1.35}
+.game-select{
+  width:100%;height:40px;border:1px solid rgba(255,255,255,.12);border-radius:11px;
+  color:#fff;background:rgba(7,5,12,.74);padding:0 38px 0 12px;outline:none;cursor:pointer;
+  appearance:none;background-image:linear-gradient(45deg,transparent 50%,#fff 50%),linear-gradient(135deg,#fff 50%,transparent 50%);
+  background-position:calc(100% - 15px) 48%,calc(100% - 10px) 48%;background-size:5px 5px,5px 5px;background-repeat:no-repeat
+}
+.game-select:focus{border-color:rgba(255,126,205,.45);box-shadow:0 0 0 3px rgba(255,79,181,.08)}
+.switch{position:relative;width:52px;height:28px;justify-self:end}
+.switch input{opacity:0;width:0;height:0}
+.slider-switch{
+  position:absolute;inset:0;border-radius:999px;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.07);cursor:pointer;transition:.11s
+}
+.slider-switch::after{
+  content:"";position:absolute;width:20px;height:20px;left:3px;top:3px;border-radius:50%;background:#d8d2dc;transition:.11s var(--ease)
+}
+.switch input:checked + .slider-switch{background:linear-gradient(90deg,rgba(255,79,181,.65),rgba(152,93,255,.65));border-color:rgba(255,126,205,.5);box-shadow:0 0 20px rgba(255,79,181,.18)}
+.switch input:checked + .slider-switch::after{transform:translateX(24px);background:white}
+.censor-toggle-control{justify-self:end;display:flex;align-items:center;justify-content:flex-end;gap:11px;min-width:190px}
+.censor-toggle-control .switch{justify-self:auto;flex:0 0 52px}
+.censor-state-label{font-size:11px;font-weight:900;letter-spacing:.16em;color:#817985;transition:.11s var(--ease)}
+.censorship-row:has(#censorshipToggle:not(:checked)) .censor-state-label:first-child{color:#fff;text-shadow:0 0 14px rgba(255,255,255,.18)}
+.censorship-row:has(#censorshipToggle:checked) .censor-state-on{color:var(--pink2);text-shadow:0 0 16px rgba(255,79,181,.28)}
+.range-wrap{display:grid;grid-template-columns:1fr 48px;gap:12px;align-items:center}
+input[type=range]{width:100%;appearance:none;background:transparent}
+input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:999px;background:linear-gradient(90deg,var(--pink),var(--violet))}
+input[type=range]::-webkit-slider-thumb{appearance:none;width:18px;height:18px;border-radius:50%;background:#fff;margin-top:-6px;box-shadow:0 0 0 4px rgba(255,79,181,.15),0 0 16px rgba(255,79,181,.35);cursor:pointer}
+.range-value{text-align:right;color:var(--pink2);font-size:12px;font-weight:800}
+.preset-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px}
+.preset-btn{
+  height:44px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.025);cursor:pointer;
+  text-transform:uppercase;font-size:11px;font-weight:850;letter-spacing:.12em;color:var(--muted);transition:.10s var(--ease)
+}
+.preset-btn:hover,.preset-btn.active{color:#fff;border-color:rgba(255,126,205,.35);background:linear-gradient(90deg,rgba(255,79,181,.13),rgba(152,93,255,.08));transform:translateY(-2px)}
+.category-note{
+  padding:12px 14px;border-radius:13px;border:1px solid rgba(110,238,255,.1);background:rgba(110,238,255,.035);
+  color:#bcd6dc;font-size:11px;line-height:1.45;margin-bottom:14px
+}
+.lang-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.lang-card{
+  border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.02);border-radius:14px;min-height:58px;
+  display:flex;align-items:center;justify-content:space-between;padding:0 15px;cursor:pointer;transition:.10s var(--ease)
+}
+.lang-card:hover,.lang-card.active{border-color:rgba(255,126,205,.35);background:rgba(255,79,181,.08);transform:translateY(-2px)}
+.lang-code{font-size:10px;color:var(--pink2);letter-spacing:.2em}
+
+/* credits */
+.credits-body{padding:26px 30px 34px}
+.credits-intro{margin:0 0 16px;color:var(--muted);line-height:1.55;white-space:pre-wrap}.credits-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.credit-card{border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.02);border-radius:16px;padding:18px}
+.credit-role{font-size:10px;color:var(--pink2);letter-spacing:.22em;text-transform:uppercase}
+.credit-name{margin-top:6px;font-size:18px;font-weight:800}
+
+/* toast */
+.toast{
+  position:absolute;left:50%;bottom:28px;z-index:60;transform:translate(-50%,20px);opacity:0;
+  border:1px solid rgba(255,255,255,.12);background:rgba(12,8,18,.74);backdrop-filter:none;-webkit-backdrop-filter:none;
+  border-radius:999px;padding:12px 18px;font-size:12px;letter-spacing:.07em;pointer-events:none;transition:.12s var(--ease)
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.cursor-orb{display:none}
+
+@keyframes ambient{to{transform:translate3d(2.5%,-1.5%,0) scale(1.06)}}
+@keyframes reveal{to{opacity:1;transform:none}}
+@keyframes revealX{to{opacity:1;transform:translateX(0)}}
+@keyframes cardIn{to{opacity:1;transform:rotateY(-6deg) rotateX(2deg) translateY(0)}}
+@keyframes scan{0%{top:0}100%{top:100%}}
+@keyframes pulse{50%{transform:scale(1.55);opacity:.45}}
+@keyframes sectionIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(max-width:920px){
+  body{overflow:auto}
+  .shell{min-height:100vh;height:auto;grid-template-columns:1fr;padding:28px 20px 48px}
+  .right{min-height:auto}.news-card{width:min(100%,560px);transform:none}
+  .modes-grid{grid-template-columns:1fr}.mode-card{min-height:200px}.mode-card h3{margin-top:45px}
+  .settings-layout{grid-template-columns:1fr}.settings-nav{display:grid;grid-template-columns:repeat(4,1fr);border-right:0;border-bottom:1px solid rgba(255,255,255,.08);padding:10px}
+  .settings-tab{justify-content:center;padding:0}.settings-tab span:last-child{display:none}
+  .setting-row{grid-template-columns:1fr;gap:10px}.switch{justify-self:start}.lang-grid{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* 1.28 editor-only shop tools + chest inventory */
+.shop-dev-toggle{display:none;position:fixed;right:34px;top:28px;z-index:10050}#shopOverlay:not(.open) .shop-dev-toggle{display:none!important}.shop-dev-toggle.show{display:inline-flex;border-color:rgba(96,255,196,.38);color:#9dffd7;background:rgba(36,155,107,.16);box-shadow:0 10px 32px rgba(0,0,0,.28)}.shop-dev-panel{display:none;margin:0 0 18px;padding:15px 16px;border:1px solid rgba(96,255,196,.26);border-radius:18px;background:linear-gradient(135deg,rgba(35,160,105,.12),rgba(154,108,255,.05))}.shop-dev-panel.open{display:block}.shop-dev-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:10px}.shop-dev-head b{color:#9dffd7;letter-spacing:.12em}.shop-dev-head small{display:block;color:var(--muted);margin-top:4px}.shop-dev-actions{display:flex;flex-wrap:wrap;gap:9px}.shop-chest-summary{margin:0 0 20px}.shop-chest-summary-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.shop-chest-chip{padding:10px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.025);display:grid;grid-template-columns:46px 1fr;gap:8px;align-items:center}.shop-chest-chip img{width:46px;height:46px;object-fit:cover;object-position:center center}.shop-chest-chip b{font-size:12px}.shop-chest-chip span{display:block;color:#ffd85e;font-weight:900;margin:2px 0 5px}.shop-chest-chip button{font-size:10px;padding:6px 8px;min-height:0}@media(max-width:900px){.shop-chest-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.shop-header-actions .close{position:static;flex:0 0 44px}.shop-header-actions{display:flex;align-items:center;gap:12px;margin-left:auto}.shop-header-actions .shop-dev-toggle{position:static;width:auto;min-width:180px;padding:8px 16px}.shop-dev-panel{max-height:230px;overflow:auto}.shop-dev-actions input{width:135px}#challengeGames{max-height:65vh;overflow:auto}.fnop-settings-confirmed{padding:8px 14px;font-size:11px;opacity:.75}.panel{background-color:rgba(12,9,22,.94)}
+
+.menu-btn.fnop-coming-soon{opacity:.46!important;filter:saturate(.35);cursor:not-allowed;pointer-events:none;border-color:rgba(255,255,255,.08)}
+.menu-btn.fnop-coming-soon .menu-label{display:flex;flex-direction:column;align-items:flex-start;gap:2px}
+.menu-btn.fnop-coming-soon .coming-sub{font-size:9px;letter-spacing:.14em;color:var(--muted);font-weight:800}
+.mode-card.fnop-coming-soon{opacity:.48;filter:saturate(.35);pointer-events:none;position:relative}
+.mode-card.fnop-coming-soon::after{content:attr(data-coming-label);display:block;margin-top:8px;font-size:10px;letter-spacing:.12em;color:var(--muted);font-weight:800}
+
+/* FNOP FIX9 - Misiones Challenge persistentes y reclamables. */
+.missions-panel{width:min(1080px,calc(100vw - 44px));height:min(780px,calc(100vh - 44px));display:flex;flex-direction:column;overflow:hidden}
+.missions-intro{margin:-4px 26px 4px;color:var(--muted);font-size:13px;line-height:1.5;max-width:760px}
+.missions-grid{padding:22px 26px 30px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;overflow:auto;align-content:start}
+.mission-card{--mission-accent:#ff55b9;position:relative;min-height:264px;padding:22px;border:1px solid var(--mission-accent);border-radius:24px;background:radial-gradient(circle at 84% 12%,rgba(255,255,255,.07),transparent 38%),linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.014));overflow:hidden;display:flex;flex-direction:column;gap:11px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.025),0 18px 46px rgba(0,0,0,.18)}
+.mission-card::after{content:"";position:absolute;inset:auto -20% -55% 20%;height:150px;background:radial-gradient(ellipse,var(--mission-accent),transparent 66%);opacity:.12;pointer-events:none}
+.mission-card.completed{box-shadow:0 0 24px var(--mission-accent),inset 0 0 22px rgba(255,255,255,.035);animation:missionReady 1.9s ease-in-out infinite alternate}
+.mission-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.mission-game{font-size:11px;letter-spacing:.19em;text-transform:uppercase;color:var(--muted);font-weight:800}
+.mission-status{font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:6px 9px;border-radius:999px;border:1px solid rgba(255,255,255,.11);white-space:nowrap}
+.mission-card.completed .mission-status{color:var(--success);border-color:rgba(141,255,178,.4);background:rgba(141,255,178,.07)}
+.mission-goal{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.72)}
+.mission-time{font-size:clamp(34px,4.2vw,58px);line-height:.9;font-weight:950;letter-spacing:-.045em;color:#fff;text-shadow:0 0 18px var(--mission-accent)}
+.mission-best{font-size:11px;color:var(--muted);min-height:17px}
+.mission-reward{margin-top:auto;display:flex;align-items:flex-end;justify-content:space-between;gap:14px;position:relative;z-index:1}
+.mission-reward-info{display:flex;align-items:center;gap:11px;min-width:0}
+.mission-reward-img{width:62px;height:62px;object-fit:contain;border-radius:16px;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.18);filter:drop-shadow(0 0 9px var(--mission-accent))}
+.mission-reward-copy{min-width:0}.mission-reward-label{font-size:9px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase}.mission-reward-name{font-size:15px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:230px}
+.mission-claim{width:auto;min-width:142px;padding:0 15px;white-space:nowrap}
+.mission-claim:not(:disabled){border-color:var(--mission-accent);box-shadow:0 0 14px var(--mission-accent)}
+.missions-empty{grid-column:1/-1;padding:46px 24px;text-align:center;border:1px dashed rgba(255,255,255,.14);border-radius:22px;color:var(--muted)}
+@keyframes missionReady{from{transform:translateY(0)}to{transform:translateY(-2px)}}
+@media(max-width:820px){.missions-grid{grid-template-columns:1fr}.mission-card{min-height:240px}}
+
+</style>
+</head>
+<body>
+<canvas id="fx" aria-hidden="true"></canvas>
+<div class="ambient"></div>
+<div class="fx-vignette"></div>
+<div class="grain"></div>
+<div class="intro-logo" aria-hidden="true"><div class="intro-title"><span>FNOP ULTIMATE</span></div></div>
+
+<main class="shell">
+  <section class="left">
+    <div class="brand">
+      <h1><span>FNOP ULTIMATE</span></h1>
+      <div class="early-access-badge" data-i18n="earlyAccess">ACCESO ANTICIPADO</div>
+      
+    </div>
+
+    <nav class="menu">
+      <button class="menu-btn" id="openModes"><span class="menu-label"><span data-i18n="gameModes">MODOS DE JUEGO</span></span></button>
+      <button class="menu-btn fnop-coming-soon" id="multiplayerSoon" type="button" disabled aria-disabled="true"><span class="menu-label"><span data-i18n="multiplayer">MULTIPLAYER</span><span class="coming-sub" data-i18n="multiplayerSoon">PRÓXIMAMENTE · DICIEMBRE EN STEAM</span></span></button>
+      <button class="menu-btn" id="openShop"><span class="menu-label"><span data-i18n="shop">TIENDA</span></span></button>
+      <button class="menu-btn" id="openChests"><span class="menu-label"><span data-i18n="chests">COFRES</span></span></button>
+      <button class="menu-btn" id="openMissions"><span class="menu-label"><span data-i18n="missions">MISIONES</span></span></button>
+      <button class="menu-btn" id="openAvatar"><span class="menu-label"><span>AVATAR</span></span></button>
+      <button class="menu-btn" id="openSettings"><span class="menu-label"><span data-i18n="settings">AJUSTES</span></span></button>
+      <button class="menu-btn" id="openCredits"><span class="menu-label"><span data-i18n="credits">CRÉDITOS</span></span></button>
+      <button class="menu-btn" id="exitBtn"><span class="menu-label"><span data-i18n="exit">SALIR</span></span></button>
+    </nav>
+  </section>
+
+  <aside class="right">
+    <article class="news-card" id="newsCard" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="mainNewsModal">
+      <div class="news-media">
+        <!-- Cambia este bloque por tu imagen:
+        <img src="TU-IMAGEN.jpg" alt="Noticia de Fnop Ultimate">
+        -->
+        <div class="placeholder" data-i18n="imagePlaceholder">COLOCA AQUÍ LA IMAGEN DE LA NOTICIA</div>
+        <div class="scan"></div>
+      </div>
+      <div class="news-body">
+        <div class="news-label" data-i18n="news">NOTICIAS</div>
+        <h2 class="news-title" data-i18n="newsTitle">Novedades de Fnop Ultimate</h2>
+        <p class="news-text" data-i18n="newsText">Usa este espacio para mostrar actualizaciones, nuevos contenidos, eventos, cambios de versión o anuncios del juego.</p>
+        <div class="news-meta"><span class="news-dot"></span><span data-i18n="latestNews">ÚLTIMAS NOVEDADES</span></div>
+      </div>
+    </article>
+  </aside>
+</main>
+
+<!-- FNOP_MAIN_NEWS_MODAL_V1: visor grande de la noticia derecha. -->
+<div class="main-news-modal" id="mainNewsModal" role="dialog" aria-modal="true" aria-labelledby="mainNewsModalTitle" aria-hidden="true">
+  <section class="main-news-dialog" role="document">
+    <button type="button" class="main-news-close" id="mainNewsClose" aria-label="Cerrar">&#10005;</button>
+    <div class="main-news-modal-media" id="mainNewsModalMedia"></div>
+    <div class="main-news-modal-copy" id="mainNewsModalCopy">
+      <div class="main-news-modal-label" id="mainNewsModalLabel"></div>
+      <h2 class="main-news-modal-title" id="mainNewsModalTitle"></h2>
+      <p class="main-news-modal-text" id="mainNewsModalText"></p>
+      <div class="main-news-modal-meta"><span class="news-dot"></span><span id="mainNewsModalMeta"></span></div>
+    </div>
+  </section>
+</div>
+
+<!-- MODOS -->
+<div class="overlay" id="modesOverlay">
+  <section class="panel">
+    <header class="panel-head">
+      <div>
+        <div class="kicker" data-i18n="chooseExperience">ELIGE TU EXPERIENCIA</div>
+        <h2 data-i18n="gameModes">MODOS DE JUEGO</h2>
+      </div>
+      <button class="close" data-close="modesOverlay">✕</button>
+    </header>
+    <div class="modes-grid">
+      <article class="mode-card" data-mode="challenge">
+        
+        <h3 data-i18n="challenge">MODO CHALLENGE</h3>
+        
+        
+      </article>
+<article class="mode-card" data-mode="free">
+        
+        <h3 data-i18n="free">MODO LIBRE</h3>
+        
+        
+      </article>
+<article class="mode-card fnop-coming-soon" data-coming-label="PRÓXIMAMENTE · DICIEMBRE EN STEAM" id="multiplayerModeSoon">
+        <h3 data-i18n="multiplayer">MULTIPLAYER</h3>
+      </article>
+    </div>
+  </section>
+</div>
+
+
+<div class="overlay" id="challengeOverlay"><section class="panel commerce-panel"><header class="panel-head"><div><div class="kicker">CHALLENGE</div><h2 data-i18n="challenge">MODO CHALLENGE</h2></div><button class="close" data-close="challengeOverlay">✕</button></header><div class="modes-grid" id="challengeGames"><p>Esperando el catálogo de Unreal...</p></div></section></div>
+
+<!-- FNOP FIX9 - MISIONES CHALLENGE -->
+<div class="overlay" id="missionsOverlay">
+  <section class="panel missions-panel">
+    <header class="panel-head"><div><div class="kicker">CHALLENGE // MISSIONS</div><h2 data-i18n="missions">MISIONES</h2></div><button class="close" data-close="missionsOverlay">✕</button></header>
+    <p class="missions-intro" data-i18n="missionsHint">Completa los minijuegos Challenge antes del tiempo objetivo. Cada misión conserva su cofre hasta que la reclames.</p>
+    <div class="missions-grid" id="missionGames"></div>
+  </section>
+</div>
+
+<!-- TIENDA GLOBAL -->
+<div class="overlay" id="shopOverlay">
+  <section class="panel commerce-panel">
+    <header class="panel-head"><div><div class="kicker">LIVE OPS // GLOBAL</div><h2 data-i18n="shop">TIENDA</h2></div><div class="shop-header-actions"><!-- FNOP_EDITOR_ONLY_BEGIN --><button type="button" class="commerce-buy shop-dev-toggle" id="menuShopDevToggle" hidden>🛠 <span data-fnop-i18n="dev.mode">MODO DESARROLLADOR</span></button><!-- FNOP_EDITOR_ONLY_END --><button class="close" data-close="shopOverlay">✕</button></div></header>
+    <div class="commerce-toolbar">
+      <span class="commerce-pill commerce-sync" id="shopSync" hidden></span>
+      <span class="commerce-pill"><span id="shopNextLabel">SIGUIENTE CAMBIO</span> <b id="shopTimer">--</b></span>
+      <button type="button" class="commerce-buy" id="shopPatreon" style="width:auto;padding:0 16px">CONECTAR PATREON</button>
+      <div class="shop-wallet"><small id="shopCoinsLabel">TUS MONEDAS</small><b><span class="shop-coin-dot"></span><span id="shopCoins">0</span></b></div>
+    </div>
+    <!-- FNOP_EDITOR_ONLY_BEGIN --><section class="shop-dev-panel" id="menuShopDevPanel">
+      <div class="shop-dev-head"><div><b id="menuShopDevTitle" data-fnop-i18n="dev.mode">MODO DESARROLLADOR</b><small id="menuShopDevOnly" data-fnop-i18n="dev.editorOnly">SOLO DISPONIBLE DESDE UNREAL EDITOR</small></div></div>
+      <div class="shop-dev-actions"><label for="menuShopDevAmount" data-fnop-i18n="dev.coinAmount">Cantidad de monedas</label><input class="game-select" id="menuShopDevAmount" type="number" min="1" max="1000000" step="1" value="1000"><button type="button" class="commerce-buy" data-dev="custom" data-fnop-i18n="dev.addCoins">AÑADIR MONEDAS</button>
+        <button type="button" class="commerce-buy" data-dev="coins1000" data-fnop-i18n="dev.addCoins1k">AÑADIR MONEDAS +1.000</button>
+        <button type="button" class="commerce-buy" data-dev="coins10000" data-fnop-i18n="dev.addCoins10k">AÑADIR MONEDAS +10.000</button>
+        <button type="button" class="commerce-buy" data-dev="spins" data-fnop-i18n="dev.addSpins">AÑADIR TIRADAS +10</button>
+        <button type="button" class="commerce-buy" data-dev="chests" data-fnop-i18n="dev.addChests">AÑADIR COFRES DE PRUEBA</button>
+        <button type="button" class="commerce-buy" data-dev="reset" data-fnop-i18n="dev.reset">REINICIAR PROGRESO LOCAL</button>
+      </div>
+    </section><!-- FNOP_EDITOR_ONLY_END -->
+    <div class="commerce-scroll">
+      <div class="shop-news-wrap" id="menuShopNewsWrap" hidden><div class="shop-news-label" id="menuShopNewsLabel">NOVEDADES</div><div class="shop-news-strip" id="menuShopNews"></div></div>
+      <div id="menuShopSections"></div><div class="commerce-grid chest-grid" id="shopChestInventory"></div>
+    </div>
+    <div class="commerce-status" id="shopStatus"></div>
+    <div class="shop-news-modal" id="menuShopNewsModal"><div class="shop-news-full"><div class="shop-news-full-media" id="menuShopNewsFullMedia"></div><div class="shop-news-full-copy"><h2 id="menuShopNewsFullTitle"></h2><p id="menuShopNewsFullText"></p><button type="button" class="commerce-buy" id="menuShopNewsClose">CERRAR</button></div></div></div>
+    <div class="purchase-stage" id="menuPurchaseStage"><div class="purchase-particles"></div><div class="purchase-media" id="menuPurchaseMedia"></div><div class="purchase-copy"><div class="kicker" id="menuPurchaseAcquired">ADQUIRIDO</div><h2 id="menuPurchaseTitle"></h2><p id="menuPurchaseDescription"></p><button type="button" class="commerce-buy" id="menuPurchaseAccept">ACEPTAR</button></div></div>
+  </section>
+</div>
+
+<!-- COFRES DEL INVENTARIO: la presentacion 3D ocurre en el mapa de menu -->
+<div class="overlay" id="chestsOverlay">
+  <section class="panel commerce-panel">
+    <header class="panel-head"><div><div class="kicker" data-i18n="inventoryPresentation">INVENTARIO // PRESENTACIÓN 3D</div><h2 data-i18n="chests">COFRES</h2></div><button class="close" data-close="chestsOverlay">✕</button></header>
+    <div class="commerce-toolbar"><span class="commerce-pill" data-i18n="chestHint">DESKTOP: CÁMARA DEL MENÚ · VR: DELANTE DEL JUGADOR</span></div>
+    <div class="commerce-grid chest-grid" id="menuChestGrid"></div>
+    <div class="commerce-status" data-i18n="chestConsumeNote">Los cofres se consumen al reservar la apertura y la recompensa se concede al aparecer.</div>
+  </section>
+</div>
+
+<!-- AJUSTES -->
+<!-- FNOP_SHARED_SETTINGS_BEGIN -->
+<div class="overlay" id="settingsOverlay">
+  <section class="panel">
+    <header class="panel-head">
+      <div>
+        <div class="kicker" data-i18n="configuration">CONFIGURACIÓN DEL JUEGO</div>
+        <h2 data-i18n="settings">AJUSTES</h2>
+      </div>
+      <button class="close" data-close="settingsOverlay">✕</button>
+    </header>
+
+    <div class="settings-layout">
+      <aside class="settings-nav">
+        <button class="settings-tab active" data-tab="display"><span class="settings-icon">▣</span><span data-i18n="display">PANTALLA</span></button>
+        <button class="settings-tab" data-tab="censorship"><span class="settings-icon">▦</span><span data-i18n="censorshipTab">CENSURA</span></button>
+        <button class="settings-tab" data-tab="graphics"><span class="settings-icon">✦</span><span data-i18n="graphics">GRÁFICOS</span></button>
+        <button class="settings-tab" data-tab="sound"><span class="settings-icon">♫</span><span data-i18n="sound">SONIDO</span></button>
+        <button class="settings-tab" data-tab="language"><span class="settings-icon">文</span><span data-i18n="language">IDIOMA</span></button>
+      </aside>
+
+      <div class="settings-content">
+        <div class="setting-row" id="vrCalibrationQuickRow" hidden style="position:sticky;top:0;z-index:80;margin:0 0 14px 0;background:rgba(18,18,24,.96);backdrop-filter:blur(10px);box-shadow:0 8px 22px rgba(0,0,0,.38)">
+          <div><div class="setting-name" id="vrCalibrationQuickTitle"></div><div class="setting-desc" id="vrCalibrationQuickDesc"></div><div class="setting-desc" id="vrCalibrationQuickStatus" style="margin-top:5px;color:var(--pink2)"></div></div>
+          <button class="commerce-buy" id="vrRecalibrateQuickBtn" type="button" style="min-width:180px"></button>
+        </div>
+        <!-- DISPLAY -->
+        <section class="settings-section active" data-section="display">
+          <div class="section-title">
+            <div><h3 data-i18n="display">Pantalla</h3><p data-i18n="displaySub">Configura cómo se muestra el juego.</p></div>
+          </div>
+          <div class="setting-list">
+            <div class="setting-row">
+              <div><div class="setting-name" data-i18n="displayMode">Modo de pantalla</div><div class="setting-desc" data-i18n="displayModeDesc">Cambia entre pantalla completa, ventana o ventana sin bordes.</div></div>
+              <select class="game-select" id="displayMode">
+                <option value="fullscreen" data-i18n-option="fullscreen">Pantalla completa</option>
+                <option value="windowed" data-i18n-option="windowed">Modo ventana</option>
+                <option value="borderless" data-i18n-option="borderless">Ventana sin bordes</option>
+              </select>
+            </div>
+            <div class="setting-row">
+              <div><div class="setting-name" data-i18n="resolution">Resolución</div><div class="setting-desc" data-i18n="resolutionDesc">Resolución de salida del juego.</div></div>
+              <select class="game-select" id="resolution">
+                <option value="3840x2160">3840 × 2160</option><option value="2560x1440">2560 × 1440</option><option value="1920x1080" selected>1920 × 1080</option><option value="1600x900">1600 × 900</option><option value="1280x720">1280 × 720</option>
+              </select>
+            </div>
+            <div class="setting-row">
+              <div><div class="setting-name" data-i18n="fpsLimit">Límite de FPS</div><div class="setting-desc" data-i18n="fpsLimitDesc">Limita la tasa máxima de fotogramas.</div></div>
+              <select class="game-select" id="fpsLimit">
+                <option value="30">30 FPS</option><option value="60">60 FPS</option><option value="120" selected>120 FPS</option><option value="144">144 FPS</option><option value="165">165 FPS</option><option value="240">240 FPS</option><option value="0" data-i18n-option="unlimited">Sin límite</option>
+              </select>
+            </div>
+            <div class="setting-row">
+              <div><div class="setting-name" data-i18n="vsync">Sincronización vertical</div><div class="setting-desc" data-i18n="vsyncDesc">Evita el tearing sincronizando los fotogramas con el monitor.</div></div>
+              <label class="switch"><input id="vsyncToggle" type="checkbox"><span class="slider-switch"></span></label>
+            </div>
+            <div class="setting-row" id="controlModeRow">
+              <div><div class="setting-name" id="controlModeTitle">MODO DE CONTROL</div><div class="setting-desc" id="controlModeDesc">Cambia entre PC y realidad virtual durante la partida.</div><div class="setting-desc" id="controlModeStatus" style="margin-top:5px;color:var(--pink2)">PC</div></div>
+              <button class="commerce-buy" id="controlModeSwitchBtn" type="button" data-target="vr" style="min-width:180px">CAMBIAR A VR</button>
+            </div>
+            <div class="setting-row" id="vrCalibrationRow" hidden>
+              <div><div class="setting-name" id="vrCalibrationTitle"></div><div class="setting-desc" id="vrCalibrationDesc"></div><div class="setting-desc" id="vrCalibrationStatus" style="margin-top:5px;color:var(--pink2)"></div></div>
+              <button class="commerce-buy" id="vrRecalibrateBtn" type="button" style="min-width:180px"></button>
+            </div>
+          </div>
+        </section>
+
+        <!-- CENSORSHIP -->
+        <section class="settings-section" data-section="censorship">
+          <div class="section-title">
+            <div><h3 data-i18n="censorshipTab">CENSURA</h3><p data-i18n="censorshipSettingsSub">Control global de la censura de personajes. Se guarda entre partidas.</p></div>
+          </div>
+          <div class="setting-list">
+            <div class="setting-row censorship-row">
+              <div><div class="setting-name" data-i18n="censorship">Modo censura</div><div class="setting-desc" data-i18n="censorshipDesc">Pixeliza las dos zonas configuradas de cada personaje. Activado por defecto.</div></div>
+              <div class="censor-toggle-control" aria-label="Modo censura">
+                <span class="censor-state-label">OFF</span>
+                <label class="switch"><input id="censorshipToggle" type="checkbox" checked><span class="slider-switch"></span></label>
+                <span class="censor-state-label censor-state-on">ON</span>
+              </div>
+            </div>
+            <div class="category-note" data-i18n="censorshipNote">ON muestra los dos bloques de pixelado configurados en cada personaje. OFF los oculta globalmente sin borrar su posición, hueso ni tamaño.</div>
+          </div>
+        </section>
+
+        <!-- GRAPHICS -->
+        <section class="settings-section" data-section="graphics">
+          <div class="section-title">
+            <div><h3 data-i18n="graphics">Gráficos</h3><p data-i18n="graphicsSub">Ajusta la calidad visual y el rendimiento.</p></div>
+          </div>
+
+          <div class="preset-strip">
+            <button class="preset-btn" data-preset="low" data-i18n="low">BAJO</button>
+            <button class="preset-btn" data-preset="medium" data-i18n="medium">MEDIO</button>
+            <button class="preset-btn" data-preset="high" data-i18n="high">ALTO</button>
+            <button class="preset-btn active" data-preset="epic" data-i18n="epic">ÉPICO</button>
+            <button class="preset-btn" data-preset="ultra" data-i18n="ultra">ULTRA</button>
+          </div>
+
+          <div class="category-note" data-i18n="graphicsNote">Los presets cambian todos los ajustes de calidad a la vez. Después puedes personalizar cada opción.</div>
+
+          <div class="category-note" id="renderProfileNotice">PC todo-en-uno usa DX12 + Deferred y sirve para monitor y PCVR. Lumen/Nanite/VSM/HWRT requieren reiniciar tras transformar.</div>
+          <div class="setting-list" style="margin-bottom:14px">
+            <div class="setting-row">
+              <div><div class="setting-name" data-i18n="rendererCurrent">RENDERER ACTUAL</div><div class="setting-desc" data-i18n="rendererCurrentDesc">Perfil real activo, no solo el nombre del preset.</div></div>
+              <div id="renderProfileValue" data-i18n="detecting" style="font-size:12px;color:var(--pink2);text-align:right;max-width:46%">DETECTANDO...</div>
+            </div>
+            <div class="setting-row">
+              <div><div class="setting-name" data-i18n="lumenPc">LUMEN · PC/PCVR</div><div class="setting-desc" data-i18n="lumenDesc">Lo controla Iluminación global. En Bajo se apaga; en VR standalone no está disponible.</div></div>
+              <label class="switch"><input id="lumenToggle" type="checkbox" checked><span class="slider-switch"></span></label>
+            </div>
+            <div class="setting-row">
+              <div><div class="setting-name" data-i18n="rayTracingPc">RAY TRACING · PC/PCVR</div><div class="setting-desc" data-i18n="rayTracingDesc">Hardware RT para Lumen con DX12. No está disponible en Quest/Pico standalone.</div></div>
+              <label class="switch"><input id="rayTracingToggle" type="checkbox"><span class="slider-switch"></span></label>
+            </div>
+          </div>
+
+          <div class="setting-list" style="margin-bottom:14px">
+            <div class="setting-row">
+              <div><div class="setting-name" data-fnop-i18n="settings.characterPanelBrightness">Brillo HTML de personajes</div><div class="setting-desc" data-fnop-i18n="settings.characterPanelBrightnessDesc">Ajusta la intensidad/emision de la textura del panel 3D de los personajes. No cambia el brillo del mundo.</div></div>
+              <div class="range-wrap"><input id="characterPanelBrightness" type="range" min="20" max="150" value="65"><span class="range-value" id="characterPanelBrightnessValue">65%</span></div>
+            </div>
+          </div>
+
+          <div class="setting-list" id="graphicsList">
+            <div class="setting-row">
+              <div><div class="setting-name" data-i18n="textures">Texturas</div><div class="setting-desc" data-i18n="texturesDesc">Calidad y detalle de las texturas.</div></div>
+              <select class="game-select graphics-select" data-graphics-key="textures"><option value="low" data-i18n-option="low">Bajo</option><option value="medium" data-i18n-option="medium">Medio</option><option value="high" data-i18n-option="high">Alto</option><option value="epic" data-i18n-option="epic" selected>Épico</option><option value="ultra" data-i18n-option="ultra">Ultra</option></select>
+            </div>
+            <div class="setting-row">
+              <div><div class="setting-name" data-i18n="shadows">Sombras</div><div class="setting-desc" data-i18n="shadowsDesc">Resolución, distancia y suavidad de las sombras.</div></div>
+              <select class="game-select graphics-select" data-graphics-key="shadows"><option value="low" data-i18n-option="low">Bajo</option><option value="medium" data-i18n-option="medium">Medio</option><option value="high" data-i18n-option="high">Alto</option><option value="epic" data-i18n-option="epic" selected>Épico</option><option value="ultra" data-i18n-option="ultra">Ultra</option></select>
+            </div>
+            <div class="setting-row">
+              <div><div class="setting-name" data-i18n="globalIllumination">Iluminación global</div><div class="setting-desc" data-i18n="globalIlluminationDesc">Calidad de la luz indirecta y rebotes de iluminación.</div></div>
+              <select class="game-select graphics-select" data-graphics-key="globalillumination"><option value="low" data-i18n-option="low">Bajo</option><option value="medium" data-i18n-option="medium">Medio</option><option value="high" data-i18n-option="high">Alto</option><option value="epic" data-i18n-option="epic" selected>Épico</option><option value="ultra" data-i18n-option="ultra">Ultra</option></select>
+            </div>
+            <div class="setting-row">
+              <div><div class="setting-name" data-i18n="antiAliasing">Anti-aliasing</div><div class="setting-desc" data-i18n="antiAliasingDesc">Suavizado de bordes y estabilidad de imagen.</div></div>
+              <select class="game-select" data-graphics-key="antialiasing">
+                <option value="off">Off</option><option value="fxaa">FXAA</option><option value="taa">TAA</option><option value="tsr" selected>TSR</option>
+              </select>
+            </div>
+            <div class="setting-row">
+              <div><div class="setting-name" data-i18n="effects">Efectos</div><div class="setting-desc" data-i18n="effectsDesc">Partículas, transparencias, bloom, color, profundidad de campo y postprocesado.</div></div>
+              <select class="game-select graphics-select" data-graphics-key="effects"><option value="low" data-i18n-option="low">Bajo</option><option value="medium" data-i18n-option="medium">Medio</option><option value="high" data-i18n-option="high">Alto</option><option value="epic" data-i18n-option="epic" selected>Épico</option><option value="ultra" data-i18n-option="ultra">Ultra</option></select>
+            </div>
+            <div class="setting-row">
+              <div><div class="setting-name" data-i18n="reflections">Reflejos</div><div class="setting-desc" data-i18n="reflectionsDesc">Calidad de reflejos en superficies y materiales.</div></div>
+              <select class="game-select graphics-select" data-graphics-key="reflections"><option value="low" data-i18n-option="low">Bajo</option><option value="medium" data-i18n-option="medium">Medio</option><option value="high" data-i18n-option="high">Alto</option><option value="epic" data-i18n-option="epic" selected>Épico</option><option value="ultra" data-i18n-option="ultra">Ultra</option></select>
+            </div>
+            <div class="setting-row">
+              <div><div class="setting-name" data-i18n="viewDistance">Distancia de dibujado</div><div class="setting-desc" data-i18n="viewDistanceDesc">Distancia a la que se muestran objetos y detalles.</div></div>
+              <select class="game-select graphics-select" data-graphics-key="viewdistance"><option value="low" data-i18n-option="low">Bajo</option><option value="medium" data-i18n-option="medium">Medio</option><option value="high" data-i18n-option="high">Alto</option><option value="epic" data-i18n-option="epic" selected>Épico</option><option value="ultra" data-i18n-option="ultra">Ultra</option></select>
+            </div>
+          </div>
+        </section>
+
+        <!-- SOUND -->
+        <section class="settings-section" data-section="sound">
+          <div class="section-title">
+            <div><h3 data-i18n="sound">Sonido</h3><p data-i18n="soundSub">Controla todo el audio del juego.</p></div>
+          </div>
+          <div class="setting-list">
+            <div class="setting-row">
+              <div><div class="setting-name" data-i18n="masterVolume">Volumen general</div><div class="setting-desc" data-i18n="masterVolumeDesc">Controla todo el audio del juego.</div></div>
+              <div class="range-wrap"><input type="range" min="0" max="100" value="85" data-value-target="masterValue"><span class="range-value" id="masterValue">85%</span></div>
+            </div>
+            <div class="setting-row">
+              <div><div class="setting-name" data-fnop-i18n="mic.title">Micrófono / voz / boca del avatar</div><div class="setting-desc" data-fnop-i18n="mic.desc">Activa el micrófono. El audio no se guarda; en multijugador se transmite como voz espacial desde la cabeza y mueve la boca del avatar PC o VR.</div><div class="setting-desc" id="microphoneDevice" data-fnop-i18n="mic.device">Entrada predeterminada del sistema / visor</div></div>
+              <label class="switch"><input type="checkbox" id="microphoneToggle"><span class="switch-ui"></span></label>
+            </div>
+            <div class="setting-row">
+              <div><div class="setting-name" data-fnop-i18n="mic.deviceTitle">Dispositivo de entrada</div><div class="setting-desc" data-fnop-i18n="mic.deviceDesc">Elige el micrófono que usará FNOP.</div></div>
+              <select class="game-select" id="microphoneDeviceSelect"><option value="-1" data-fnop-i18n="mic.deviceDefault">Predeterminado del sistema / visor</option></select>
+            </div>
+            <div class="setting-row">
+              <div><div class="setting-name" data-fnop-i18n="mic.mode">Modo de transmisión</div><div class="setting-desc" data-fnop-i18n="mic.modeDesc">Elige activación por voz, pulsar para hablar o micrófono siempre abierto.</div></div>
+              <select class="game-select" id="voiceMode"><option value="vad" data-fnop-i18n="mic.modeVad">Activación por voz</option><option value="ptt" data-fnop-i18n="mic.modePtt">Pulsar para hablar</option><option value="open" data-fnop-i18n="mic.modeOpen">Siempre abierto</option></select>
+            </div>
+            <div class="setting-row" id="voiceThresholdRow">
+              <div><div class="setting-name" data-fnop-i18n="mic.threshold">Umbral de activación</div><div class="setting-desc" data-fnop-i18n="mic.thresholdDesc">Ignora ruido por debajo de este nivel al usar activación por voz.</div></div>
+              <div class="range-wrap"><input id="voiceThreshold" type="range" min="1" max="95" value="8"><span class="range-value" id="voiceThresholdValue">8%</span></div>
+            </div>
+            <div class="setting-row" id="voicePttRow">
+              <div><div class="setting-name" data-fnop-i18n="mic.pttKey">Tecla para hablar</div><div class="setting-desc" data-fnop-i18n="mic.pttKeyDesc">Se usa cuando el modo es Pulsar para hablar.</div></div>
+              <select class="game-select" id="voicePttKey"><option value="V">V</option><option value="T">T</option><option value="B">B</option><option value="LeftAlt">Alt izq.</option><option value="LeftControl">Ctrl izq.</option><option value="LeftShift">Shift izq.</option><option value="MiddleMouseButton">Botón central</option><option value="ThumbMouseButton">Ratón 4</option><option value="ThumbMouseButton2">Ratón 5</option></select>
+            </div>
+            <div class="setting-row">
+              <div><div class="setting-name" data-fnop-i18n="mic.sensitivity">Sensibilidad del micrófono</div><div class="setting-desc" data-fnop-i18n="mic.sensitivityDesc">Ajusta cuánto se abre la boca con tu voz.</div></div>
+              <div class="range-wrap"><input id="microphoneSensitivity" type="range" min="25" max="400" value="100"><span class="range-value" id="microphoneSensitivityValue">100%</span></div>
+            </div>
+            <div class="setting-row">
+              <div><div class="setting-name" data-fnop-i18n="mic.level">Nivel de voz</div><div class="setting-desc" data-fnop-i18n="mic.levelDesc">Medidor local para calibrar el umbral y la apertura de boca.</div><div class="setting-desc" id="microphoneCaptureStatus">Micrófono desactivado</div></div>
+              <div style="width:220px"><div style="height:8px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden"><div id="microphoneMeterFill" style="height:100%;transform:scaleX(0);transform-origin:left;background:linear-gradient(90deg,#6eeeff,#ff6e9d);transition:transform .08s linear"></div></div><div id="microphoneMeterValue" class="range-value" style="margin-top:5px;text-align:right">0%</div><button class="secondary-btn" id="microphoneTestBtn" type="button" data-fnop-i18n="mic.test">PROBAR MICRÓFONO</button></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- LANGUAGE -->
+        <section class="settings-section" data-section="language">
+          <div class="section-title">
+            <div><h3 data-i18n="language">Idioma</h3><p data-i18n="languageSub">Cambia el idioma de toda la interfaz del juego.</p></div>
+          </div>
+          <div class="lang-grid">
+            <button class="lang-card active" data-lang="es"><span>Español</span><span class="lang-code">ES</span></button>
+            <button class="lang-card" data-lang="en"><span>English</span><span class="lang-code">EN</span></button>
+            <button class="lang-card" data-lang="fr"><span>Français</span><span class="lang-code">FR</span></button>
+            <button class="lang-card" data-lang="de"><span>Deutsch</span><span class="lang-code">DE</span></button>
+            <button class="lang-card" data-lang="it"><span>Italiano</span><span class="lang-code">IT</span></button>
+            <button class="lang-card" data-lang="pt"><span>Português</span><span class="lang-code">PT</span></button>
+            <button class="lang-card" data-lang="ja"><span>日本語</span><span class="lang-code">JA</span></button>
+            <button class="lang-card" data-lang="ko"><span>한국어</span><span class="lang-code">KO</span></button>
+            <button class="lang-card" data-lang="zh-Hans"><span>简体中文</span><span class="lang-code">ZH-S</span></button>
+            <button class="lang-card" data-lang="zh-Hant"><span>繁體中文</span><span class="lang-code">ZH-T</span></button>
+            <button class="lang-card" data-lang="ru"><span>Русский</span><span class="lang-code">RU</span></button>
+            <button class="lang-card" data-lang="pl"><span>Polski</span><span class="lang-code">PL</span></button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- FNOP_SHARED_SETTINGS_END -->
+<!-- CREDITOS -->
+<div class="overlay" id="creditsOverlay">
+  <section class="panel" style="width:min(720px,calc(100vw - 44px))">
+    <header class="panel-head">
+      <div><div class="kicker">FNOP ULTIMATE</div><h2 id="creditsTitle" data-i18n="credits">CRÉDITOS</h2></div>
+      <button class="close" data-close="creditsOverlay">✕</button>
+    </header>
+    <div class="credits-body">
+      <p id="creditsIntro" class="credits-intro" style="display:none"></p>
+      <div class="credits-grid" id="creditsGrid">
+        <div class="credit-card"><div class="credit-role" data-i18n="direction">Dirección</div><div class="credit-name">Tu equipo</div></div>
+        <div class="credit-card"><div class="credit-role" data-i18n="art">Arte</div><div class="credit-name">Tu equipo</div></div>
+        <div class="credit-card"><div class="credit-role" data-i18n="programming">Programación</div><div class="credit-name">Tu equipo</div></div>
+        <div class="credit-card"><div class="credit-role" data-i18n="audio">Audio</div><div class="credit-name">Tu equipo</div></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+window.__FNOP_INITIAL_SHOP__ = null;
+// 1.17.0.103: arm the cinematic hand-off BEFORE any optional shop/language code.
+// If one of those later initializers throws inside CEF, this timer still fires and
+// the main menu cannot remain frozen with the logo parked in the upper-left corner.
+const reduceMotion=window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+let __fnopMenuReadySent=false;
+function __fnopRevealMainMenu(){
+  document.body.classList.add('intro-ready');
+  if(__fnopMenuReadySent)return;
+  try{
+    const shell=document.querySelector('.shell');
+    const r=shell?.getBoundingClientRect?.();
+    const st=shell?getComputedStyle(shell):null;
+    if(shell&&r&&r.width>20&&r.height>20&&st&&st.display!=='none'&&st.visibility!=='hidden'&&Number(st.opacity||1)>.05){
+      __fnopMenuReadySent=true;
+      fnopNativeAction('menuready','1');
+    }
+  }catch(e){console.error('[FNOP intro watchdog]',e)}
+}
+if(reduceMotion)__fnopRevealMainMenu();else setTimeout(__fnopRevealMainMenu,1320);
+/* FNOP_SHARED_LANGUAGE_BEGIN */
+const translations = {
+es:{tagline:"Elige un modo y entra en partida.",gameModes:"MODOS DE JUEGO",settings:"AJUSTES",credits:"CRÉDITOS",exit:"SALIR",
+ imagePlaceholder:"COLOCA AQUÍ LA IMAGEN DE LA NOTICIA",news:"NOTICIAS",newsTitle:"Novedades de Fnop Ultimate",newsText:"Usa este espacio para mostrar actualizaciones, nuevos contenidos, eventos, cambios de versión o anuncios del juego.",latestNews:"ÚLTIMAS NOVEDADES",
+ chooseExperience:"ELIGE TU EXPERIENCIA",challenge:"MODO CHALLENGE",challengeDesc:"Pruebas rápidas, objetivos exigentes y dificultad creciente.",restaurant:"MODO RESTAURANTE",restaurantDesc:"Gestiona el ritmo, los pedidos y el servicio de principio a fin.",free:"MODO LIBRE",freeDesc:"Juega sin presión, explora sistemas y experimenta libremente.",
+ configuration:"CONFIGURACIÓN DEL JUEGO",display:"PANTALLA",graphics:"GRÁFICOS",sound:"SONIDO",language:"IDIOMA",displaySub:"Configura cómo se muestra el juego.",graphicsSub:"Ajusta la calidad visual y el rendimiento.",soundSub:"Controla todo el audio del juego.",languageSub:"Cambia el idioma de toda la interfaz del juego.",
+ displayMode:"Modo de pantalla",displayModeDesc:"Cambia entre pantalla completa, ventana o ventana sin bordes.",fullscreen:"Pantalla completa",windowed:"Modo ventana",borderless:"Ventana sin bordes",resolution:"Resolución",resolutionDesc:"Resolución de salida del juego.",fpsLimit:"Límite de FPS",fpsLimitDesc:"Limita la tasa máxima de fotogramas.",unlimited:"Sin límite",vsync:"Sincronización vertical",vsyncDesc:"Evita el tearing sincronizando los fotogramas con el monitor.",
+ low:"Bajo",medium:"Medio",epic:"Épico",ultra:"Ultra",graphicsNote:"Los presets cambian todos los ajustes de calidad a la vez. Después puedes personalizar cada opción.",textures:"Texturas",texturesDesc:"Calidad y detalle de las texturas.",shadows:"Sombras",shadowsDesc:"Resolución, distancia y suavidad de las sombras.",globalIllumination:"Iluminación global",globalIlluminationDesc:"Calidad de la luz indirecta y rebotes de iluminación.",antiAliasing:"Anti-aliasing",antiAliasingDesc:"Suavizado de bordes y estabilidad de imagen.",effects:"Efectos",effectsDesc:"Partículas, transparencias, bloom, color, profundidad de campo y postprocesado.",postProcessing:"Postprocesado",postProcessingDesc:"Bloom, profundidad de campo, color y efectos de cámara.",reflections:"Reflejos",reflectionsDesc:"Calidad de reflejos en superficies y materiales.",viewDistance:"Distancia de dibujado",viewDistanceDesc:"Distancia a la que se muestran objetos y detalles.",
+ masterVolume:"Volumen general",masterVolumeDesc:"Controla todo el audio del juego.",musicVolume:"Música",musicVolumeDesc:"Controla el volumen de la banda sonora y la música del menú.",direction:"Dirección",art:"Arte",programming:"Programación",audio:"Audio",
+ inventoryPresentation:"INVENTARIO // PRESENTACIÓN 3D",rendererCurrent:"RENDERER ACTUAL",rendererCurrentDesc:"Perfil real activo, no solo el nombre del preset.",detecting:"DETECTANDO...",lumenPc:"LUMEN · PC/PCVR",lumenDesc:"Lo controla Iluminación global. En Bajo se apaga; en VR standalone no está disponible.",rayTracingPc:"RAY TRACING · PC/PCVR",rayTracingDesc:"Hardware RT para Lumen con DX12. No está disponible en Quest/Pico standalone.",
+ selectedMode:"Modo seleccionado",exitRequested:"Salida solicitada"
+},
+en:{tagline:"Choose a mode and jump into the game.",gameModes:"GAME MODES",settings:"SETTINGS",credits:"CREDITS",exit:"EXIT",
+ imagePlaceholder:"PLACE THE NEWS IMAGE HERE",news:"NEWS",newsTitle:"Fnop Ultimate News",newsText:"Use this space for updates, new content, events, version changes or announcements from the game.",latestNews:"LATEST NEWS",
+ chooseExperience:"CHOOSE YOUR EXPERIENCE",challenge:"CHALLENGE MODE",challengeDesc:"Fast trials, demanding objectives and increasing difficulty.",restaurant:"RESTAURANT MODE",restaurantDesc:"Manage the pace, orders and service from start to finish.",free:"FREE MODE",freeDesc:"Play without pressure, explore systems and experiment freely.",
+ configuration:"GAME SETTINGS",display:"DISPLAY",graphics:"GRAPHICS",sound:"AUDIO",language:"LANGUAGE",displaySub:"Configure how the game is displayed.",graphicsSub:"Adjust visual quality and performance.",soundSub:"Control master volume and music.",languageSub:"Change the language of the entire game interface.",
+ displayMode:"Display mode",displayModeDesc:"Switch between fullscreen, windowed or borderless window.",fullscreen:"Fullscreen",windowed:"Windowed",borderless:"Borderless window",resolution:"Resolution",resolutionDesc:"Game output resolution.",fpsLimit:"FPS limit",fpsLimitDesc:"Limits the maximum frame rate.",unlimited:"Unlimited",vsync:"Vertical synchronization",vsyncDesc:"Prevents tearing by synchronizing frames with your monitor.",
+ low:"Low",medium:"Medium",epic:"Epic",ultra:"Ultra",graphicsNote:"Presets change all quality settings at once. You can customize each option afterwards.",textures:"Textures",texturesDesc:"Texture quality and detail.",shadows:"Shadows",shadowsDesc:"Shadow resolution, distance and softness.",globalIllumination:"Global illumination",globalIlluminationDesc:"Quality of indirect light and light bounces.",antiAliasing:"Anti-aliasing",antiAliasingDesc:"Edge smoothing and image stability.",effects:"Effects",effectsDesc:"Particles, transparencies, bloom, color, depth of field and post processing.",postProcessing:"Post processing",postProcessingDesc:"Bloom, depth of field, color and camera effects.",reflections:"Reflections",reflectionsDesc:"Reflection quality on surfaces and materials.",viewDistance:"View distance",viewDistanceDesc:"Distance at which objects and details are rendered.",
+ masterVolume:"Master volume",masterVolumeDesc:"Controls all game audio.",musicVolume:"Music",musicVolumeDesc:"Controls soundtrack and menu music volume.",direction:"Direction",art:"Art",programming:"Programming",audio:"Audio",
+ inventoryPresentation:"INVENTORY // 3D PRESENTATION",rendererCurrent:"CURRENT RENDERER",rendererCurrentDesc:"Actual active profile, not just the preset name.",detecting:"DETECTING...",lumenPc:"LUMEN · PC/PCVR",lumenDesc:"Controlled by Global Illumination. Low disables it; it is unavailable on standalone VR.",rayTracingPc:"RAY TRACING · PC/PCVR",rayTracingDesc:"Hardware RT for Lumen with DX12. Unavailable on Quest/Pico standalone.",
+ selectedMode:"Selected mode",exitRequested:"Exit requested"
+},
+fr:{tagline:"Choisissez un mode et lancez la partie.",gameModes:"MODES DE JEU",settings:"PARAMÈTRES",credits:"CRÉDITS",exit:"QUITTER",
+ imagePlaceholder:"PLACEZ L’IMAGE DE L’ACTUALITÉ ICI",news:"ACTUALITÉS",newsTitle:"Actualités de Fnop Ultimate",newsText:"Utilisez cet espace pour les mises à jour, nouveaux contenus, événements, changements de version ou annonces du jeu.",latestNews:"DERNIÈRES NOUVEAUTÉS",
+ chooseExperience:"CHOISISSEZ VOTRE EXPÉRIENCE",challenge:"MODE CHALLENGE",challengeDesc:"Défis rapides, objectifs exigeants et difficulté croissante.",restaurant:"MODE RESTAURANT",restaurantDesc:"Gérez le rythme, les commandes et le service du début à la fin.",free:"MODE LIBRE",freeDesc:"Jouez sans pression, explorez les systèmes et expérimentez librement.",
+ configuration:"PARAMÈTRES DU JEU",display:"AFFICHAGE",graphics:"GRAPHISMES",sound:"SON",language:"LANGUE",displaySub:"Configurez l’affichage du jeu.",graphicsSub:"Réglez la qualité visuelle et les performances.",soundSub:"Contrôlez le volume général et la musique.",languageSub:"Changez la langue de toute l’interface du jeu.",
+ displayMode:"Mode d’affichage",displayModeDesc:"Passez du plein écran au mode fenêtré ou sans bordures.",fullscreen:"Plein écran",windowed:"Fenêtré",borderless:"Fenêtre sans bordures",resolution:"Résolution",resolutionDesc:"Résolution de sortie du jeu.",fpsLimit:"Limite de FPS",fpsLimitDesc:"Limite le nombre maximal d’images par seconde.",unlimited:"Illimité",vsync:"Synchronisation verticale",vsyncDesc:"Évite le tearing en synchronisant les images avec l’écran.",
+ low:"Bas",medium:"Moyen",epic:"Épique",ultra:"Ultra",graphicsNote:"Les préréglages modifient tous les paramètres de qualité. Vous pouvez ensuite personnaliser chaque option.",textures:"Textures",texturesDesc:"Qualité et détail des textures.",shadows:"Ombres",shadowsDesc:"Résolution, distance et douceur des ombres.",globalIllumination:"Illumination globale",globalIlluminationDesc:"Qualité de la lumière indirecte et des rebonds.",antiAliasing:"Anti-crénelage",antiAliasingDesc:"Lissage des bords et stabilité de l’image.",effects:"Effets",effectsDesc:"Qualité des particules, transparences et effets visuels.",postProcessing:"Post-traitement",postProcessingDesc:"Bloom, profondeur de champ, couleur et effets de caméra.",reflections:"Reflets",reflectionsDesc:"Qualité des reflets sur les surfaces et matériaux.",viewDistance:"Distance d’affichage",viewDistanceDesc:"Distance à laquelle les objets et détails sont affichés.",
+ masterVolume:"Volume général",masterVolumeDesc:"Contrôle tout le son du jeu.",musicVolume:"Musique",musicVolumeDesc:"Contrôle la bande-son et la musique du menu.",direction:"Direction",art:"Art",programming:"Programmation",audio:"Audio",
+ inventoryPresentation:"INVENTAIRE // PRÉSENTATION 3D",rendererCurrent:"MOTEUR DE RENDU ACTUEL",rendererCurrentDesc:"Profil réellement actif, pas seulement le nom du préréglage.",detecting:"DÉTECTION...",lumenPc:"LUMEN · PC/PCVR",lumenDesc:"Contrôlé par l’illumination globale. Le mode Bas le désactive; indisponible en VR autonome.",rayTracingPc:"RAY TRACING · PC/PCVR",rayTracingDesc:"RT matériel pour Lumen avec DX12. Indisponible sur Quest/Pico autonome.",
+ selectedMode:"Mode sélectionné",exitRequested:"Sortie demandée"
+},
+de:{tagline:"Wähle einen Modus und starte das Spiel.",gameModes:"SPIELMODI",settings:"EINSTELLUNGEN",credits:"CREDITS",exit:"BEENDEN",
+ imagePlaceholder:"NEWS-BILD HIER EINFÜGEN",news:"NEWS",newsTitle:"Fnop Ultimate News",newsText:"Nutze diesen Bereich für Updates, neue Inhalte, Events, Versionsänderungen oder Ankündigungen des Spiels.",latestNews:"AKTUELLE NEWS",
+ chooseExperience:"WÄHLE DEIN ERLEBNIS",challenge:"CHALLENGE-MODUS",challengeDesc:"Schnelle Prüfungen, anspruchsvolle Ziele und steigender Schwierigkeitsgrad.",restaurant:"RESTAURANT-MODUS",restaurantDesc:"Steuere Tempo, Bestellungen und Service von Anfang bis Ende.",free:"FREIER MODUS",freeDesc:"Spiele ohne Druck, erkunde Systeme und experimentiere frei.",
+ configuration:"SPIELEINSTELLUNGEN",display:"ANZEIGE",graphics:"GRAFIK",sound:"AUDIO",language:"SPRACHE",displaySub:"Konfiguriere die Darstellung des Spiels.",graphicsSub:"Passe Bildqualität und Leistung an.",soundSub:"Steuere Gesamtlautstärke und Musik.",languageSub:"Ändere die Sprache der gesamten Spieloberfläche.",
+ displayMode:"Anzeigemodus",displayModeDesc:"Wechsle zwischen Vollbild, Fenster und randlosem Fenster.",fullscreen:"Vollbild",windowed:"Fenster",borderless:"Randloses Fenster",resolution:"Auflösung",resolutionDesc:"Ausgabeauflösung des Spiels.",fpsLimit:"FPS-Limit",fpsLimitDesc:"Begrenzt die maximale Bildrate.",unlimited:"Unbegrenzt",vsync:"Vertikale Synchronisierung",vsyncDesc:"Verhindert Tearing durch Synchronisierung mit dem Monitor.",
+ low:"Niedrig",medium:"Mittel",epic:"Episch",ultra:"Ultra",graphicsNote:"Presets ändern alle Qualitätsoptionen gleichzeitig. Danach kannst du jede Option einzeln anpassen.",textures:"Texturen",texturesDesc:"Qualität und Detailgrad der Texturen.",shadows:"Schatten",shadowsDesc:"Auflösung, Entfernung und Weichheit der Schatten.",globalIllumination:"Globale Beleuchtung",globalIlluminationDesc:"Qualität von indirektem Licht und Lichtreflexionen.",antiAliasing:"Anti-Aliasing",antiAliasingDesc:"Kantenglättung und Bildstabilität.",effects:"Effekte",effectsDesc:"Qualität von Partikeln, Transparenzen und visuellen Effekten.",postProcessing:"Nachbearbeitung",postProcessingDesc:"Bloom, Tiefenschärfe, Farbe und Kameraeffekte.",reflections:"Reflexionen",reflectionsDesc:"Qualität von Reflexionen auf Oberflächen und Materialien.",viewDistance:"Sichtweite",viewDistanceDesc:"Entfernung, in der Objekte und Details dargestellt werden.",
+ masterVolume:"Gesamtlautstärke",masterVolumeDesc:"Steuert den gesamten Spielton.",musicVolume:"Musik",musicVolumeDesc:"Steuert Soundtrack und Menümusik.",direction:"Leitung",art:"Art",programming:"Programmierung",audio:"Audio",
+ inventoryPresentation:"INVENTAR // 3D-PRÄSENTATION",rendererCurrent:"AKTUELLER RENDERER",rendererCurrentDesc:"Tatsächlich aktives Profil, nicht nur der Preset-Name.",detecting:"ERKENNUNG...",lumenPc:"LUMEN · PC/PCVR",lumenDesc:"Wird von Globaler Beleuchtung gesteuert. Niedrig deaktiviert es; in Standalone-VR nicht verfügbar.",rayTracingPc:"RAY TRACING · PC/PCVR",rayTracingDesc:"Hardware-RT für Lumen mit DX12. Auf Quest/Pico Standalone nicht verfügbar.",
+ selectedMode:"Ausgewählter Modus",exitRequested:"Beenden angefordert"
+},
+it:{tagline:"Scegli una modalità ed entra in partita.",gameModes:"MODALITÀ DI GIOCO",settings:"IMPOSTAZIONI",credits:"CREDITI",exit:"ESCI",
+ imagePlaceholder:"INSERISCI QUI L’IMMAGINE DELLA NOTIZIA",news:"NOTIZIE",newsTitle:"Novità di Fnop Ultimate",newsText:"Usa questo spazio per aggiornamenti, nuovi contenuti, eventi, cambi di versione o annunci del gioco.",latestNews:"ULTIME NOVITÀ",
+ chooseExperience:"SCEGLI LA TUA ESPERIENZA",challenge:"MODALITÀ CHALLENGE",challengeDesc:"Prove rapide, obiettivi impegnativi e difficoltà crescente.",restaurant:"MODALITÀ RISTORANTE",restaurantDesc:"Gestisci ritmo, ordini e servizio dall’inizio alla fine.",free:"MODALITÀ LIBERA",freeDesc:"Gioca senza pressione, esplora i sistemi e sperimenta liberamente.",
+ configuration:"IMPOSTAZIONI DI GIOCO",display:"SCHERMO",graphics:"GRAFICA",sound:"AUDIO",language:"LINGUA",displaySub:"Configura la visualizzazione del gioco.",graphicsSub:"Regola qualità visiva e prestazioni.",soundSub:"Controlla volume generale e musica.",languageSub:"Cambia la lingua dell’intera interfaccia di gioco.",
+ displayMode:"Modalità schermo",displayModeDesc:"Passa tra schermo intero, finestra e finestra senza bordi.",fullscreen:"Schermo intero",windowed:"Finestra",borderless:"Finestra senza bordi",resolution:"Risoluzione",resolutionDesc:"Risoluzione di uscita del gioco.",fpsLimit:"Limite FPS",fpsLimitDesc:"Limita il frame rate massimo.",unlimited:"Illimitato",vsync:"Sincronizzazione verticale",vsyncDesc:"Evita il tearing sincronizzando i frame con il monitor.",
+ low:"Basso",medium:"Medio",epic:"Epico",ultra:"Ultra",graphicsNote:"I preset modificano tutte le opzioni di qualità insieme. Poi puoi personalizzare ogni impostazione.",textures:"Texture",texturesDesc:"Qualità e dettaglio delle texture.",shadows:"Ombre",shadowsDesc:"Risoluzione, distanza e morbidezza delle ombre.",globalIllumination:"Illuminazione globale",globalIlluminationDesc:"Qualità della luce indiretta e dei rimbalzi.",antiAliasing:"Anti-aliasing",antiAliasingDesc:"Smussatura dei bordi e stabilità dell’immagine.",effects:"Effetti",effectsDesc:"Qualità di particelle, trasparenze ed effetti visivi.",postProcessing:"Post-processing",postProcessingDesc:"Bloom, profondità di campo, colore ed effetti camera.",reflections:"Riflessi",reflectionsDesc:"Qualità dei riflessi su superfici e materiali.",viewDistance:"Distanza visiva",viewDistanceDesc:"Distanza alla quale vengono mostrati oggetti e dettagli.",
+ masterVolume:"Volume generale",masterVolumeDesc:"Controlla tutto l’audio del gioco.",musicVolume:"Musica",musicVolumeDesc:"Controlla colonna sonora e musica del menu.",direction:"Direzione",art:"Arte",programming:"Programmazione",audio:"Audio",
+ inventoryPresentation:"INVENTARIO // PRESENTAZIONE 3D",rendererCurrent:"RENDERER ATTUALE",rendererCurrentDesc:"Profilo realmente attivo, non solo il nome del preset.",detecting:"RILEVAMENTO...",lumenPc:"LUMEN · PC/PCVR",lumenDesc:"Controllato dall’illuminazione globale. Basso lo disattiva; non disponibile in VR standalone.",rayTracingPc:"RAY TRACING · PC/PCVR",rayTracingDesc:"RT hardware per Lumen con DX12. Non disponibile su Quest/Pico standalone.",
+ selectedMode:"Modalità selezionata",exitRequested:"Uscita richiesta"
+},
+pt:{tagline:"Escolha um modo e entre no jogo.",gameModes:"MODOS DE JOGO",settings:"AJUSTES",credits:"CRÉDITOS",exit:"SAIR",
+ imagePlaceholder:"COLOQUE A IMAGEM DA NOTÍCIA AQUI",news:"NOTÍCIAS",newsTitle:"Novidades de Fnop Ultimate",newsText:"Use este espaço para atualizações, novos conteúdos, eventos, mudanças de versão ou anúncios do jogo.",latestNews:"ÚLTIMAS NOVIDADES",
+ chooseExperience:"ESCOLHA SUA EXPERIÊNCIA",challenge:"MODO CHALLENGE",challengeDesc:"Desafios rápidos, objetivos exigentes e dificuldade crescente.",restaurant:"MODO RESTAURANTE",restaurantDesc:"Gerencie o ritmo, os pedidos e o atendimento do início ao fim.",free:"MODO LIVRE",freeDesc:"Jogue sem pressão, explore sistemas e experimente livremente.",
+ configuration:"CONFIGURAÇÕES DO JOGO",display:"TELA",graphics:"GRÁFICOS",sound:"SOM",language:"IDIOMA",displaySub:"Configure como o jogo é exibido.",graphicsSub:"Ajuste a qualidade visual e o desempenho.",soundSub:"Controle o volume geral e a música.",languageSub:"Mude o idioma de toda a interface do jogo.",
+ displayMode:"Modo de tela",displayModeDesc:"Alterne entre tela cheia, janela e janela sem bordas.",fullscreen:"Tela cheia",windowed:"Janela",borderless:"Janela sem bordas",resolution:"Resolução",resolutionDesc:"Resolução de saída do jogo.",fpsLimit:"Limite de FPS",fpsLimitDesc:"Limita a taxa máxima de quadros.",unlimited:"Sem limite",vsync:"Sincronização vertical",vsyncDesc:"Evita tearing sincronizando os quadros com o monitor.",
+ low:"Baixo",medium:"Médio",epic:"Épico",ultra:"Ultra",graphicsNote:"Os presets alteram todas as configurações de qualidade ao mesmo tempo. Depois você pode personalizar cada opção.",textures:"Texturas",texturesDesc:"Qualidade e detalhe das texturas.",shadows:"Sombras",shadowsDesc:"Resolução, distância e suavidade das sombras.",globalIllumination:"Iluminação global",globalIlluminationDesc:"Qualidade da luz indireta e dos reflexos de luz.",antiAliasing:"Anti-aliasing",antiAliasingDesc:"Suavização de bordas e estabilidade da imagem.",effects:"Efeitos",effectsDesc:"Qualidade de partículas, transparências e efeitos visuais.",postProcessing:"Pós-processamento",postProcessingDesc:"Bloom, profundidade de campo, cor e efeitos de câmera.",reflections:"Reflexos",reflectionsDesc:"Qualidade dos reflexos em superfícies e materiais.",viewDistance:"Distância de visão",viewDistanceDesc:"Distância em que objetos e detalhes são exibidos.",
+ masterVolume:"Volume geral",masterVolumeDesc:"Controla todo o áudio do jogo.",musicVolume:"Música",musicVolumeDesc:"Controla a trilha sonora e a música do menu.",direction:"Direção",art:"Arte",programming:"Programação",audio:"Áudio",
+ inventoryPresentation:"INVENTÁRIO // APRESENTAÇÃO 3D",rendererCurrent:"RENDERIZADOR ATUAL",rendererCurrentDesc:"Perfil realmente ativo, não apenas o nome do preset.",detecting:"DETECTANDO...",lumenPc:"LUMEN · PC/PCVR",lumenDesc:"Controlado pela iluminação global. Baixo desativa; indisponível em VR standalone.",rayTracingPc:"RAY TRACING · PC/PCVR",rayTracingDesc:"RT por hardware para Lumen com DX12. Indisponível em Quest/Pico standalone.",
+ selectedMode:"Modo selecionado",exitRequested:"Saída solicitada"
+},
+ja:{tagline:"モードを選んでゲームを始めよう。",gameModes:"ゲームモード",settings:"設定",credits:"クレジット",exit:"終了",
+ imagePlaceholder:"ニュース画像をここに配置",news:"ニュース",newsTitle:"Fnop Ultimate 最新情報",newsText:"アップデート、新コンテンツ、イベント、バージョン変更、ゲームのお知らせを表示できます。",latestNews:"最新情報",
+ chooseExperience:"プレイスタイルを選択",challenge:"チャレンジモード",challengeDesc:"短時間の試練、高難度の目標、上昇する難易度。",restaurant:"レストランモード",restaurantDesc:"テンポ、注文、サービスを最初から最後まで管理。",free:"フリーモード",freeDesc:"プレッシャーなしでシステムを探索し、自由に試せます。",
+ configuration:"ゲーム設定",display:"画面",graphics:"グラフィック",sound:"サウンド",language:"言語",displaySub:"ゲームの表示方法を設定します。",graphicsSub:"画質とパフォーマンスを調整します。",soundSub:"全体音量と音楽を調整します。",languageSub:"ゲームUI全体の言語を変更します。",
+ displayMode:"画面モード",displayModeDesc:"フルスクリーン、ウィンドウ、ボーダーレスを切り替えます。",fullscreen:"フルスクリーン",windowed:"ウィンドウ",borderless:"ボーダーレス",resolution:"解像度",resolutionDesc:"ゲームの出力解像度。",fpsLimit:"FPS上限",fpsLimitDesc:"最大フレームレートを制限します。",unlimited:"無制限",vsync:"垂直同期",vsyncDesc:"モニターと同期して画面のズレを防ぎます。",
+ low:"低",medium:"中",epic:"エピック",ultra:"ウルトラ",graphicsNote:"プリセットはすべての画質設定をまとめて変更します。その後、個別に調整できます。",textures:"テクスチャ",texturesDesc:"テクスチャの品質とディテール。",shadows:"シャドウ",shadowsDesc:"影の解像度、距離、柔らかさ。",globalIllumination:"グローバルイルミネーション",globalIlluminationDesc:"間接光と光の反射品質。",antiAliasing:"アンチエイリアス",antiAliasingDesc:"エッジの滑らかさと画像の安定性。",effects:"エフェクト",effectsDesc:"パーティクル、透明表現、視覚効果の品質。",postProcessing:"ポストプロセス",postProcessingDesc:"ブルーム、被写界深度、カラー、カメラ効果。",reflections:"反射",reflectionsDesc:"表面や素材の反射品質。",viewDistance:"描画距離",viewDistanceDesc:"オブジェクトや詳細を表示する距離。",
+ masterVolume:"全体音量",masterVolumeDesc:"ゲーム全体の音量を調整します。",musicVolume:"音楽",musicVolumeDesc:"BGMとメニュー音楽の音量を調整します。",direction:"ディレクション",art:"アート",programming:"プログラミング",audio:"オーディオ",
+ inventoryPresentation:"インベントリ // 3D表示",rendererCurrent:"現在のレンダラー",rendererCurrentDesc:"プリセット名ではなく、実際に有効なプロファイルです。",detecting:"検出中...",lumenPc:"LUMEN · PC/PCVR",lumenDesc:"グローバルイルミネーションで制御。低設定では無効、スタンドアロンVRでは利用不可。",rayTracingPc:"RAY TRACING · PC/PCVR",rayTracingDesc:"DX12 の Lumen 用ハードウェアRT。Quest/Picoスタンドアロンでは利用不可。",
+ selectedMode:"選択したモード",exitRequested:"終了を要求しました"
+},
+ko:{tagline:"모드를 선택하고 게임을 시작하세요.",gameModes:"게임 모드",settings:"설정",credits:"크레딧",exit:"종료",
+ imagePlaceholder:"뉴스 이미지를 여기에 넣으세요",news:"뉴스",newsTitle:"Fnop Ultimate 소식",newsText:"업데이트, 신규 콘텐츠, 이벤트, 버전 변경 또는 게임 공지를 표시할 수 있습니다.",latestNews:"최신 소식",
+ chooseExperience:"플레이 경험 선택",challenge:"챌린지 모드",challengeDesc:"빠른 도전, 까다로운 목표, 점점 높아지는 난이도.",restaurant:"레스토랑 모드",restaurantDesc:"속도, 주문, 서비스를 처음부터 끝까지 관리하세요.",free:"자유 모드",freeDesc:"부담 없이 시스템을 탐색하고 자유롭게 실험하세요.",
+ configuration:"게임 설정",display:"화면",graphics:"그래픽",sound:"사운드",language:"언어",displaySub:"게임이 표시되는 방식을 설정합니다.",graphicsSub:"화질과 성능을 조정합니다.",soundSub:"전체 볼륨과 음악을 조절합니다.",languageSub:"게임 인터페이스 전체 언어를 변경합니다.",
+ displayMode:"화면 모드",displayModeDesc:"전체 화면, 창 모드, 테두리 없는 창을 전환합니다.",fullscreen:"전체 화면",windowed:"창 모드",borderless:"테두리 없는 창",resolution:"해상도",resolutionDesc:"게임 출력 해상도입니다.",fpsLimit:"FPS 제한",fpsLimitDesc:"최대 프레임률을 제한합니다.",unlimited:"제한 없음",vsync:"수직 동기화",vsyncDesc:"모니터와 프레임을 동기화해 화면 찢어짐을 방지합니다.",
+ low:"낮음",medium:"중간",epic:"에픽",ultra:"울트라",graphicsNote:"프리셋은 모든 그래픽 품질 설정을 한 번에 변경합니다. 이후 각 옵션을 개별 조정할 수 있습니다.",textures:"텍스처",texturesDesc:"텍스처 품질과 디테일.",shadows:"그림자",shadowsDesc:"그림자의 해상도, 거리, 부드러움.",globalIllumination:"글로벌 일루미네이션",globalIlluminationDesc:"간접광과 빛 반사 품질.",antiAliasing:"안티앨리어싱",antiAliasingDesc:"가장자리 부드럽게 처리 및 이미지 안정성.",effects:"효과",effectsDesc:"파티클, 투명도, 시각 효과 품질.",postProcessing:"후처리",postProcessingDesc:"블룸, 심도, 색상, 카메라 효과.",reflections:"반사",reflectionsDesc:"표면과 재질의 반사 품질.",viewDistance:"가시 거리",viewDistanceDesc:"오브젝트와 디테일이 표시되는 거리.",
+ masterVolume:"전체 볼륨",masterVolumeDesc:"게임 전체 오디오를 조절합니다.",musicVolume:"음악",musicVolumeDesc:"사운드트랙과 메뉴 음악 볼륨을 조절합니다.",direction:"디렉션",art:"아트",programming:"프로그래밍",audio:"오디오",
+ inventoryPresentation:"인벤토리 // 3D 표시",rendererCurrent:"현재 렌더러",rendererCurrentDesc:"프리셋 이름이 아니라 실제 활성 프로필입니다.",detecting:"감지 중...",lumenPc:"LUMEN · PC/PCVR",lumenDesc:"글로벌 일루미네이션이 제어합니다. 낮음에서는 꺼지고 독립형 VR에서는 사용할 수 없습니다.",rayTracingPc:"RAY TRACING · PC/PCVR",rayTracingDesc:"DX12 Lumen 하드웨어 RT. Quest/Pico 독립형에서는 사용할 수 없습니다.",
+ selectedMode:"선택한 모드",exitRequested:"종료 요청됨"
+}
+};
+
+
+Object.assign(translations.es,{high:"Alto"});
+Object.assign(translations.en,{high:"High"});
+Object.assign(translations.fr,{high:"Élevé"});
+Object.assign(translations.de,{high:"Hoch"});
+Object.assign(translations.it,{high:"Alto"});
+Object.assign(translations.pt,{high:"Alto"});
+Object.assign(translations.ja,{high:"高"});
+Object.assign(translations.ko,{high:"높음"});
+
+
+Object.assign(translations.es,{shop:"TIENDA",chests:"COFRES",chestHint:"DESKTOP: CÁMARA DEL MENÚ · VR: DELANTE DEL JUGADOR",chestConsumeNote:"Los cofres se consumen al reservar la apertura y la recompensa se concede al aparecer."});
+Object.assign(translations.en,{shop:"SHOP",chests:"CHESTS",chestHint:"DESKTOP: MENU CAMERA · VR: IN FRONT OF PLAYER",chestConsumeNote:"Chests are consumed when opening is reserved; the reward is granted when it appears."});
+Object.assign(translations.fr,{shop:"BOUTIQUE",chests:"COFFRES",chestHint:"BUREAU : CAMÉRA DU MENU · VR : DEVANT LE JOUEUR",chestConsumeNote:"Le coffre est consommé à la réservation de l’ouverture et la récompense est accordée à son apparition."});
+Object.assign(translations.de,{shop:"SHOP",chests:"TRUHEN",chestHint:"DESKTOP: MENÜKAMERA · VR: VOR DEM SPIELER",chestConsumeNote:"Truhen werden beim Reservieren der Öffnung verbraucht; die Belohnung wird beim Erscheinen gewährt."});
+Object.assign(translations.it,{shop:"NEGOZIO",chests:"FORZIERI",chestHint:"DESKTOP: TELECAMERA MENU · VR: DAVANTI AL GIOCATORE",chestConsumeNote:"Il forziere viene consumato quando si prenota l'apertura e la ricompensa viene assegnata quando appare."});
+Object.assign(translations.pt,{shop:"LOJA",chests:"BAÚS",chestHint:"DESKTOP: CÂMERA DO MENU · VR: À FRENTE DO JOGADOR",chestConsumeNote:"O baú é consumido ao reservar a abertura e a recompensa é concedida quando aparece."});
+Object.assign(translations.ja,{shop:"ショップ",chests:"チェスト",chestHint:"デスクトップ：メニューカメラ · VR：プレイヤーの前",chestConsumeNote:"開封予約時にチェストを消費し、報酬は表示された時点で付与されます。"});
+Object.assign(translations.ko,{shop:"상점",chests:"상자",chestHint:"데스크톱: 메뉴 카메라 · VR: 플레이어 앞",chestConsumeNote:"상자는 열기를 예약할 때 소모되며 보상은 표시되는 순간 지급됩니다."});
+
+Object.assign(translations.es,{censorshipTab:"CENSURA",censorshipSettingsSub:"Control global de la censura de personajes. Se guarda entre partidas.",censorship:"Modo censura",censorshipDesc:"Pixeliza las dos zonas configuradas de cada personaje. Activado por defecto.",censorshipNote:"ON muestra los dos bloques de pixelado configurados en cada personaje. OFF los oculta globalmente sin borrar su posición, hueso ni tamaño."});
+Object.assign(translations.en,{censorshipTab:"CENSORSHIP",censorshipSettingsSub:"Global character censorship control. Saved between sessions.",censorship:"Censorship mode",censorshipDesc:"Pixelates the two configured zones on each character. Enabled by default.",censorshipNote:"ON shows the two pixelation blocks configured on each character. OFF hides them globally without deleting their bone, position or size."});
+Object.assign(translations.fr,{censorshipTab:"CENSURE",censorshipSettingsSub:"Contrôle global de la censure des personnages. Conservé entre les parties.",censorship:"Mode censure",censorshipDesc:"Pixellise les deux zones configurées de chaque personnage. Activé par défaut.",censorshipNote:"ON affiche les deux blocs de pixellisation configurés. OFF les masque sans supprimer leur os, position ni taille."});
+Object.assign(translations.de,{censorshipTab:"ZENSUR",censorshipSettingsSub:"Globale Figuren-Zensur. Wird zwischen Sitzungen gespeichert.",censorship:"Zensurmodus",censorshipDesc:"Verpixelt die zwei konfigurierten Bereiche jeder Figur. Standardmäßig aktiv.",censorshipNote:"ON zeigt beide Pixelblöcke. OFF blendet sie global aus, ohne Knochen, Position oder Größe zu löschen."});
+Object.assign(translations.it,{censorshipTab:"CENSURA",censorshipSettingsSub:"Controllo globale della censura dei personaggi. Salvato tra le sessioni.",censorship:"Modalità censura",censorshipDesc:"Pixelizza le due zone configurate di ogni personaggio. Attiva per impostazione predefinita.",censorshipNote:"ON mostra i due blocchi di pixel. OFF li nasconde senza cancellare osso, posizione o dimensione."});
+Object.assign(translations.pt,{censorshipTab:"CENSURA",censorshipSettingsSub:"Controle global da censura dos personagens. Salvo entre partidas.",censorship:"Modo censura",censorshipDesc:"Pixeliza as duas zonas configuradas de cada personagem. Ativado por padrão.",censorshipNote:"ON mostra os dois blocos de pixelização. OFF oculta-os sem apagar osso, posição ou tamanho."});
+Object.assign(translations.ja,{censorshipTab:"検閲",censorshipSettingsSub:"キャラクター検閲の全体設定。セッション間で保存されます。",censorship:"検閲モード",censorshipDesc:"各キャラクターに設定された2箇所をピクセル化します。初期設定はオンです。",censorshipNote:"ONで2つのピクセルブロックを表示し、OFFではボーン・位置・サイズを消さずに非表示にします。"});
+Object.assign(translations.ko,{censorshipTab:"검열",censorshipSettingsSub:"캐릭터 검열 전체 설정. 세션 간 저장됩니다.",censorship:"검열 모드",censorshipDesc:"각 캐릭터에 설정된 두 영역을 픽셀 처리합니다. 기본값은 켜짐입니다.",censorshipNote:"ON은 두 픽셀 블록을 표시하고 OFF는 뼈, 위치, 크기를 삭제하지 않고 숨깁니다."});
+
+
+// HF5.7 FINAL POLISH: Multiplayer visible pero bloqueado hasta lanzamiento.
+Object.assign(translations.es,{multiplayer:"MULTIPLAYER",multiplayerSoon:"PRÓXIMAMENTE · DISPONIBLE EN DICIEMBRE EN STEAM"});
+Object.assign(translations.en,{multiplayer:"MULTIPLAYER",multiplayerSoon:"COMING SOON · AVAILABLE IN DECEMBER ON STEAM"});
+Object.assign(translations.fr,{multiplayer:"MULTIJOUEUR",multiplayerSoon:"BIENTÔT · DISPONIBLE EN DÉCEMBRE SUR STEAM"});
+Object.assign(translations.de,{multiplayer:"MEHRSPIELER",multiplayerSoon:"DEMNÄCHST · IM DEZEMBER AUF STEAM"});
+Object.assign(translations.it,{multiplayer:"MULTIGIOCATORE",multiplayerSoon:"PROSSIMAMENTE · DISPONIBILE A DICEMBRE SU STEAM"});
+Object.assign(translations.pt,{multiplayer:"MULTIJOGADOR",multiplayerSoon:"EM BREVE · DISPONÍVEL EM DEZEMBRO NA STEAM"});
+Object.assign(translations.ja,{multiplayer:"マルチプレイヤー",multiplayerSoon:"近日公開 · 12月にSTEAMで配信"});
+Object.assign(translations.ko,{multiplayer:"멀티플레이어",multiplayerSoon:"출시 예정 · 12월 STEAM 출시"});
+translations['zh-Hans']=Object.assign({},translations.en,{multiplayer:"多人游戏",multiplayerSoon:"即将推出 · 12 月登陆 STEAM",language:"语言",settings:"设置",gameModes:"游戏模式",shop:"商店",chests:"宝箱",credits:"制作人员",exit:"退出",direction:"导演",art:"美术",programming:"程序",audio:"音频"});
+translations['zh-Hant']=Object.assign({},translations.en,{multiplayer:"多人遊戲",multiplayerSoon:"即將推出 · 12 月登陸 STEAM",language:"語言",settings:"設定",gameModes:"遊戲模式",shop:"商店",chests:"寶箱",credits:"製作人員",exit:"離開",direction:"導演",art:"美術",programming:"程式",audio:"音訊"});
+translations.ru=Object.assign({},translations.en,{multiplayer:"МУЛЬТИПЛЕЕР",multiplayerSoon:"СКОРО · В STEAM В ДЕКАБРЕ",language:"ЯЗЫК",settings:"НАСТРОЙКИ",gameModes:"РЕЖИМЫ ИГРЫ",shop:"МАГАЗИН",chests:"СУНДУКИ",credits:"АВТОРЫ",exit:"ВЫХОД",direction:"РУКОВОДСТВО",art:"АРТ",programming:"ПРОГРАММИРОВАНИЕ",audio:"АУДИО"});
+translations.pl=Object.assign({},translations.en,{multiplayer:"MULTIPLAYER",multiplayerSoon:"WKRÓTCE · W GRUDNIU NA STEAM",language:"JĘZYK",settings:"USTAWIENIA",gameModes:"TRYBY GRY",shop:"SKLEP",chests:"SKRZYNIE",credits:"TWÓRCY",exit:"WYJŚCIE",direction:"REŻYSERIA",art:"GRAFIKA",programming:"PROGRAMOWANIE",audio:"DŹWIĘK"});
+
+// FIX10 - estado Early Access visible y localizado en el menu principal.
+Object.assign(translations.es,{earlyAccess:"ACCESO ANTICIPADO"});
+Object.assign(translations.en,{earlyAccess:"EARLY ACCESS"});
+Object.assign(translations.fr,{earlyAccess:"ACCÈS ANTICIPÉ"});
+Object.assign(translations.de,{earlyAccess:"EARLY ACCESS"});
+Object.assign(translations.it,{earlyAccess:"ACCESSO ANTICIPATO"});
+Object.assign(translations.pt,{earlyAccess:"ACESSO ANTECIPADO"});
+Object.assign(translations.ja,{earlyAccess:"早期アクセス"});
+Object.assign(translations.ko,{earlyAccess:"얼리 액세스"});
+Object.assign(translations['zh-Hans'],{earlyAccess:"抢先体验"});
+Object.assign(translations['zh-Hant'],{earlyAccess:"搶先體驗"});
+Object.assign(translations.ru,{earlyAccess:"РАННИЙ ДОСТУП"});
+Object.assign(translations.pl,{earlyAccess:"WCZESNY DOSTĘP"});
+
+// FNOP FIX9 - Misiones: interfaz estatica traducida en los 12 idiomas actuales.
+Object.assign(translations.es,{missions:"MISIONES",missionsHint:"Completa los minijuegos Challenge antes del tiempo objetivo. Cada misión conserva su cofre hasta que la reclames.",missionFinishUnder:"TERMINA EN MENOS DE",missionReward:"RECOMPENSA",missionClaim:"RECLAMAR COFRE",missionCompleted:"COMPLETADA",missionPending:"EN PROGRESO",missionBest:"TIEMPO DE VICTORIA",missionNoTimed:"Todavía no hay misiones de tiempo disponibles."});
+Object.assign(translations.en,{missions:"MISSIONS",missionsHint:"Finish Challenge minigames before the target time. Each mission keeps its chest until you claim it.",missionFinishUnder:"FINISH IN UNDER",missionReward:"REWARD",missionClaim:"CLAIM CHEST",missionCompleted:"COMPLETED",missionPending:"IN PROGRESS",missionBest:"WIN TIME",missionNoTimed:"No timed missions are available yet."});
+Object.assign(translations.fr,{missions:"MISSIONS",missionsHint:"Terminez les mini-jeux Challenge avant le temps cible. Chaque mission conserve son coffre jusqu'à sa réclamation.",missionFinishUnder:"TERMINEZ EN MOINS DE",missionReward:"RÉCOMPENSE",missionClaim:"RÉCLAMER LE COFFRE",missionCompleted:"TERMINÉE",missionPending:"EN COURS",missionBest:"TEMPS DE VICTOIRE",missionNoTimed:"Aucune mission chronométrée n'est encore disponible."});
+Object.assign(translations.de,{missions:"MISSIONEN",missionsHint:"Beende Challenge-Minispiele vor der Zielzeit. Jede Mission behält ihre Truhe, bis du sie abholst.",missionFinishUnder:"BEENDE IN UNTER",missionReward:"BELOHNUNG",missionClaim:"TRUHE ABHOLEN",missionCompleted:"ABGESCHLOSSEN",missionPending:"LÄUFT",missionBest:"SIEGZEIT",missionNoTimed:"Noch keine Zeitmissionen verfügbar."});
+Object.assign(translations.it,{missions:"MISSIONI",missionsHint:"Completa i minigiochi Challenge prima del tempo obiettivo. Ogni missione conserva il suo forziere finché non lo riscatti.",missionFinishUnder:"TERMINA IN MENO DI",missionReward:"RICOMPENSA",missionClaim:"RISCATTA FORZIERE",missionCompleted:"COMPLETATA",missionPending:"IN CORSO",missionBest:"TEMPO DI VITTORIA",missionNoTimed:"Non ci sono ancora missioni a tempo disponibili."});
+Object.assign(translations.pt,{missions:"MISSÕES",missionsHint:"Conclua os minijogos Challenge antes do tempo-alvo. Cada missão mantém o seu baú até ser resgatado.",missionFinishUnder:"TERMINE EM MENOS DE",missionReward:"RECOMPENSA",missionClaim:"RESGATAR BAÚ",missionCompleted:"CONCLUÍDA",missionPending:"EM PROGRESSO",missionBest:"TEMPO DE VITÓRIA",missionNoTimed:"Ainda não há missões cronometradas disponíveis."});
+Object.assign(translations.ja,{missions:"ミッション",missionsHint:"Challengeミニゲームを目標時間以内にクリアしてください。報酬のチェストは受け取るまで固定されます。",missionFinishUnder:"この時間以内にクリア",missionReward:"報酬",missionClaim:"チェストを受け取る",missionCompleted:"達成済み",missionPending:"進行中",missionBest:"クリアタイム",missionNoTimed:"利用できるタイムミッションはまだありません。"});
+Object.assign(translations.ko,{missions:"미션",missionsHint:"목표 시간 안에 Challenge 미니게임을 완료하세요. 보상 상자는 수령할 때까지 그대로 유지됩니다.",missionFinishUnder:"이 시간 안에 완료",missionReward:"보상",missionClaim:"상자 받기",missionCompleted:"완료",missionPending:"진행 중",missionBest:"클리어 시간",missionNoTimed:"아직 이용 가능한 시간 미션이 없습니다."});
+Object.assign(translations['zh-Hans'],{missions:"任务",missionsHint:"在目标时间内完成 Challenge 小游戏。每个任务的宝箱在领取前保持不变。",missionFinishUnder:"在此时间内完成",missionReward:"奖励",missionClaim:"领取宝箱",missionCompleted:"已完成",missionPending:"进行中",missionBest:"通关时间",missionNoTimed:"暂时没有可用的限时任务。"});
+Object.assign(translations['zh-Hant'],{missions:"任務",missionsHint:"在目標時間內完成 Challenge 小遊戲。每個任務的寶箱在領取前保持不變。",missionFinishUnder:"在此時間內完成",missionReward:"獎勵",missionClaim:"領取寶箱",missionCompleted:"已完成",missionPending:"進行中",missionBest:"通關時間",missionNoTimed:"暫時沒有可用的限時任務。"});
+Object.assign(translations.ru,{missions:"МИССИИ",missionsHint:"Завершайте мини-игры Challenge быстрее целевого времени. Сундук каждой миссии сохраняется до получения.",missionFinishUnder:"ЗАВЕРШИТЬ БЫСТРЕЕ",missionReward:"НАГРАДА",missionClaim:"ЗАБРАТЬ СУНДУК",missionCompleted:"ВЫПОЛНЕНО",missionPending:"В ПРОЦЕССЕ",missionBest:"ВРЕМЯ ПОБЕДЫ",missionNoTimed:"Пока нет доступных миссий на время."});
+Object.assign(translations.pl,{missions:"MISJE",missionsHint:"Ukończ minigry Challenge przed czasem docelowym. Skrzynia każdej misji pozostaje taka sama aż do odebrania.",missionFinishUnder:"UKOŃCZ W CZASIE PONIŻEJ",missionReward:"NAGRODA",missionClaim:"ODBIERZ SKRZYNIĘ",missionCompleted:"UKOŃCZONA",missionPending:"W TOKU",missionBest:"CZAS ZWYCIĘSTWA",missionNoTimed:"Nie ma jeszcze dostępnych misji czasowych."});
+function fnopRefreshComingSoon(){const t=translations[lang]?.multiplayerSoon||translations.es.multiplayerSoon;const c=document.getElementById('multiplayerModeSoon');if(c)c.setAttribute('data-coming-label',t)}
+
+Object.keys(translations).forEach(code=>{translations[code].soundSub=translations[code].masterVolumeDesc;});
+let lang="es";
+
+function tr(key){return translations[lang]?.[key] ?? translations.es[key] ?? key}
+function applyLanguage(code){
+  if(!translations[code]) return;
+  lang=code; document.documentElement.lang=code; window.FNOPI18n?.setCulture(code);
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const k=el.dataset.i18n;if(translations[code][k])el.textContent=translations[code][k];
+  });
+  document.querySelectorAll("[data-i18n-option]").forEach(el=>{
+    const k=el.dataset.i18nOption;if(translations[code][k])el.textContent=translations[code][k];
+  });
+  document.querySelectorAll(".lang-card").forEach(b=>b.classList.toggle("active",b.dataset.lang===code));
+  fnopRefreshComingSoon();
+  try{localStorage.setItem("fnopLanguage",code)}catch(e){}
+}
+
+/* FNOP_SHARED_LANGUAGE_END */
+function openOverlay(id){document.getElementById(id).classList.add("open")}
+function closeOverlay(id){if(id==="shopOverlay"&&typeof fnopShopStopVideo==="function")fnopShopStopVideo();document.getElementById(id).classList.remove("open")}
+
+// Commerce is part of the stock document itself. It does not depend on the later
+// BindUObject injection to paint the first frame or to send critical actions.
+function fnopShopEsc(s){return String(s??'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c]))}
+let __fnopShopState={offers:[],news:[],categories:[]};
+let __fnopShopActiveVideo=null;function fnopShopMediaFocus(on){fnopNativeAction('__media_focus',on?'1':'0')}function fnopShopReleaseVideo(v){if(v&&__fnopShopActiveVideo===v)__fnopShopActiveVideo=null;fnopShopMediaFocus(false)}function fnopShopStopVideo(){const v=__fnopShopActiveVideo;__fnopShopActiveVideo=null;if(v){try{v.pause()}catch(e){}}fnopShopMediaFocus(false)}function fnopShopTilt(el,strength=6){if(!el||el.dataset.tiltBound)return;el.dataset.tiltBound='1';el.dataset.tiltStrength=String(strength);el.addEventListener('pointermove',e=>{if(el.dataset.tiltActive==='0')return;const r=el.getBoundingClientRect();if(!r.width||!r.height)return;const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5,s=Number(el.dataset.tiltStrength||strength);el.style.transform=`perspective(900px) rotateX(${(-y*s).toFixed(2)}deg) rotateY(${(x*s).toFixed(2)}deg) translateY(-2px) scale(1.012)`});const reset=()=>{el.style.transform=''};el.addEventListener('pointerleave',reset);el.addEventListener('pointercancel',reset)}
+function fnopShowMenuShopNews(id){const n=(__fnopShopState.news||[]).find(x=>String(x.id)===String(id));if(!n)return;fnopShopStopVideo();const m=document.getElementById('menuShopNewsModal'),media=document.getElementById('menuShopNewsFullMedia'),panel=m?.querySelector('.shop-news-full');media.replaceChildren();if(n.video){const v=document.createElement('video');v.src=n.video;v.autoplay=true;v.playsInline=true;v.controls=true;v.preload='auto';v.disablePictureInPicture=true;v.setAttribute('playsinline','');v.setAttribute('webkit-playsinline','');media.appendChild(v);__fnopShopActiveVideo=v;v.addEventListener('playing',()=>fnopShopMediaFocus(true),{once:true});v.addEventListener('ended',()=>fnopShopReleaseVideo(v),{once:true});v.addEventListener('error',()=>fnopShopReleaseVideo(v),{once:true});const p=v.play();if(p&&p.catch)p.catch(()=>fnopShopReleaseVideo(v));if(panel){panel.dataset.tiltActive='0';panel.style.transform=''}}else if(n.image){const im=new Image();im.alt='';im.decoding='async';im.src=n.image;media.appendChild(im);if(panel){panel.dataset.tiltActive='1';fnopShopTilt(panel,3.2)}}else if(panel){panel.dataset.tiltActive='0';panel.style.transform=''}document.getElementById('menuShopNewsFullTitle').textContent=n.title||'';document.getElementById('menuShopNewsFullText').textContent=n.description||'';m.classList.add('open')}
+window.fnopShowPurchaseById=id=>{const o=(__fnopShopState.offers||[]).find(x=>String(x.id)===String(id));if(!o)return;const safe=String(id).replace(/"/g,'');const card=document.querySelector(`[data-offer-id="${safe}"]`);if(card){try{card.getAnimations?.().forEach(a=>a.cancel());card.animate([{transform:'translateX(0)'},{transform:'translateX(-9px) rotate(-1deg)'},{transform:'translateX(8px) rotate(1deg)'},{transform:'translateX(-4px)'},{transform:'translateX(0)'}],{duration:440,easing:'ease-out'})}catch(e){}}fnopShopStopVideo();const stage=document.getElementById('menuPurchaseStage'),media=document.getElementById('menuPurchaseMedia');stage.classList.remove('reveal');media.replaceChildren();document.getElementById('menuPurchaseTitle').textContent=o.presentationTitle||o.name||o.id;document.getElementById('menuPurchaseDescription').textContent=o.description||'';stage.classList.add('open');let shown=false;const reveal=()=>{if(shown)return;shown=true;stage.classList.add('reveal')};if(o.cinematic&&o.video){const v=document.createElement('video');v.src=o.video;v.autoplay=true;v.playsInline=true;v.controls=false;v.preload='auto';v.disablePictureInPicture=true;v.setAttribute('playsinline','');v.setAttribute('webkit-playsinline','');v.setAttribute('disableremoteplayback','');__fnopShopActiveVideo=v;v.addEventListener('playing',()=>fnopShopMediaFocus(true),{once:true});const freeze=()=>{fnopShopReleaseVideo(v);try{v.pause();if(v.videoWidth>0&&v.videoHeight>0){const r=media.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,1.5),c=document.createElement('canvas');c.width=Math.max(2,Math.round(r.width*dpr));c.height=Math.max(2,Math.round(r.height*dpr));const x=c.getContext('2d',{alpha:false});if(x){const sc=Math.max(c.width/v.videoWidth,c.height/v.videoHeight),dw=v.videoWidth*sc,dh=v.videoHeight*sc;x.drawImage(v,(c.width-dw)*.5,(c.height-dh)*.5,dw,dh);c.setAttribute('aria-hidden','true');media.replaceChildren(c);reveal();return}}const d=v.duration;if(Number.isFinite(d)&&d>.03){const target=Math.max(0,d-Math.min(.034,Math.max(1/120,d*.002)));let done=false;const finish=()=>{if(done)return;done=true;reveal()};v.addEventListener('seeked',finish,{once:true});v.currentTime=target;setTimeout(finish,140);return}}catch(e){}reveal()};v.addEventListener('ended',freeze,{once:true});v.addEventListener('error',()=>{fnopShopReleaseVideo(v);reveal()},{once:true});media.appendChild(v);const play=v.play();if(play&&play.catch)play.catch(()=>{fnopShopReleaseVideo(v);reveal()})}else{if(o.image){const im=new Image();im.alt='';im.decoding='async';im.src=o.image;media.appendChild(im)}setTimeout(reveal,520)}};
+function fnopEnsureMenuShopDev(data={}){
+  const toggle=document.getElementById('menuShopDevToggle'),panel=document.getElementById('menuShopDevPanel');
+  if(window.__FNOP_EDITOR_DEV__!==true){toggle?.remove();panel?.remove();return;}
+  if(!toggle||!panel)return;
+  toggle.hidden=false;toggle.classList.add('show');toggle.onclick=()=>window.FNOPDevDock?.toggle(toggle,panel,document.querySelector('#shopOverlay > .panel'));
+  const bind=(key,action,value)=>{const b=panel.querySelector('[data-dev="'+key+'"]');if(b)b.onclick=()=>fnopNativeAction(action,typeof value==='function'?value():value);};
+  bind('coins1000','dev_add_coins','1000');bind('coins10000','dev_add_coins','10000');
+  bind('custom','dev_add_coins',()=>String(Math.max(1,Math.min(1000000,Math.floor(Number(document.getElementById('menuShopDevAmount').value)||1)))));
+  bind('spins','dev_add_spins','10');bind('chests','dev_add_chests','1');bind('reset','dev_reset_save','1');
+}
+// Inventory comes only from native progress; empty inventory remains visible.
+let __fnopChestState=null;
+function fnopRenderShopChestInventory(data){
+  if(Array.isArray(data?.chests))__fnopChestState=data;
+  if(!__fnopChestState)return;
+  const state=__fnopChestState;
+  ['menuChestGrid','shopChestInventory'].forEach(id=>{
+    const root=document.getElementById(id);if(!root)return;root.replaceChildren();
+    if(!state.chests.length){const text=document.createElement('p');text.textContent=state.labelEmpty||'No tienes cofres.';root.appendChild(text);return;}
+    state.chests.forEach(c=>{
+      const card=document.createElement('article');card.className='chest-card';
+      if(c.image){const visual=document.createElement('div');visual.className='commerce-image fnop-reward-visual';visual.style.height='92px';visual.dataset.fnopRewardVisual='1';visual.dataset.fnopAccent=c.accent||'#ff55b9';const image=document.createElement('img');image.src=c.image;image.alt='';visual.appendChild(image);card.appendChild(visual);window.FNOPRewardVisuals?.decorate(visual,c.accent||'#ff55b9');}
+      const title=document.createElement('h3');title.textContent=c.name||c.category;
+      const count=document.createElement('p');count.textContent=String(c.count||0)+' '+(state.labelAvailable||'DISPONIBLES');
+      const button=document.createElement('button');button.type='button';button.className='commerce-buy';button.dataset.chest=c.category;button.disabled=Number(c.count||0)<=0;button.textContent=state.labelOpenChest||'ABRIR COFRE';
+      button.onclick=()=>fnopNativeAction('openchest',c.category);
+      card.append(title,count,button);root.appendChild(card);
+    });
+  });
+}
+window.fnopSetMenuChests=fnopRenderShopChestInventory;
+function fnopFmtMissionTime(sec){
+  sec=Math.max(0,Math.round(Number(sec)||0));const m=Math.floor(sec/60),s=sec%60;return `${m}:${String(s).padStart(2,'0')}`;
+}
+function fnopRenderMissions(data){
+  const root=document.getElementById('missionGames');if(!root)return;root.replaceChildren();
+  const missions=Array.isArray(data?.missions)?data.missions:[];
+  if(!missions.length){const empty=document.createElement('div');empty.className='missions-empty';empty.textContent=tr('missionNoTimed');root.appendChild(empty);return;}
+  missions.forEach(m=>{
+    const card=document.createElement('article');card.className='mission-card'+(m.completed?' completed':'');card.style.setProperty('--mission-accent',m.accent||'#ff55b9');
+    const top=document.createElement('div');top.className='mission-top';
+    const game=document.createElement('div');game.className='mission-game';game.textContent=m.gameName||m.gameId||'Challenge';
+    const status=document.createElement('div');status.className='mission-status';status.textContent=m.completed?tr('missionCompleted'):tr('missionPending');top.append(game,status);
+    const goal=document.createElement('div');goal.className='mission-goal';goal.textContent=tr('missionFinishUnder');
+    const time=document.createElement('div');time.className='mission-time';time.textContent=fnopFmtMissionTime(m.targetSeconds);
+    const best=document.createElement('div');best.className='mission-best';best.textContent=Number(m.lastSeconds)>0?`${tr('missionBest')}: ${fnopFmtMissionTime(m.lastSeconds)}`:'';
+    const reward=document.createElement('div');reward.className='mission-reward';
+    const rewardInfo=document.createElement('div');rewardInfo.className='mission-reward-info';
+    if(m.chestImage){const img=document.createElement('img');img.className='mission-reward-img';img.src=m.chestImage;img.alt='';rewardInfo.appendChild(img);}
+    const copy=document.createElement('div');copy.className='mission-reward-copy';const label=document.createElement('div');label.className='mission-reward-label';label.textContent=tr('missionReward');const name=document.createElement('div');name.className='mission-reward-name';name.textContent=m.chestName||m.chestCategory||'Chest';copy.append(label,name);rewardInfo.appendChild(copy);
+    const claim=document.createElement('button');claim.type='button';claim.className='commerce-buy mission-claim';claim.disabled=!m.completed;claim.textContent=m.completed?tr('missionClaim'):tr('missionPending');claim.onclick=()=>{claim.disabled=true;fnopNativeAction('claimmission',m.id||'');};
+    reward.append(rewardInfo,claim);card.append(top,goal,time,best,reward);root.appendChild(card);
+  });
+}
+window.fnopSetChallengeGames=data=>{
+  fnopRenderMissions(data);
+  const root=document.getElementById('challengeGames');if(!root)return;root.replaceChildren();
+  if(!data||!Array.isArray(data.games)||!data.games.length){const p=document.createElement('p');p.textContent=data?.empty||'No se han detectado Data Assets de Challenge.';root.appendChild(p);return;}
+  data.games.forEach(g=>{const card=document.createElement('article');card.className='mode-card challenge-choice';
+    const title=document.createElement('h3');title.textContent=g.name||g.id;
+    const desc=document.createElement('p');desc.textContent=g.description||'';
+    const button=document.createElement('button');button.type='button';button.className='commerce-buy';button.dataset.challengeId=g.id;button.disabled=!!g.locked;button.textContent=g.locked?g.unlockText:(data.play||'JUGAR');
+    button.onclick=()=>fnopNativeAction('openmode','minigame:'+g.id);card.append(title,desc,button);root.appendChild(card);
+  });
+};
+function fnopRenderMenuShop(data){
+  if(!data)return;__fnopShopState=data;window.__FNOP_LAST_SHOP_STATE__=data;fnopEnsureMenuShopDev(data);fnopRenderShopChestInventory(data);
+  const coins=document.getElementById('shopCoins');if(coins)coins.textContent=Number(data.coins??0).toLocaleString();
+  const coinsLabel=document.getElementById('shopCoinsLabel');if(coinsLabel)coinsLabel.textContent=data.labelYourCoins||'TUS MONEDAS';
+  const nextLabel=document.getElementById('shopNextLabel');if(nextLabel)nextLabel.textContent=data.labelNextChange||'SIGUIENTE CAMBIO';
+  const closeNews=document.getElementById('menuShopNewsClose');if(closeNews)closeNews.textContent=data.labelClose||'CERRAR';
+  const acquired=document.getElementById('menuPurchaseAcquired');if(acquired)acquired.textContent=data.labelAcquired||'ADQUIRIDO';
+  const sync=document.getElementById('shopSync');if(sync){sync.hidden=!data.synced;if(data.synced)sync.textContent=(data.labelSynced||'SYNCED')+' · '+(data.rotationId||'LIVE');sync.classList.toggle('online',!!data.synced)}
+  const pat=document.getElementById('shopPatreon');if(pat)pat.textContent=data.patreon?(data.labelPatreonConnected||'PATREON CONECTADO'):(data.labelConnectPatreon||'CONECTAR PATREON');
+  const status=document.getElementById('shopStatus');if(status&&data.status!==undefined)status.textContent=data.status||'';
+  const timer=document.getElementById('shopTimer');if(timer)timer.dataset.utc=data.nextRefreshUtc||'';
+  const accept=document.getElementById('menuPurchaseAccept');if(accept)accept.textContent=data.labelAccept||'ACEPTAR';
+  const news=Array.isArray(data.news)?data.news:[],newsWrap=document.getElementById('menuShopNewsWrap'),newsRoot=document.getElementById('menuShopNews');
+  if(newsWrap&&newsRoot){newsWrap.hidden=!news.length;newsRoot.innerHTML='';const nl=document.getElementById('menuShopNewsLabel');if(nl)nl.textContent=data.labelNews||'NOVEDADES';news.forEach(n=>{const b=document.createElement('button');b.type='button';b.className='shop-news-mini';b.dataset.shopNews=n.id;const visual=n.image?`<img src="${fnopShopEsc(n.image)}" alt="">`:(n.video?`<video src="${fnopShopEsc(n.video)}" muted playsinline preload="metadata"></video>`:'');b.innerHTML=`${visual}<div class="shop-news-shade">${fnopShopEsc(n.title||'NOVEDAD')}</div>`;b.onclick=()=>fnopShowMenuShopNews(n.id);newsRoot.appendChild(b);fnopShopTilt(b,6)})}
+  const root=document.getElementById('menuShopSections');if(!root)return;root.innerHTML='';
+  const offers=Array.isArray(data.offers)?data.offers:[],cats=Array.isArray(data.categories)&&data.categories.length?data.categories:[{id:'other',name:'TIENDA',order:0}];
+  if(!offers.length){root.innerHTML=`<div class="commerce-empty"><div><b>${fnopShopEsc(data.labelEmptyShop||'TIENDA VACIA')}</b><br><br>${fnopShopEsc(data.labelAddProductsEditor||'Añade productos desde el Editor de Tienda.')}</div></div>`;return}
+  cats.slice().sort((a,b)=>(a.order||0)-(b.order||0)).forEach(c=>{const items=offers.filter(o=>String(o.category||'other')===String(c.id));if(!items.length)return;const sec=document.createElement('section');sec.className='shop-category';sec.innerHTML=`<h2 class="shop-category-title">${fnopShopEsc(c.name||c.id)}</h2><div class="commerce-grid"></div>`;const grid=sec.querySelector('.commerce-grid');items.forEach((o,i)=>{const card=document.createElement('article');card.dataset.offerId=o.id;card.className='commerce-card'+(o.owned?' owned':'')+(o.patreon?' patreon-only':'')+(o.patreonLocked?' patreon-locked':'');card.style.animationDelay=(Math.min(i,8)*.012)+'s';const badge=o.patreon?`<div class="patreon-only-badge">${fnopShopEsc(data.labelPatreonOnly||'ONLY IN PATREON')}</div>`:'';const price=Number(o.price||0)===0?(data.labelFree||'GRATIS'):`${Number(o.price||0).toLocaleString()} ${data.labelCoins||'MONEDAS'}`;const disabled=o.owned||o.patreonLocked;const label=o.owned?(data.labelOwned||'OBTENIDO'):o.patreonLocked?(data.labelPatreonLocked||'REQUIERE PATREON'):(data.labelBuy||'COMPRAR');card.innerHTML=`<div class="commerce-image fnop-reward-visual" data-fnop-reward-visual="1" data-fnop-accent="${fnopShopEsc(o.accent||'#ff55b9')}">${o.image?`<img src="${fnopShopEsc(o.image)}" alt="">`:'<span>FNOP</span>'}</div><div class="commerce-info">${badge}<div class="commerce-meta">${fnopShopEsc(o.type==='chest'?(data.labelChest||'COFRE'):(data.labelStoreGlobal||'TIENDA GLOBAL'))}</div><h3>${fnopShopEsc(o.name||o.id||'Producto')}</h3><div class="commerce-price">${fnopShopEsc(price)}</div><button type="button" class="commerce-buy" data-fnop-buy="${fnopShopEsc(o.id)}" ${disabled?'disabled':''}>${fnopShopEsc(label)}</button></div>`;window.FNOPRewardVisuals?.decorate(card.querySelector('.commerce-image'),o.accent||'#ff55b9');grid.appendChild(card)});root.appendChild(sec)})
+}
+window.fnopSetMenuShop=fnopRenderMenuShop;
+
+window.__FNOP_PREBRIDGE_QUEUE__=window.__FNOP_PREBRIDGE_QUEUE__||[];
+window.__FNOP_STOCK_NATIVE_SETTINGS_BOUND__=true;
+function fnopNativeAction(action,value=''){
+  if(window.FNOPRuntime)return window.FNOPRuntime.send(action,value);
+  console.error('[FNOP] This is an HTML preview, not a connected game.');
+  return false;
+}
+// Ordinary DOM handlers own the visual menu. Native gameplay actions are sent through
+// the persistent FNOPMenu UObject bridge; the document itself never navigates for input.
+// FNOP_MAIN_NEWS_MODAL_V1: modal principal sincronizado con la noticia runtime visible.
+const __fnopMainNewsCard=document.getElementById('newsCard');
+const __fnopMainNewsModal=document.getElementById('mainNewsModal');
+const __fnopMainNewsClose=document.getElementById('mainNewsClose');
+const __fnopMainNewsCopy=document.getElementById('mainNewsModalCopy');
+function fnopSyncMainNewsModal(){
+  if(!__fnopMainNewsCard||!__fnopMainNewsModal)return;
+  const srcMedia=__fnopMainNewsCard.querySelector('.news-media');
+  const dstMedia=document.getElementById('mainNewsModalMedia');
+  if(srcMedia&&dstMedia)dstMedia.innerHTML=srcMedia.innerHTML;
+  const copy=(src,dst)=>{const s=__fnopMainNewsCard.querySelector(src),d=document.getElementById(dst);if(d)d.textContent=s?.textContent||''};
+  copy('.news-label','mainNewsModalLabel');
+  copy('.news-title','mainNewsModalTitle');
+  copy('.news-text','mainNewsModalText');
+  copy('.news-meta span:last-child','mainNewsModalMeta');
+  __fnopMainNewsCard.setAttribute('aria-label',__fnopMainNewsCard.querySelector('.news-title')?.textContent||'News');
+}
+function openMainNewsModal(){
+  if(!__fnopMainNewsModal)return;
+  fnopSyncMainNewsModal();
+  if(__fnopMainNewsCopy)__fnopMainNewsCopy.scrollTop=0;
+  __fnopMainNewsModal.classList.add('open');
+  __fnopMainNewsModal.setAttribute('aria-hidden','false');
+  document.body.classList.add('fnop-news-modal-open');
+  __fnopMainNewsClose?.focus({preventScroll:true});
+}
+function closeMainNewsModal(){
+  if(!__fnopMainNewsModal)return;
+  __fnopMainNewsModal.classList.remove('open');
+  __fnopMainNewsModal.setAttribute('aria-hidden','true');
+  document.body.classList.remove('fnop-news-modal-open');
+  __fnopMainNewsCard?.focus({preventScroll:true});
+}
+window.fnopOpenMainNewsModal=openMainNewsModal;
+window.fnopCloseMainNewsModal=closeMainNewsModal;
+window.fnopRefreshMainNewsModal=()=>{fnopSyncMainNewsModal();};
+if(__fnopMainNewsCard){
+  __fnopMainNewsCard.addEventListener('click',openMainNewsModal);
+  __fnopMainNewsCard.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openMainNewsModal();}});
+  new MutationObserver(()=>{if(__fnopMainNewsModal?.classList.contains('open'))fnopSyncMainNewsModal();}).observe(__fnopMainNewsCard,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['src','style']});
+}
+if(__fnopMainNewsClose)__fnopMainNewsClose.addEventListener('click',closeMainNewsModal);
+if(__fnopMainNewsModal)__fnopMainNewsModal.addEventListener('click',e=>{if(e.target===__fnopMainNewsModal)closeMainNewsModal();});
+window.addEventListener('keydown',e=>{if(e.key==='Escape'&&__fnopMainNewsModal?.classList.contains('open')){e.preventDefault();closeMainNewsModal();}});
+fnopSyncMainNewsModal();
+
+document.getElementById('openModes').onclick=()=>openOverlay('modesOverlay');
+document.getElementById('openShop').onclick=()=>{openOverlay('shopOverlay');fnopEnsureMenuShopDev();fnopNativeAction('refreshshop');};
+document.getElementById('openChests').onclick=()=>{openOverlay('chestsOverlay');fnopNativeAction('refreshshop');};
+document.getElementById('openMissions').onclick=()=>{openOverlay('missionsOverlay');fnopNativeAction('refreshmissions');};
+document.getElementById('openAvatar').onclick=()=>fnopNativeAction('avatar','');
+document.getElementById('openSettings').onclick=()=>{openOverlay('settingsOverlay');fnopNativeAction('getsettings');};
+document.getElementById('openCredits').onclick=()=>openOverlay('creditsOverlay');
+document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>closeOverlay(b.dataset.close));
+document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open')}));
+window.addEventListener("keydown",e=>{if(e.key==="Escape")document.querySelectorAll(".overlay.open").forEach(o=>o.classList.remove("open"))});
+
+document.getElementById('shopPatreon').onclick=()=>{const s=document.getElementById('shopStatus');if(s)s.textContent='ABRIENDO PATREON...';fnopNativeAction('patreon')};
+document.addEventListener('click',e=>{const b=e.target.closest?.('[data-fnop-buy]');if(!b)return;fnopNativeAction('buy',b.dataset.fnopBuy||'')});
+document.getElementById('menuShopNewsClose').onclick=()=>{fnopShopStopVideo();document.getElementById('menuShopNewsModal').classList.remove('open')};
+document.getElementById('menuShopNewsModal').onclick=e=>{if(e.target===document.getElementById('menuShopNewsModal')){fnopShopStopVideo();document.getElementById('menuShopNewsModal').classList.remove('open')}};
+document.getElementById('menuPurchaseAccept').onclick=()=>{fnopShopStopVideo();document.getElementById('menuPurchaseStage').classList.remove('open','reveal')};
+const toast=document.getElementById("toast");
+let toastTimer;
+function showToast(text){
+  clearTimeout(toastTimer);toast.textContent=text;toast.classList.add("show");
+  toastTimer=setTimeout(()=>toast.classList.remove("show"),1800);
+}
+document.querySelectorAll(".mode-card").forEach(card=>card.onclick=()=>{showToast(`${tr("selectedMode")}: ${card.querySelector("h3").textContent}`);fnopNativeAction('openmode',card.dataset.mode||'')});
+document.getElementById("exitBtn").onclick=()=>{showToast(tr("exitRequested"));fnopNativeAction('exitgame','')};
+
+// Shared with pause; native bootstrap loads the controller before this document.
+if(window.FNOPSettingsUI)window.FNOPSettingsUI.bind();
+
+
+fnopEnsureMenuShopDev();
+if(window.__FNOP_INITIAL_SHOP__)fnopRenderMenuShop(window.__FNOP_INITIAL_SHOP__);
+setInterval(()=>{const el=document.getElementById('shopTimer');if(!el)return;const raw=el.dataset.utc||'';if(!raw){if(el.textContent==='--'||el.dataset.local!=='1'){el.textContent=__fnopShopState.labelLocalRotation||'ROTACION LOCAL';el.dataset.local='1'}return}el.dataset.local='0';const ms=new Date(raw).getTime()-Date.now();if(ms<=0){el.textContent=__fnopShopState.labelUpdating||'ACTUALIZANDO...';return}const sec=Math.floor(ms/1000),d=Math.floor(sec/86400),h=Math.floor(sec%86400/3600),m=Math.floor(sec%3600/60),ss=sec%60;el.textContent=`${d}d ${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(ss).padStart(2,'0')}`},1000);
+
+// FNOP 1.17.0.103: cinematic reveal is armed at the START of this script so an
+// unrelated startup exception cannot strand the title in its final intro pose.
+const fx=document.getElementById('fx'),ctx=fx?.getContext('2d',{alpha:true});
+if(ctx&&!reduceMotion){
+  let W=0,H=0,D=1,last=performance.now();
+  const dots=[],bursts=[];
+  function resize(){D=Math.min(1.5,window.devicePixelRatio||1);W=innerWidth;H=innerHeight;fx.width=Math.max(1,Math.floor(W*D));fx.height=Math.max(1,Math.floor(H*D));fx.style.width=W+'px';fx.style.height=H+'px';ctx.setTransform(D,0,0,D,0,0)}
+  function seed(){dots.length=0;const n=Math.max(28,Math.min(58,Math.round((W*H)/36000)));for(let i=0;i<n;i++)dots.push({x:Math.random()*W,y:Math.random()*H,r:.6+Math.random()*1.7,vx:(Math.random()-.5)*7,vy:-4-Math.random()*11,a:.12+Math.random()*.42,h:Math.random()<.66?325:(Math.random()<.5?268:188),p:Math.random()*6.28})}
+  function burst(x,y){for(let i=0;i<11;i++){const a=Math.random()*Math.PI*2,s=22+Math.random()*70;bursts.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,r:1+Math.random()*2.2,life:1,h:Math.random()<.7?325:268})}}
+  function frame(now){const dt=Math.min(.034,(now-last)/1000||.016);last=now;ctx.clearRect(0,0,W,H);ctx.globalCompositeOperation='lighter';for(const d of dots){d.x+=d.vx*dt;d.y+=d.vy*dt;d.p+=dt*1.4;if(d.y<-8)d.y=H+8;if(d.x<-8)d.x=W+8;if(d.x>W+8)d.x=-8;const a=d.a*(.72+.28*Math.sin(d.p));ctx.beginPath();ctx.fillStyle=`hsla(${d.h},100%,72%,${a})`;ctx.arc(d.x,d.y,d.r,0,Math.PI*2);ctx.fill()}for(let i=bursts.length-1;i>=0;i--){const b=bursts[i];b.life-=dt*2.1;if(b.life<=0){bursts.splice(i,1);continue}b.x+=b.vx*dt;b.y+=b.vy*dt;b.vx*=.975;b.vy*=.975;ctx.beginPath();ctx.fillStyle=`hsla(${b.h},100%,72%,${Math.max(0,b.life)*.7})`;ctx.arc(b.x,b.y,b.r*b.life,0,Math.PI*2);ctx.fill()}ctx.globalCompositeOperation='source-over';requestAnimationFrame(frame)}
+  resize();seed();addEventListener('resize',()=>{resize();seed()},{passive:true});document.addEventListener('pointerdown',e=>burst(e.clientX,e.clientY),{passive:true});requestAnimationFrame(frame)
+}
+</script>
+</body>
+</html>

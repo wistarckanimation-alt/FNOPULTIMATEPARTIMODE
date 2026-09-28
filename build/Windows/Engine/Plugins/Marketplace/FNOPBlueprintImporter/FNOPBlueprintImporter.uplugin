@@ -1,0 +1,26 @@
+{
+	"FileVersion": 3,
+	"Version": 14000,
+	"VersionName": "1.4.0",
+	"FriendlyName": "Importador de Blueprints",
+	"Description": "Importa recetas JSON y crea Blueprints completos directamente desde Content Drawer/Tools. v1.4.0 mantiene el importador 1.3.2 y anade dos modos claros: Crear/Reemplazar Blueprints desde uno o varios JSON y Aplicar JSON al Blueprint abierto. El modo por lotes reconstruye el contenido del asset existente y compila/guarda cada Blueprint.",
+	"Category": "Blueprints",
+	"CreatedBy": "Uso personal",
+	"CreatedByURL": "",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"EngineVersion": "5.6.0",
+	"CanContainContent": false,
+	"Installed": true,
+	"SupportedTargetPlatforms": [
+		"Win64"
+	],
+	"Modules": [
+		{
+			"Name": "FNOPBlueprintImporter",
+			"Type": "Editor",
+			"LoadingPhase": "PostEngineInit"
+		}
+	]
+}

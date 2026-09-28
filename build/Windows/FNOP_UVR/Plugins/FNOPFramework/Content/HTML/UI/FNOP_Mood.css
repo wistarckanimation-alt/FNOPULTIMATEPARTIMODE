@@ -1,0 +1,118 @@
+.fnop-mood-editor{padding:18px 22px;border:1px solid rgba(225,207,248,.14);border-radius:22px;background:rgba(20,15,29,.95);color:#f6efff;box-sizing:border-box;min-width:0}.fnop-mood-editor[hidden]{display:none!important}.mood-editor-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.mood-editor-head h3{font-size:20px;letter-spacing:-.03em;margin:0}.mood-bank{font-size:12px;color:#eacda2}.mood-emotions{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}.mood-chip{font:inherit;font-size:12px;font-weight:600;padding:11px 14px;border-radius:14px;cursor:pointer;border:1px solid rgba(240,214,255,.12);background:rgba(255,255,255,.035);color:inherit;min-height:42px}.mood-chip.selected{border-color:rgba(239,163,210,.72);background:rgba(231,127,191,.10);box-shadow:0 0 0 1px rgba(231,127,191,.08) inset,0 0 22px rgba(207,111,191,.08)}.mood-chip:disabled{opacity:.4;cursor:not-allowed}.mood-emotion{display:flex;flex-direction:column;gap:6px;text-align:left;padding:10px 9px 9px;min-height:142px;overflow:hidden}.mood-emotion b{font-size:13px;position:relative;z-index:3}.mood-emotion .mood-label{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;position:relative;z-index:3}.mood-vessel{display:block;position:relative;height:78px;margin-top:auto;border:1px solid rgba(237,225,255,.22);border-radius:10px 10px 13px 13px;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.012));box-shadow:inset 0 0 18px rgba(0,0,0,.28),inset 0 1px rgba(255,255,255,.08)}.mood-vessel:after{content:"";position:absolute;inset:3px;border-left:1px solid rgba(255,255,255,.11);border-radius:8px;pointer-events:none;z-index:5}.mood-liquid{position:absolute;left:0;right:0;bottom:0;min-height:0;background:linear-gradient(180deg,var(--liquid2,#ff8c78),var(--liquid,#ff536a));box-shadow:0 0 18px rgba(220,120,190,.22),inset 0 8px 12px rgba(255,255,255,.12);transition:height .55s cubic-bezier(.2,.75,.2,1);overflow:visible}.mood-wave{position:absolute;left:-12%;top:-7px;width:124%;height:14px;background:var(--liquid2,#ff8c78);border-radius:46% 54% 48% 52%;filter:brightness(1.13);opacity:.92;animation:moodWave 2.6s ease-in-out infinite;transform-origin:50% 50%;will-change:transform}.mood-bubble{position:absolute;display:block;border:1px solid rgba(255,255,255,.52);background:rgba(255,255,255,.12);border-radius:50%;bottom:-10px;animation:moodBubble 3.4s linear infinite;opacity:0;will-change:transform,opacity}.mood-bubble.b1{width:6px;height:6px;left:18%;animation-delay:.1s}.mood-bubble.b2{width:9px;height:9px;left:48%;animation-delay:1.1s;animation-duration:4.1s}.mood-bubble.b3{width:5px;height:5px;left:72%;animation-delay:1.8s;animation-duration:3.1s}.mood-bubble.b4{width:7px;height:7px;left:86%;animation-delay:2.5s;animation-duration:4.6s}.mood-ideal-marker{position:absolute;left:5px;right:5px;height:0;border-top:1px dashed rgba(255,255,255,.82);z-index:6;filter:drop-shadow(0 1px 1px rgba(0,0,0,.65));pointer-events:auto}.mood-ideal-marker:after{content:"◆";position:absolute;right:-1px;top:-7px;font-size:9px;color:#fff}.mood-track{display:block;height:4px;border-radius:9px;overflow:hidden;background:rgba(255,255,255,.08)}.mood-fill{display:block;height:100%;background:linear-gradient(90deg,#e987ba,#b6a4ed);transition:width .4s cubic-bezier(.22,.8,.25,1)}.mood-options,.mood-sources,.mood-quantity{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-top:12px}.mood-source-label{font-size:11px;opacity:.65;margin-right:5px}.mood-quantity input{width:82px;text-align:center;box-sizing:border-box;border:1px solid rgba(240,214,255,.18);border-radius:13px;background:#15111d;color:#fff;padding:10px;font:inherit;min-height:42px}.mood-quantity input:focus-visible{outline:2px solid #dd91bd;outline-offset:2px}.mood-preview{font-size:12px;color:#d3c6dc;line-height:1.5;min-height:18px;margin:12px 0}.mood-apply{width:100%;background:linear-gradient(120deg,#ecc1d9,#c5b7eb);color:#24152e;font-size:14px;min-height:44px}.mood-feedback{font-size:12px;line-height:1.5;min-height:18px;margin:10px 0 0;color:#d9cfdf}.mood-feedback[data-result=success]{color:#b6e7ca}.mood-chance{display:inline-block;margin-top:8px;font-size:12px;color:#e5cbad;border-radius:9px;padding:4px 7px;background:rgba(229,203,173,.08)}#moodRejection{margin:8px 18px;padding:12px 14px;border-radius:14px;border:1px solid rgba(236,143,166,.28);color:#f8d4dd;background:rgba(87,36,55,.4);font-size:13px;line-height:1.45}#moodRejection[hidden]{display:none}#characterMoodEditor{margin:10px 18px;overflow:auto}#inventoryMood{margin:18px 0}.character-dialog{width:min(760px,94vw)!important;max-height:92vh;overflow:auto}.char-panel{width:100%!important;height:100%!important;max-height:100%!important;display:flex!important;flex-direction:column!important}.char-panel .char-content{flex:1;min-height:0}.char-panel .char-footer{flex-shrink:0}.char-panel.mood-mode #moods{display:none!important}.char-panel.mood-mode #characterMoodEditor{flex:1;min-height:0}.char-panel.mood-mode .char-content{display:none!important}.char-screen{padding:12px!important;height:100vh;box-sizing:border-box}.char-panel .char-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.char-panel .char-card{min-height:150px}.char-panel .char-image{height:100px}.char-panel .fnop-kicker{display:none}.char-panel .fnop-head h1{font-size:26px}.char-panel .char-footer button{font-size:12px;min-height:38px;padding:9px 12px}@keyframes moodWave{0%,100%{transform:translateX(-2%) rotate(-1deg) scaleY(.92)}50%{transform:translateX(2%) rotate(1deg) scaleY(1.08)}}@keyframes moodBubble{0%{transform:translateY(0) scale(.7);opacity:0}14%{opacity:.65}75%{opacity:.35}100%{transform:translateY(-72px) translateX(8px) scale(1.18);opacity:0}}@media(max-width:620px){.mood-emotions{grid-template-columns:repeat(3,minmax(0,1fr))}.mood-editor-head{align-items:flex-start;flex-direction:column}.fnop-mood-editor{padding:12px}.char-panel .char-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* 1.29.9 character skins: five slots per row; only artwork is square. */
+.char-panel .char-grid.skin-grid{grid-template-columns:repeat(5,minmax(0,1fr))!important}.char-panel .char-grid.skin-grid .char-card{aspect-ratio:auto!important;min-height:0}.char-panel .char-grid.skin-grid .char-image{position:relative!important;inset:auto!important;width:100%!important;height:auto!important;aspect-ratio:1/1!important;background-size:cover!important;background-position:center!important}.char-panel .char-grid.skin-grid .char-card-body{position:relative!important;left:auto!important;right:auto!important;bottom:auto!important;padding:11px 12px 12px!important;background:var(--surface2)!important}
+
+/* BLOCK1_MOOD_FULL_VESSEL */
+/* Chrome/CEF 90 compatible: each complete mood tile is the vessel. */
+.mood-emotion,.mood-liquid-card{
+  position:relative!important;
+  isolation:isolate;
+  overflow:hidden!important;
+  background:linear-gradient(180deg,rgba(255,255,255,.060),rgba(255,255,255,.018))!important;
+  box-shadow:inset 0 0 26px rgba(0,0,0,.34),inset 0 1px rgba(255,255,255,.12),0 8px 22px rgba(0,0,0,.14);
+}
+.mood-emotion:after,.mood-liquid-card:after{
+  content:"";
+  position:absolute;
+  inset:1px;
+  z-index:10;
+  border-radius:inherit;
+  border:1px solid rgba(255,255,255,.055);
+  box-shadow:inset 0 0 18px rgba(255,255,255,.025);
+  pointer-events:none;
+}
+.mood-emotion .mood-label,.mood-emotion>b,.mood-liquid-card .mood-top{
+  position:relative!important;
+  z-index:12!important;
+  text-shadow:0 2px 6px rgba(0,0,0,.88),0 0 10px rgba(0,0,0,.42);
+}
+/* Remove the old small inner tank: the entire card is the tank. */
+.mood-emotion .mood-vessel,.mood-liquid-card .mood-vessel{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  margin:0!important;
+  border:0!important;
+  border-radius:inherit!important;
+  overflow:hidden!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  pointer-events:none!important;
+  z-index:1!important;
+}
+.mood-emotion .mood-vessel:after,.mood-liquid-card .mood-vessel:after{display:none!important}
+/* Full-width liquid rises vertically from the bottom according to the real mood value. */
+.mood-emotion .mood-liquid,.mood-liquid-card .mood-liquid{
+  position:absolute!important;
+  left:0!important;
+  right:0!important;
+  bottom:0!important;
+  width:100%!important;
+  min-height:0!important;
+  z-index:2!important;
+  opacity:.94!important;
+  background:linear-gradient(180deg,var(--liquid2,#ff8c78) 0%,var(--liquid,#ff536a) 58%,var(--liquid,#ff536a) 100%)!important;
+  box-shadow:0 -4px 18px var(--liquid2,#ff8c78),0 -1px 34px var(--liquid,#ff536a),inset 0 10px 16px rgba(255,255,255,.16),inset 0 -14px 24px rgba(0,0,0,.14)!important;
+  transition:height .46s cubic-bezier(.18,.78,.2,1)!important;
+  overflow:visible!important;
+}
+/* Moving specular streak gives the body of liquid a wet/glass look. */
+.mood-emotion .mood-liquid:before,.mood-liquid-card .mood-liquid:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:3;
+  background:linear-gradient(105deg,rgba(255,255,255,.02) 0%,rgba(255,255,255,.18) 32%,rgba(255,255,255,.035) 49%,rgba(255,255,255,.12) 70%,rgba(255,255,255,.01) 100%);
+  opacity:.72;
+  transform:translate3d(-38%,0,0);
+  animation:moodLiquidShimmer 5.2s ease-in-out infinite;
+  will-change:transform;
+  pointer-events:none;
+}
+/* Surface is deliberately wider than the card so the wave never reveals a straight edge. */
+.mood-emotion .mood-wave,.mood-liquid-card .mood-wave{
+  position:absolute!important;
+  left:-12%!important;
+  top:-10px!important;
+  width:124%!important;
+  height:20px!important;
+  z-index:6!important;
+  background:var(--liquid2,#ff8c78)!important;
+  border-radius:48% 52% 44% 56% / 63% 62% 38% 37%!important;
+  box-shadow:0 -3px 13px var(--liquid2,#ff8c78),inset 0 4px 6px rgba(255,255,255,.26)!important;
+  opacity:.99!important;
+  animation:moodWaveFull 2.35s ease-in-out infinite!important;
+  transform-origin:50% 55%;
+  will-change:transform;
+}
+.mood-emotion .mood-bubble,.mood-liquid-card .mood-bubble{
+  z-index:5!important;
+  border:1px solid rgba(255,255,255,.68)!important;
+  background:radial-gradient(circle at 30% 26%,rgba(255,255,255,.70),rgba(255,255,255,.14) 34%,rgba(255,255,255,.025) 68%)!important;
+  box-shadow:0 0 7px rgba(255,255,255,.22)!important;
+}
+/* Ideal point stays readable but no longer looks like the old vertical fill line. */
+.mood-emotion .mood-ideal-marker{
+  z-index:8!important;
+  left:7px!important;
+  right:7px!important;
+  border-top:1px dashed rgba(255,255,255,.56)!important;
+  filter:drop-shadow(0 1px 2px rgba(0,0,0,.7))!important;
+}
+.mood-emotion.selected{
+  border-color:rgba(239,163,210,.76)!important;
+  box-shadow:inset 0 0 28px rgba(255,255,255,.07),0 0 0 1px rgba(239,163,210,.28),0 0 26px rgba(231,127,191,.18)!important;
+}
+@keyframes moodWaveFull{
+  0%,100%{transform:translate3d(-2.7%,0,0) rotate(-1.2deg) scaleY(.82)}
+  25%{transform:translate3d(0,1px,0) rotate(.55deg) scaleY(1.08)}
+  50%{transform:translate3d(2.7%,0,0) rotate(1.2deg) scaleY(.90)}
+  75%{transform:translate3d(0,-1px,0) rotate(-.5deg) scaleY(1.09)}
+}
+@keyframes moodLiquidShimmer{
+  0%,100%{transform:translate3d(-42%,0,0)}
+  50%{transform:translate3d(42%,0,0)}
+}
+

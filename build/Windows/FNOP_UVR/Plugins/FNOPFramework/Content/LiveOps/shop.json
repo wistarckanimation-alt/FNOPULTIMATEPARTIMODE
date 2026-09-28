@@ -1,0 +1,128 @@
+{
+	"next_refresh_utc": "2026-09-07T00:00:00.000Z",
+	"rotation_id": "live-1790469955",
+	"offers": [
+		{
+			"id": "Character_001",
+			"type": "reward",
+			"category": "characters",
+			"price": 2000,
+			"patreon": true,
+			"chest_category": 0,
+			"quantity": 1,
+			"mood_amount": 100,
+			"spins_amount": 1,
+			"repeatable": false,
+			"cinematic": false,
+			"image": "",
+			"video": "",
+			"title": "",
+			"description": "",
+			"tiers": []
+		},
+		{
+			"id": "Boost_Caty_Mood_5",
+			"type": "reward",
+			"category": "other",
+			"price": 100,
+			"patreon": false,
+			"chest_category": 0,
+			"quantity": 1,
+			"mood_amount": 100,
+			"spins_amount": 1,
+			"repeatable": true,
+			"cinematic": false,
+			"image": "offer_asset_75183915.png",
+			"video": "",
+			"image_asset": "/Game/juego/iconos/4b6f88bfc95bcfa5ac1d39a45cb8b744.4b6f88bfc95bcfa5ac1d39a45cb8b744",
+			"title": "",
+			"description": "",
+			"tiers": []
+		},
+		{
+			"id": "Caty Gotica",
+			"type": "reward",
+			"category": "skins",
+			"price": 1000,
+			"patreon": true,
+			"chest_category": 0,
+			"quantity": 1,
+			"mood_amount": 100,
+			"spins_amount": 1,
+			"repeatable": false,
+			"cinematic": false,
+			"image": "",
+			"video": "",
+			"title": "",
+			"description": "",
+			"tiers": []
+		},
+		{
+			"id": "Vespera",
+			"type": "reward",
+			"category": "characters",
+			"price": 2000,
+			"patreon": true,
+			"chest_category": 0,
+			"quantity": 1,
+			"mood_amount": 100,
+			"spins_amount": 1,
+			"repeatable": false,
+			"cinematic": false,
+			"image": "",
+			"video": "",
+			"title": "",
+			"description": "",
+			"tiers": [
+				"8899950"
+			]
+		},
+		{
+			"id": "FreeMap_MidnightSuiteMap",
+			"type": "reward",
+			"category": "other",
+			"price": 1000,
+			"patreon": false,
+			"chest_category": 0,
+			"quantity": 1,
+			"mood_amount": 100,
+			"spins_amount": 1,
+			"repeatable": false,
+			"cinematic": false,
+			"image": "offer_asset_e29fecb9.png",
+			"video": "",
+			"image_asset": "/Game/juego/iconos/Captura_de_pantalla_2026-09-25_173037.Captura_de_pantalla_2026-09-25_173037",
+			"title": "",
+			"description": "",
+			"tiers": []
+		}
+	],
+	"categories": [
+		{
+			"id": "characters",
+			"name": "PERSONAJES",
+			"order": 0
+		},
+		{
+			"id": "skins",
+			"name": "SKINS",
+			"order": 1
+		},
+		{
+			"id": "interactions",
+			"name": "INTERACCIONES",
+			"order": 2
+		},
+		{
+			"id": "other",
+			"name": "Other",
+			"order": 3
+		},
+		{
+			"id": "chests",
+			"name": "COFRES",
+			"order": 4
+		}
+	],
+	"news": []
+}
